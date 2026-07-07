@@ -1,0 +1,28 @@
+Running Gradle task 'assembleRelease'...                        
+Font asset "Font-Awesome-7-Brands-Regular-400.otf" was tree-shaken, reducing it from 199352 to 1432 bytes (99.3% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 11884 bytes (99.3% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Font asset "CupertinoIcons.ttf" was tree-shaken, reducing it from 257628 to 1624 bytes (99.4% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+Note: C:\Users\RETEC\AppData\Local\Pub\Cache\hosted\pub.dev\google_mlkit_commons-0.11.0\android\src\main\java\com\google_mlkit_commons\InputImageConverter.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: C:\Users\RETEC\AppData\Local\Pub\Cache\hosted\pub.dev\google_mlkit_subject_segmentation-0.0.2\android\src\main\java\com\google_mlkit_subject_segmentation\SubjectSegmenter.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+Running Gradle task 'assembleRelease'...                          588,8s
+√ Built build\app\outputs\flutter-apk\app-release.apk (98.9MB)

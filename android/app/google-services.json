@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "239683168280",
+    "project_id": "autoscout-cab49",
+    "storage_bucket": "autoscout-cab49.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239683168280:android:964fdc65ef8800e8e17b6d",
+        "android_client_info": {
+          "package_name": "com.retec.bi3wechri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "239683168280-gdh2ji79n8utcbohq5aujfjbk2uhh3kr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.retec.bi3wechri",
+            "certificate_hash": "01950d5cbe6ac1e252b559e94adec810e34ca031"
+          }
+        },
+        {
+          "client_id": "239683168280-91hjbmrssrc6qoleac7fdkhb2uh5rlir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD2ciX8b9iXxn3-BRKhjjaXXFUUv1f24U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "239683168280-91hjbmrssrc6qoleac7fdkhb2uh5rlir.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "239683168280-hqc8b5u177ho0dtpel4dcp13guc9ac8p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.oneclickFinal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

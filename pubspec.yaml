@@ -1,0 +1,111 @@
+name: oneclick_cars
+description: "Premium Car Sales App in Algeria"
+publish_to: 'none'
+version: 1.0.0+20
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dev_dependencies:
+  flutter_lints: ^4.0.0 # Version recommandée pour SDK 3.2+
+  flutter_test:
+    sdk: flutter
+  # Attention : ces lignes doivent être alignées avec flutter_test (2 espaces)
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.10
+  
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # DOIT ÊTRE ALIGNÉ TOUT A GAUCHE AVEC 'flutter'
+  flutter_localizations:
+    sdk: flutter
+    
+  intl: 0.20.2
+  font_awesome_flutter: ^10.7.0
+  # ... suite des dépendances
+
+  # --- FIREBASE ---
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
+  cloud_firestore: ^5.0.0
+  firebase_storage: ^12.0.0
+  firebase_messaging: ^15.2.10
+  firebase_analytics: ^11.0.0
+  flutter_local_notifications: ^17.0.0
+  # --- AUTHENTIFICATION ---
+  google_sign_in: ^6.2.1
+  sign_in_with_apple: ^7.0.1
+  
+  # --- UTILITAIRES ---
+  uuid: ^4.2.2
+  cached_network_image: ^3.4.1
+  image_picker: ^1.1.2       # Mis à jour pour éviter des bugs récents
+  url_launcher: ^6.3.0
+  shared_preferences: ^2.2.2 # Pour sauvegarder des petites infos
+  flutter_dotenv: ^5.1.0     # Pour lire le fichier .env
+  share_plus: ^10.0.0
+  http: ^1.2.1               # Used for Algolia REST API calls
+  path_provider: ^2.1.5
+  permission_handler: ^11.3.1
+  timeago: ^3.6.1
+
+  # --- LOCALISATION & IA ---
+  geolocator: ^13.0.1        # Version stable récente
+  geocoding: ^3.0.0          # Version stable récente
+  google_generative_ai: ^0.4.4 # Pour Gemini
+
+  # --- UI & DESIGN ---
+  flutter_staggered_grid_view: ^0.7.0
+  google_fonts: ^6.2.1
+  provider: ^6.1.2
+  fl_chart: ^1.1.1
+  record: ^6.1.2
+  audioplayers: ^6.5.1
+  video_player: ^2.10.1
+  video_compress: ^3.1.2     # NEW: Video compression
+  chewie: ^1.13.0
+  readmore: ^3.0.0
+  cross_file: ^0.3.5+1
+  google_mlkit_subject_segmentation: ^0.0.2
+  google_mlkit_face_detection: ^0.13.2  # NEW: Face detection for image moderation
+  image: ^4.7.2
+  app_links: ^6.3.0
+  speech_to_text: ^7.0.0  # NEW: Voice search
+  
+  # --- IMAGE OPTIMIZATION ---
+  flutter_image_compress: ^2.1.0  # Image compression
+  shimmer: ^3.0.0                  # Loading skeletons
+
+
+flutter:
+  uses-material-design: true
+
+  # 3. Les Assets doivent être sous "flutter:" (avec 2 espaces d'écart)
+  assets:
+    - assets/wilayas.json
+    - assets/communes.json
+    - .env
+    - assets/images/
+    - assets/images/app_logo.png
+
+# APP ICON CONFIGURATION
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_logo.png"
+  adaptive_icon_background: "#0F172A"  # Dark blue background
+  adaptive_icon_foreground: "assets/images/app_logo.png"
+  remove_alpha_ios: true
+  min_sdk_android: 21
+
+# CONFIGURATION DU SPLASH SCREEN (Collé à gauche)
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/images/app_logo.png"
+  android_12:
+    image: "assets/images/app_logo.png"
+    color: "#ffffff"
+
