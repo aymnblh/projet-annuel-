@@ -33,14 +33,14 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
 
     setState(() => _calculating = true);
     
-    // 1. TENTATIVE : DonnÃ©es RÃ©elles (Firestore)
-    // On cherche des vÃ©hicules similaires (MÃªme Marque, MÃªme ModÃ¨le si prÃ©cisÃ©, +/- 1 an)
+    // 1. TENTATIVE : Données Réelles (Firestore)
+    // On cherche des véhicules similaires (Même Marque, Même Modèle si précisé, +/- 1 an)
     double? realMarketAverage;
     int matchingCount = 0;
 
     try {
       // Note: Pour une vraie prod, il faudrait un index composite sur Firestore
-      // Ici on fait une requÃªte simple et on filtre cÃ´tÃ© client si besoin pour l'exemple
+      // Ici on fait une requête simple et on filtre côté client si besoin pour l'exemple
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('products')
           .where('brand', isEqualTo: _selectedBrand)
@@ -52,13 +52,13 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       
       for (var doc in snapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
-        // Filtre AnnÃ©e (+/- 1 an)
+        // Filtre Année (+/- 1 an)
         int? docYear = int.tryParse(data['year']?.toString() ?? "0");
         if (docYear != null && (docYear >= targetYear - 1 && docYear <= targetYear + 1)) {
-             // Filtre ModÃ¨le (si saisi) - contient le texte
+             // Filtre Modèle (si saisi) - contient le texte
              if (_selectedModel != null && _selectedModel!.isNotEmpty) {
                if (!(data['model']?.toString().toLowerCase().contains(_selectedModel!.toLowerCase()) ?? false)) {
-                 continue; // Pas le bon modÃ¨le
+                 continue; // Pas le bon modèle
                }
              }
              
@@ -86,8 +86,8 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       finalEstimation = realMarketAverage;
     } else {
       isTheoretical = true;
-      // Fallback Heuristique (Approximatif pour le dÃ©marrage)
-      double basePrice = 2500000; // 250M par dÃ©faut
+      // Fallback Heuristique (Approximatif pour le démarrage)
+      double basePrice = 2500000; // 250M par défaut
       
       // Ajustement Marque
       if (_selectedBrand == 'Renault') basePrice = 1800000;
@@ -100,11 +100,11 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       if (_selectedBrand == 'Kia') basePrice = 1700000;
       if (_selectedBrand == 'Toyota') basePrice = 2200000;
 
-      // Ajustement AnnÃ©e
+      // Ajustement Année
       int year = int.parse(_selectedYear!);
       int currentYear = DateTime.now().year;
       int age = currentYear - year;
-      basePrice -= (age * 120000); // DÃ©cote 12M/an
+      basePrice -= (age * 120000); // Décote 12M/an
 
       // Ajustement Carburant
       if (_selectedFuel == 'Diesel') basePrice += 250000; // Diesel + cher
@@ -113,12 +113,12 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       finalEstimation = basePrice;
     }
     
-    // EmpÃªcher prix nÃ©gatif
+    // Empêcher prix négatif
     if (finalEstimation < 500000) finalEstimation = 500000;
 
     if (mounted) {
       setState(() {
-        // Fourchette +/- 5% si rÃ©el, +/- 10% si thÃ©orique
+        // Fourchette +/- 5% si réel, +/- 10% si théorique
         double margin = isTheoretical ? 0.10 : 0.05;
         _estimatedMin = finalEstimation * (1 - margin);
         _estimatedMax = finalEstimation * (1 + margin);
@@ -126,9 +126,9 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       });
       
       if (isTheoretical) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Estimation thÃ©orique (manque de donnÃ©es rÃ©elles)"), backgroundColor: Colors.orange));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Estimation théorique (manque de données réelles)"), backgroundColor: Colors.orange));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("BasÃ© sur $matchingCount vÃ©hicule(s) similaire(s) !"), backgroundColor: Colors.green));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Basé sur $matchingCount véhicule(s) similaire(s) !"), backgroundColor: Colors.green));
       }
     }
   }
@@ -137,7 +137,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
   Widget build(BuildContext context) {
     bool isAr = languageNotifier.value == 'ar';
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "ØªÙ‚Ø¯ÙŠØ± Ø§Ù„Ø£Ø³Ø¹Ø§Ø± (Argus)" : "La CÃ´te Auto (Argus)")),
+      appBar: AppBar(title: Text(isAr ? "ØªÙ‚Ø¯ÙŠØ± Ø§Ù„Ø£Ø³Ø¹Ø§Ø± (Argus)" : "La Côte Auto (Argus)")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -159,7 +159,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
                    ),
                    const SizedBox(height: 5),
                    Text(
-                     isAr ? "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ ØªÙ‚Ø¯ÙŠØ± Ù„Ù„Ø³Ø¹Ø± ÙÙŠ Ø§Ù„Ø³ÙˆÙ‚ Ø§Ù„Ø¬Ø²Ø§Ø¦Ø±ÙŠ" : "Obtenez une estimation basÃ©e sur le marchÃ© actuel.",
+                     isAr ? "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ ØªÙ‚Ø¯ÙŠØ± Ù„Ù„Ø³Ø¹Ø± ÙÙŠ Ø§Ù„Ø³ÙˆÙ‚ Ø§Ù„Ø¬Ø²Ø§Ø¦Ø±ÙŠ" : "Obtenez une estimation basée sur le marché actuel.",
                      textAlign: TextAlign.center,
                      style: const TextStyle(color: Colors.grey),
                    ),
@@ -179,7 +179,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
             
             // Model (Simplified as Text for now or we can use Autocomplete)
             TextFormField(
-              decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„ (Ù…Ø«Ø§Ù„: Clio)" : "ModÃ¨le (ex: Clio)", border: const OutlineInputBorder()),
+              decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„ (Ù…Ø«Ø§Ù„: Clio)" : "Modèle (ex: Clio)", border: const OutlineInputBorder()),
               onChanged: (v) => _selectedModel = v,
             ),
             const SizedBox(height: 15),
@@ -187,7 +187,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
             Row(children: [
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ø³Ù†Ø©" : "AnnÃ©e", border: const OutlineInputBorder()),
+                  decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ø³Ù†Ø©" : "Année", border: const OutlineInputBorder()),
                   value: _selectedYear,
                   items: _years.map((y) => DropdownMenuItem(value: y, child: Text(y))).toList(),
                   onChanged: (v) => setState(() => _selectedYear = v),
@@ -232,7 +232,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text(isAr ? "Ø§Ù„Ø³Ø¹Ø± Ø§Ù„ØªÙ‚Ø¯ÙŠØ±ÙŠ" : "Estimation du MarchÃ©", style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                      Text(isAr ? "Ø§Ù„Ø³Ø¹Ø± Ø§Ù„ØªÙ‚Ø¯ÙŠØ±ÙŠ" : "Estimation du Marché", style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 10),
                       Text(
                         "${(_estimatedMin! / 10000).toStringAsFixed(0)} - ${(_estimatedMax! / 10000).toStringAsFixed(0)} Millions",

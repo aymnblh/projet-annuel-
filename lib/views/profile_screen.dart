@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   User? user;
 
   // <--- AJOUT : LISTE DES ADMINS
-  // Remplacez par votre vrai email connectÃ© (Google ou Email/Password)
+  // Remplacez par votre vrai email connecté (Google ou Email/Password)
   final List<String> _admins = [
     'aymenboulahia63@gmail.com', 
     'admin@soukdzair.com'
@@ -72,14 +72,14 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     );
   }
 
-  // --- ACTIONS PROPRIÃ‰TAIRE ---
+  // --- ACTIONS PROPRIÉTAIRE ---
   
   // 1. Marquer comme Vendu
   Future<void> _markAsSold(String productId, bool currentStatus) async {
     await FirebaseFirestore.instance.collection('products').doc(productId).update({
-      'isSold': !currentStatus // On inverse l'Ã©tat
+      'isSold': !currentStatus // On inverse l'état
     });
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(currentStatus ? "Annonce remise en vente" : "FÃ©licitations pour la vente ! ðŸŽ‰")));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(currentStatus ? "Annonce remise en vente" : "Félicitations pour la vente ! 🎉")));
   }
 
   // 2. Supprimer l'annonce
@@ -88,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("Supprimer ?"),
-        content: const Text("Cette action est irrÃ©versible."),
+        content: const Text("Cette action est irréversible."),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context, false), child: const Text("Annuler")),
           TextButton(onPressed: () => Navigator.pop(context, true), child: const Text("Supprimer", style: TextStyle(color: Colors.red))),
@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
     if (confirm) {
       await FirebaseFirestore.instance.collection('products').doc(productId).delete();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce supprimÃ©e.")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce supprimée.")));
     }
   }
 
@@ -138,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         DropdownButton<String>(
           value: languageNotifier.value,
           underline: Container(),
-          items: const [DropdownMenuItem(value: 'fr', child: Text("FranÃ§ais ðŸ‡«ðŸ‡·")), DropdownMenuItem(value: 'ar', child: Text("Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© ðŸ‡©ðŸ‡¿"))],
+          items: const [DropdownMenuItem(value: 'fr', child: Text("Français ðŸ‡«ðŸ‡·")), DropdownMenuItem(value: 'ar', child: Text("Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© ðŸ‡©ðŸ‡¿"))],
           onChanged: (val) { if (val != null) setState(() => languageNotifier.value = val); },
         ),
       ],
@@ -151,11 +151,11 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     bool isAr = languageNotifier.value == 'ar';
     final userProvider = Provider.of<UserProvider>(context);
 
-    // <--- AJOUT : VÃ©rification si l'utilisateur est Admin
+    // <--- AJOUT : Vérification si l'utilisateur est Admin
     bool isAdmin = user!.email != null && _admins.contains(user!.email);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Utilisation du thÃ¨me
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Utilisation du thème
       appBar: AppBar(
         title: Text(t('profile'), style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
         actions: [IconButton(icon: const Icon(Icons.logout, color: Colors.red), onPressed: () => _authService.signOut())],
@@ -164,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         children: [
           // Header & Options
           Container(
-             color: Theme.of(context).cardColor, // THÃˆME
+             color: Theme.of(context).cardColor, // THÈME
              padding: const EdgeInsets.all(20),
              child: Column(
                children: [
@@ -233,9 +233,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                    }
                  ),
 
-                 // ... (Suite de la banniÃ¨re Pro) ...
+                 // ... (Suite de la bannière Pro) ...
 
-                // BANNIÃˆRE PRO
+                // BANNIÈRE PRO
                 if (userProvider.isPro) 
                   Container(
                     width: double.infinity,
@@ -281,7 +281,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(isAr ? "Ø£Ù†Ø´Ø¦ Ù…Ø¹Ø±Ø¶Ùƒ Ø§Ù„Ø¢Ù†" : "Ouvrir un Showroom", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-                                Text(isAr ? "ÙƒÙ† Ø¨Ø§Ø¦Ø¹Ù‹Ø§ Ù…Ø­ØªØ±ÙÙ‹Ø§ ÙˆØ²Ø¯ Ù…Ø¨ÙŠØ¹Ø§ØªÙƒ" : "CrÃ©ez votre vitrine digitale professionnelle", style: const TextStyle(color: Colors.white, fontSize: 12)),
+                                Text(isAr ? "ÙƒÙ† Ø¨Ø§Ø¦Ø¹Ù‹Ø§ Ù…Ø­ØªØ±ÙÙ‹Ø§ ÙˆØ²Ø¯ Ù…Ø¨ÙŠØ¹Ø§ØªÙƒ" : "Créez votre vitrine digitale professionnelle", style: const TextStyle(color: Colors.white, fontSize: 12)),
                               ],
                             ),
                           ),
@@ -310,7 +310,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           ),
           
           Container(
-            color: Theme.of(context).cardColor, // UTILISATION DU THEME (plus de blanc forcÃ©)
+            color: Theme.of(context).cardColor, // UTILISATION DU THEME (plus de blanc forcé)
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: SizedBox(
                width: double.infinity,
@@ -360,7 +360,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     );
   }
 
-  // Liste spÃ©ciale pour "Mes Annonces" avec boutons de gestion
+  // Liste spéciale pour "Mes Annonces" avec boutons de gestion
   Widget _buildMyAdsList() {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('products').where('sellerId', isEqualTo: user!.uid).snapshots(),
@@ -380,7 +380,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               child: Column(
                 children: [
-                  // On rÃ©utilise pas ProductCard ici car on veut un design "Gestion"
+                  // On réutilise pas ProductCard ici car on veut un design "Gestion"
                   ListTile(
                     contentPadding: const EdgeInsets.all(10),
                     leading: ClipRRect(
@@ -388,7 +388,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                       child: Image.network(p.imageUrls.isNotEmpty ? p.imageUrls[0] : '', width: 60, height: 60, fit: BoxFit.cover, errorBuilder: (c,o,s) => const Icon(Icons.image)),
                     ),
                     title: Text(p.title, style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
-                    subtitle: Text("${p.price.toStringAsFixed(0)} EUR â€¢ ${p.isSold ? (isAr ? 'Ù…Ø¨Ø§Ø¹' : 'Vendu') : (isAr ? 'Ù†Ø´Ø·' : 'Actif')}", 
+                    subtitle: Text("${p.price.toStringAsFixed(0)} EUR • ${p.isSold ? (isAr ? 'Ù…Ø¨Ø§Ø¹' : 'Vendu') : (isAr ? 'Ù†Ø´Ø·' : 'Actif')}", 
                       style: TextStyle(color: p.isSold ? Colors.red : Colors.green)),
                   ),
                   const Divider(height: 1),
@@ -407,15 +407,15 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                       ),
                       Container(width: 1, height: 30, color: Colors.grey[200]),
                       
-                      // BOUTON BOOST ðŸš€
+                      // BOUTON BOOST 🚀
                       Expanded(
                         child: TextButton.icon(
                           onPressed: (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now()))
-                            ? null // DÃ©jÃ  boostÃ©
+                            ? null // DéjÃ  boosté
                             : () => Navigator.push(context, MaterialPageRoute(builder: (_) => BoostAdScreen(productId: p.id, productName: p.title, category: p.category, currentPrice: p.price))),
                           icon: Icon(Icons.rocket_launch, color: (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? Colors.purple : Colors.blue, size: 20),
                           label: Text(
-                            (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? (isAr ? "Ù…Ø±ÙˆØ¬" : "BoostÃ©") : (isAr ? "ØªØ±ÙˆÙŠØ¬" : "Booster"), 
+                            (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? (isAr ? "Ù…Ø±ÙˆØ¬" : "Boosté") : (isAr ? "ØªØ±ÙˆÙŠØ¬" : "Booster"), 
                             style: GoogleFonts.cairo(color: (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? Colors.purple : Colors.blue, fontWeight: FontWeight.bold, fontSize: 13)
                           ),
                         ),

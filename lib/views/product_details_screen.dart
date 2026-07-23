@@ -73,7 +73,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       widget.product.vehicleType,
     );
     
-    // IncrÃ©menter la vue
+    // Incrémenter la vue
     if (FirebaseAuth.instance.currentUser?.uid != widget.product.sellerId) {
       DatabaseService().incrementViewCount(widget.product.id);
       AnalyticsService.logViewItem(widget.product);
@@ -133,7 +133,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final phone = widget.product.phone;
     if (phone == null || phone.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Pas de numÃ©ro disponible')));
+          const SnackBar(content: Text('Pas de numéro disponible')));
       return;
     }
     // Track lead first (fire-and-forget)
@@ -158,7 +158,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final phone = widget.product.phone;
     if (phone == null || phone.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Pas de numÃ©ro disponible')));
+          const SnackBar(content: Text('Pas de numéro disponible')));
       return;
     }
     // Track lead first (fire-and-forget)
@@ -171,7 +171,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
     final p = widget.product;
     final msg = Uri.encodeComponent(
-      'Bonjour, je suis intÃ©ressÃ©(e) par votre annonce "Â«${p.title}Â»" '
+      'Bonjour, je suis intéressé(e) par votre annonce "«${p.title}»" '
       '(${p.price.toStringAsFixed(0)} EUR) sur 1Click. '
       'Est-elle toujours disponible ?',
     );
@@ -190,7 +190,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     bool isAr = languageNotifier.value == 'ar';
     final reasons = [
       isAr ? 'Ø§Ù„Ø³Ø¹Ø± ØºÙŠØ± ØµØ­ÙŠØ­' : 'Prix incorrect',
-      isAr ? 'Ø§Ù„Ø³ÙŠØ§Ø±Ø© Ø¨ÙŠØ¹Øª' : 'Voiture dÃ©jÃ  vendue',
+      isAr ? 'Ø§Ù„Ø³ÙŠØ§Ø±Ø© Ø¨ÙŠØ¹Øª' : 'Voiture déjÃ  vendue',
       isAr ? 'Ø¥Ø¹Ù„Ø§Ù† Ù…Ø²ÙŠÙ' : 'Annonce frauduleuse',
       isAr ? 'ØµÙˆØ± Ù…Ø¶Ù„Ù„Ø©' : 'Photos trompeuses',
       isAr ? 'Ø£Ø®Ø±Ù‰' : 'Autre',
@@ -238,7 +238,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(isAr
                               ? 'ØªÙ… Ø§Ù„Ø¥Ø¨Ù„Ø§Øº. Ø´ÙƒØ±Ù‹Ø§ Ù„Ù…Ø³Ø§Ø¹Ø¯ØªÙ†Ø§!'
-                              : 'Signalement envoyÃ©. MerciÂ !'),
+                              : 'Signalement envoyé. MerciÂ !'),
                           backgroundColor: Colors.green,
                         ));
                       }
@@ -264,9 +264,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(isAr ? "ðŸš€ Ù…ÙŠØ² Ø¥Ø¹Ù„Ø§Ù†Ùƒ" : "ðŸš€ Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text(isAr ? "🚀 Ù…ÙŠØ² Ø¥Ø¹Ù„Ø§Ù†Ùƒ" : "🚀 Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
               const SizedBox(height: 10),
-              Text(isAr ? "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ Ù…Ø´Ø§Ù‡Ø¯Ø§Øª Ø£ÙƒØ«Ø± Ø¨Ù€ 10 Ø£Ø¶Ø¹Ø§Ù!" : "Obtenez jusqu'Ã  10x plus de vues en apparaissant en tÃªte de liste.", textAlign: TextAlign.center),
+              Text(isAr ? "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ Ù…Ø´Ø§Ù‡Ø¯Ø§Øª Ø£ÙƒØ«Ø± Ø¨Ù€ 10 Ø£Ø¶Ø¹Ø§Ù!" : "Obtenez jusqu'Ã  10x plus de vues en apparaissant en tête de liste.", textAlign: TextAlign.center),
               const SizedBox(height: 20),
               
               _buildBoostOption(
@@ -335,7 +335,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         'boostedAt': FieldValue.serverTimestamp(),
       });
       
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce BoostÃ©e avec succÃ¨s ! ðŸš€"), backgroundColor: Colors.green));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce Boostée avec succès ! 🚀"), backgroundColor: Colors.green));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erreur: $e")));
     }
@@ -459,7 +459,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           if (mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('âœ… Produit partagÃ© !'),
+                                content: Text('âœ… Produit partagé !'),
                                 backgroundColor: Colors.green,
                                 duration: Duration(seconds: 2),
                               ),
@@ -472,7 +472,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 content: Text('âŒ Erreur: ${e.toString()}'),
                                 backgroundColor: Colors.red,
                                 action: SnackBarAction(
-                                  label: 'RÃ©essayer',
+                                  label: 'Réessayer',
                                   textColor: Colors.white,
                                   onPressed: () async {
                                     await SocialSharingService.shareProduct(p);
@@ -622,7 +622,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       const SizedBox(height: 20),
 
                       // --- CAR SPECS ---
-                      Text(isAr ? "Ù…ÙˆØ§ØµÙØ§Øª Ø§Ù„Ø³ÙŠØ§Ø±Ø©" : "CaractÃ©ristiques", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(isAr ? "Ù…ÙˆØ§ØµÙØ§Øª Ø§Ù„Ø³ÙŠØ§Ø±Ø©" : "Caractéristiques", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 15),
                       Wrap(
                         spacing: 10, runSpacing: 10,
@@ -633,7 +633,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           if (p.gearbox != null) _buildSpecChip(Icons.settings, CategoriesData.tSpecies(p.gearbox!, isAr ? 'ar' : 'fr')),
                           if (p.color != null) _buildSpecChip(Icons.palette, CategoriesData.tSpecies(p.color!, isAr ? 'ar' : 'fr')),
                           if (p.engine != null && p.engine!.isNotEmpty) _buildSpecChip(Icons.engineering, "${p.engine}"),
-                          if (p.exchange == true) _buildSpecChip(Icons.sync_alt, isAr ? "ØªØ¨Ø§Ø¯Ù„" : "Ã‰change"),
+                          if (p.exchange == true) _buildSpecChip(Icons.sync_alt, isAr ? "ØªØ¨Ø§Ø¯Ù„" : "Échange"),
                           if (p.papers != null) _buildSpecChip(Icons.article, CategoriesData.tSpecies(p.papers!, isAr ? 'ar' : 'fr')),
                         ],
                       ),

@@ -81,7 +81,7 @@
     'Berline',
     'Break',
     'SUV / 4x4',
-    'CoupÃ©',
+    'Coupé',
     'Monospace / Van',
     'Utilitaire',
     'Pick-up',
@@ -92,7 +92,7 @@
     'Berline': 'Ø¨Ø±Ù„ÙŠÙ†',
     'Break': 'Ø¨Ø±ÙŠÙƒ',
     'SUV / 4x4': 'Ø¯ÙØ¹ Ø±Ø¨Ø§Ø¹ÙŠ',
-    'CoupÃ©': 'ÙƒÙˆØ¨ÙŠÙ‡',
+    'Coupé': 'ÙƒÙˆØ¨ÙŠÙ‡',
     'Monospace / Van': 'ÙØ§Ù†',
     'Utilitaire': 'Ù…Ø±ÙƒØ¨Ø© Ø®Ø¯Ù…Ø©',
     'Pick-up': 'Ø¨ÙŠÙƒ Ø£Ø¨',
@@ -113,20 +113,20 @@
   static const Map<String, List<String>> subCategories = {
     'Voitures Occasion': [],
     'Voitures Neuves': [],
-    'Location VÃ©hicules': ['Voiture', 'Camion', 'Moto', 'Bus', 'Engin'],
+    'Location Véhicules': ['Voiture', 'Camion', 'Moto', 'Bus', 'Engin'],
     'Motos': ['Scooter', 'Moto', 'Quad'],
     'Camions & Engins': ['Camion', 'Semi-remorque', 'Bus', 'Engin de chantier', 'Tracteur'],
-    'PiÃ¨ces & Accessoires': ['Carrosserie', 'Moteur', 'IntÃ©rieur', 'Roues', 'Accessoires', 'Huiles & Entretien'],
+    'Pièces & Accessoires': ['Carrosserie', 'Moteur', 'Intérieur', 'Roues', 'Accessoires', 'Huiles & Entretien'],
     'Bateaux': ['Pedalo', 'Zodiac', 'Yacht', 'Jet Ski', 'Moteur Marin'],
   };
 
   static const Map<String, String> categoryTranslations = {
     'Voitures Occasion': 'Ø³ÙŠØ§Ø±Ø§Øª Ù…Ø³ØªØ¹Ù…Ù„Ø©',
     'Voitures Neuves': 'Ø³ÙŠØ§Ø±Ø§Øª Ø¬Ø¯ÙŠØ¯Ø©',
-    'Location VÃ©hicules': 'ÙƒØ±Ø§Ø¡ Ø³ÙŠØ§Ø±Ø§Øª',
+    'Location Véhicules': 'ÙƒØ±Ø§Ø¡ Ø³ÙŠØ§Ø±Ø§Øª',
     'Motos': 'Ø¯Ø±Ø§Ø¬Ø§Øª Ù†Ø§Ø±ÙŠØ©',
     'Camions & Engins': 'Ø´Ø§Ø­Ù†Ø§Øª ÙˆØ¢Ù„ÙŠØ§Øª',
-    'PiÃ¨ces & Accessoires': 'Ù‚Ø·Ø¹ ØºÙŠØ§Ø± ÙˆÙ„ÙˆØ§Ø­Ù‚',
+    'Pièces & Accessoires': 'Ù‚Ø·Ø¹ ØºÙŠØ§Ø± ÙˆÙ„ÙˆØ§Ø­Ù‚',
     'Bateaux': 'Ù‚ÙˆØ§Ø±Ø¨',
   };
 
@@ -143,7 +143,7 @@
     'Tracteur': 'Ø¬Ø±Ø§Ø±',
     'Carrosserie': 'Ù‡ÙŠÙƒÙ„',
     'Moteur': 'Ù…Ø­Ø±Ùƒ',
-    'IntÃ©rieur': 'Ø¯Ø§Ø®Ù„ÙŠ',
+    'Intérieur': 'Ø¯Ø§Ø®Ù„ÙŠ',
     'Roues': 'Ø¹Ø¬Ù„Ø§Øª',
     'Accessoires': 'Ù„ÙˆØ§Ø­Ù‚',
     'Huiles & Entretien': 'Ø²ÙŠÙˆØª ÙˆØµÙŠØ§Ù†Ø©',
@@ -155,7 +155,7 @@
   };
 
   static const List<String> carBrands = [
-    'Abarth', 'Alfa Romeo', 'Audi', 'BAIC', 'BMW', 'Chery', 'Chevrolet', 'Chrysler', 'CitroÃ«n', 
+    'Abarth', 'Alfa Romeo', 'Audi', 'BAIC', 'BMW', 'Chery', 'Chevrolet', 'Chrysler', 'Citroën', 
     'Dacia', 'Daewoo', 'DFSK', 'Dodge', 'DS', 'Fiat', 'Ford', 'Geely', 'Great Wall', 'Haval', 
     'Honda', 'Hyundai', 'Infiniti', 'Isuzu', 'JAC', 'Jaguar', 'Jeep', 'Jetour', 'Kia', 
     'Land Rover', 'Lexus', 'Mahindra', 'Mazda', 'Mercedes-Benz', 'MG', 'Mini', 'Mitsubishi', 

@@ -17,12 +17,12 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   
   String _phone = "";
   
-  // DonnÃ©es JSON
+  // Données JSON
   List<dynamic> _wilayaList = [];
   List<dynamic> _communeList = [];
   List<dynamic> _filteredCommunes = [];
 
-  // SÃ©lections
+  // Sélections
   int? _selectedWilayaId;
   String? _selectedWilayaName;
   String? _selectedCommuneName;
@@ -76,7 +76,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         );
 
         if (mounted) {
-          // Redirection vers l'accueil en effaÃ§ant l'historique de nav
+          // Redirection vers l'accueil en effaçant l'historique de nav
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (_) => const HomeScreen()),
@@ -123,16 +123,16 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               ),
               const SizedBox(height: 30),
               
-              // Champ TÃ©lÃ©phone
+              // Champ Téléphone
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: "NumÃ©ro de tÃ©lÃ©phone",
+                  labelText: "Numéro de téléphone",
                   prefixIcon: const Icon(Icons.phone),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   hintText: "05 50 12 34 56"
                 ),
                 keyboardType: TextInputType.phone,
-                validator: (val) => (val == null || val.length < 9) ? "NumÃ©ro invalide" : null,
+                validator: (val) => (val == null || val.length < 9) ? "Numéro invalide" : null,
                 onSaved: (val) => _phone = val!,
               ),
               const SizedBox(height: 20),
@@ -151,7 +151,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Ville (optionnel ou obligatoire selon votre choix, ici activÃ© si wilaya ok)
+              // Ville (optionnel ou obligatoire selon votre choix, ici activé si wilaya ok)
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(labelText: "Ville (optionnel)", border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                 initialValue: _selectedCommuneName,

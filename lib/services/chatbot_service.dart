@@ -1,8 +1,8 @@
 ﻿import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-/// Service de chatbot IA propulsÃ© par Gemini pour OneClick Cars.
-/// GÃ¨re les conversations multi-tours avec contexte automobile algÃ©rien.
+/// Service de chatbot IA propulsé par Gemini pour OneClick Cars.
+/// Gère les conversations multi-tours avec contexte automobile algérien.
 class ChatbotService {
   // â”€â”€â”€ Singleton â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   static final ChatbotService _instance = ChatbotService._internal();
@@ -24,13 +24,13 @@ class ChatbotService {
 
   ChatSession? _chatSession;
 
-  // â”€â”€â”€ Historique en mÃ©moire â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // â”€â”€â”€ Historique en mémoire â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   final List<Content> _conversationHistory = [];
 
   List<Content> get conversationHistory =>
       List.unmodifiable(_conversationHistory);
 
-  // â”€â”€â”€ Prompt systÃ¨me â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // â”€â”€â”€ Prompt système â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   static const String _systemPrompt = """
 Tu es l'assistant IA de OneClick Cars, une marketplace automobile europeenne.
 Tu es expert en voitures, achat/vente d'occasion et formalites automobiles en Europe.
@@ -80,21 +80,21 @@ STYLE :
 """;
 
   // â”€â”€â”€ Envoyer un message â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  /// Envoie un message Ã  l'IA et retourne la rÃ©ponse.
+  /// Envoie un message Ã  l'IA et retourne la réponse.
   /// [message] : le texte de l'utilisateur.
   /// [history] : historique optionnel au format [{role, text}] pour
-  ///             reconstruire la session si nÃ©cessaire.
+  ///             reconstruire la session si nécessaire.
   Future<String> sendMessage(
     String message, [
     List<Map<String, String>>? history,
   ]) async {
     try {
       if (_apiKey.isEmpty) {
-        return "âŒ Erreur de configuration : clÃ© API Gemini manquante. "
+        return "âŒ Erreur de configuration : clé API Gemini manquante. "
             "Veuillez contacter le support.";
       }
 
-      // Initialiser ou rÃ©utiliser la session de chat
+      // Initialiser ou réutiliser la session de chat
       _chatSession ??= _model.startChat(history: _conversationHistory);
 
       // Envoyer le message
@@ -110,16 +110,16 @@ STYLE :
       }
 
       return response.text?.trim() ??
-          "DÃ©solÃ©, je n'ai pas pu gÃ©nÃ©rer une rÃ©ponse. Veuillez rÃ©essayer.";
+          "Désolé, je n'ai pas pu générer une réponse. Veuillez réessayer.";
     } on GenerativeAIException catch (e) {
       return _handleGeminiError(e);
     } catch (e) {
       return "âŒ Une erreur inattendue s'est produite. "
-          "Veuillez rÃ©essayer dans quelques instants.\n\nDÃ©tail : $e";
+          "Veuillez réessayer dans quelques instants.\n\nDétail : $e";
     }
   }
 
-  // â”€â”€â”€ Questions suggÃ©rÃ©es â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // â”€â”€â”€ Questions suggérées â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   /// Retourne une liste de questions rapides Ã  afficher comme chips.
   /// [isArabic] : si vrai, retourne les suggestions en arabe.
   List<String> getSuggestedQuestions({bool isArabic = false}) {
@@ -137,18 +137,18 @@ STYLE :
     }
     return [
       'Trouver un SUV familial',
-      'Comment vÃ©rifier les papiers ?',
+      'Comment vérifier les papiers ?',
       'Quelle voiture pour 20 000 euros ?',
       'Les marques les plus fiables',
       'Conseils pour vendre rapidement',
       'Diesel ou essence, que choisir ?',
       'Comment faire une mutation ?',
-      'Voitures Ã©conomiques en AlgÃ©rie',
+      'Voitures économiques en Algérie',
     ];
   }
 
   // â”€â”€â”€ Effacer l'historique â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  /// RÃ©initialise la conversation en cours.
+  /// Réinitialise la conversation en cours.
   void clearHistory() {
     _conversationHistory.clear();
     _chatSession = null;
@@ -160,18 +160,18 @@ STYLE :
 
     if (errorMessage.contains('quota') ||
         errorMessage.contains('rate limit')) {
-      return "â³ Trop de requÃªtes envoyÃ©es. "
-          "Veuillez patienter quelques secondes avant de rÃ©essayer.";
+      return "â³ Trop de requêtes envoyées. "
+          "Veuillez patienter quelques secondes avant de réessayer.";
     }
     if (errorMessage.contains('safety') ||
         errorMessage.contains('blocked')) {
-      return "âš ï¸ Votre message n'a pas pu Ãªtre traitÃ© pour des raisons "
-          "de sÃ©curitÃ©. Veuillez reformuler votre question.";
+      return "âš ï¸ Votre message n'a pas pu être traité pour des raisons "
+          "de sécurité. Veuillez reformuler votre question.";
     }
     if (errorMessage.contains('not found') ||
         errorMessage.contains('model')) {
-      return "âŒ Le modÃ¨le IA est temporairement indisponible. "
-          "Veuillez rÃ©essayer plus tard.";
+      return "âŒ Le modèle IA est temporairement indisponible. "
+          "Veuillez réessayer plus tard.";
     }
     if (errorMessage.contains('api key') ||
         errorMessage.contains('permission')) {

@@ -89,7 +89,7 @@ class AlertsScreen extends StatelessWidget {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (details.isNotEmpty) Text(details.join(" â€¢ "), style: TextStyle(fontSize: 12, color: isDark ? Colors.grey[400] : Colors.grey[700])),
+                      if (details.isNotEmpty) Text(details.join(" • "), style: TextStyle(fontSize: 12, color: isDark ? Colors.grey[400] : Colors.grey[700])),
                       Text(timeago.format(data['createdAt'] != null ? (data['createdAt'] as Timestamp).toDate() : DateTime.now()), style: TextStyle(fontSize: 10, color: isDark ? Colors.grey[500] : Colors.grey)),
                     ],
                   ),

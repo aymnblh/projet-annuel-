@@ -37,7 +37,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> with SingleTickerPr
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("ADMIN: Supprimer ?"),
-        content: const Text("Vous allez supprimer cette annonce dÃ©finitivement."),
+        content: const Text("Vous allez supprimer cette annonce définitivement."),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context, false), child: const Text("Annuler")),
           TextButton(onPressed: () => Navigator.pop(context, true), child: const Text("SUPPRIMER", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))),
@@ -47,16 +47,16 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> with SingleTickerPr
 
     if (confirm) {
       await FirebaseFirestore.instance.collection('products').doc(productId).delete();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Produit supprimÃ© par l'Admin.")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Produit supprimé par l'Admin.")));
     }
   }
 
-  // 2. Bannir / DÃ©bannir un utilisateur
+  // 2. Bannir / Débannir un utilisateur
   Future<void> _toggleUserBan(String userId, bool currentStatus) async {
     await FirebaseFirestore.instance.collection('users').doc(userId).update({
       'isBanned': !currentStatus
     });
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(currentStatus ? "Utilisateur dÃ©banni" : "Utilisateur BANNI ðŸš«")));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(currentStatus ? "Utilisateur débanni" : "Utilisateur BANNI ðŸš«")));
   }
 
   // 3. Valider une annonce
@@ -64,10 +64,10 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> with SingleTickerPr
     await FirebaseFirestore.instance.collection('products').doc(productId).update({
       'isApproved': true
     });
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce validÃ©e ! âœ…"), backgroundColor: Colors.green));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce validée ! âœ…"), backgroundColor: Colors.green));
   }
 
-  // --- ONGLET 4 : Ã€ VALIDER ---
+  // --- ONGLET 4 : À VALIDER ---
   Widget _buildToValidate() {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('products').where('isApproved', isEqualTo: false).snapshots(),
@@ -93,7 +93,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> with SingleTickerPr
                    ListTile(
                     leading: Image.network(p.imageUrls.isNotEmpty ? p.imageUrls[0] : '', width: 50, height: 50, fit: BoxFit.cover),
                     title: Text(p.title),
-                    subtitle: Text("${p.price} EUR â€¢ ${p.wilaya}"),
+                    subtitle: Text("${p.price} EUR • ${p.wilaya}"),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -171,9 +171,9 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> with SingleTickerPr
                   },
                   itemBuilder: (context) => [
                     const PopupMenuItem(value: 'pending', child: Text("En attente")),
-                    const PopupMenuItem(value: 'active', child: Text("Actif (LancÃ©)")),
-                    const PopupMenuItem(value: 'completed', child: Text("TerminÃ©")),
-                    const PopupMenuItem(value: 'rejected', child: Text("RefusÃ©")),
+                    const PopupMenuItem(value: 'active', child: Text("Actif (Lancé)")),
+                    const PopupMenuItem(value: 'completed', child: Text("Terminé")),
+                    const PopupMenuItem(value: 'rejected', child: Text("Refusé")),
                   ],
                 ),
               ),
@@ -197,12 +197,12 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> with SingleTickerPr
           unselectedLabelColor: Colors.white70,
           tabs: const [
             Tab(icon: Icon(Icons.dashboard), text: "Stats"),
-            Tab(icon: Icon(Icons.new_releases), text: "Ã€ Valider"),
+            Tab(icon: Icon(Icons.new_releases), text: "À Valider"),
             Tab(icon: Icon(Icons.campaign), text: "Sponsoring"), // ADDED
             Tab(icon: Icon(Icons.shopping_bag), text: "Annonces"),
             Tab(icon: Icon(Icons.people), text: "Utilisateurs"),
             Tab(icon: Icon(Icons.rate_review), text: "Reviews"), // NEW
-            Tab(icon: Icon(Icons.flag), text: "SignalÃ©s"), // NEW
+            Tab(icon: Icon(Icons.flag), text: "Signalés"), // NEW
           ],
         ),
       ),
@@ -231,7 +231,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> with SingleTickerPr
           const SizedBox(height: 20),
           _buildStatCard("Annonces", FirebaseFirestore.instance.collection('products'), Icons.shopping_cart, Colors.green),
           const SizedBox(height: 20),
-          _buildStatCard("Messages Ã©changÃ©s", FirebaseFirestore.instance.collection('chats'), Icons.chat, Colors.orange),
+          _buildStatCard("Messages échangés", FirebaseFirestore.instance.collection('chats'), Icons.chat, Colors.orange),
           const SizedBox(height: 30),
           // Firebase Test Button
           SizedBox(
@@ -349,7 +349,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> with SingleTickerPr
                 trailing: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: isBanned ? Colors.green : Colors.red),
                   onPressed: () => _toggleUserBan(userId, isBanned),
-                  child: Text(isBanned ? "DÃ©bannir" : "Bannir", style: const TextStyle(color: Colors.white)),
+                  child: Text(isBanned ? "Débannir" : "Bannir", style: const TextStyle(color: Colors.white)),
                 ),
               ),
             );

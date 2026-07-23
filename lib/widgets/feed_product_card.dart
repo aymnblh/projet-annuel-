@@ -33,7 +33,7 @@ class _FeedProductCardState extends State<FeedProductCard> {
   @override
   void initState() {
     super.initState();
-    // Combine Images + VidÃ©os
+    // Combine Images + Vidéos
     _allMedia = [...widget.product.imageUrls, ...widget.product.videoUrls];
   }
 
@@ -57,12 +57,12 @@ class _FeedProductCardState extends State<FeedProductCard> {
               return;
            }
            userProvider.toggleFavorite(widget.product.id);
-           // RECOMMANDATION : Liker = Fort intÃ©rÃªt
+           // RECOMMANDATION : Liker = Fort intérêt
            userProvider.logInterest(widget.product.category, weight: 5);
         },
         onTap: () {
            final userProvider = Provider.of<UserProvider>(context, listen: false);
-           // RECOMMANDATION : Voir dÃ©tails = IntÃ©rÃªt lÃ©ger
+           // RECOMMANDATION : Voir détails = Intérêt léger
            userProvider.logInterest(widget.product.category, weight: 1);
            
            Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailsScreen(product: widget.product)));
@@ -75,10 +75,10 @@ class _FeedProductCardState extends State<FeedProductCard> {
         ),
       );
     } else {
-      // C'EST UNE VIDÃ‰O
+      // C'EST UNE VIDÉO
       String videoUrl = _allMedia[index];
       
-      // Initialisation Lazy du Controller VidÃ©o si pas encore fait
+      // Initialisation Lazy du Controller Vidéo si pas encore fait
       if (!_videoControllers.containsKey(index)) {
         return FutureBuilder(
           future: _initializePlayer(index, videoUrl),
@@ -103,10 +103,10 @@ class _FeedProductCardState extends State<FeedProductCard> {
       videoPlayerController: videoPlayerController,
       autoPlay: false,
       looping: true,
-      aspectRatio: 1.0, // CarrÃ© pour le feed
+      aspectRatio: 1.0, // Carré pour le feed
       showControls: true, 
       placeholder: Container(color: Colors.black),
-      errorBuilder: (context, errorMessage) => Center(child: Text("Erreur vidÃ©o: $errorMessage", style: const TextStyle(color: Colors.white))),
+      errorBuilder: (context, errorMessage) => Center(child: Text("Erreur vidéo: $errorMessage", style: const TextStyle(color: Colors.white))),
     );
     
     if (mounted) {
@@ -253,7 +253,7 @@ class _FeedProductCardState extends State<FeedProductCard> {
                ),
              ),
              
-            // BADGES (SponsorisÃ© / Urgent)
+            // BADGES (Sponsorisé / Urgent)
             Positioned(
               top: 10, left: 10,
               child: Column(
@@ -407,7 +407,7 @@ class _FeedProductCardState extends State<FeedProductCard> {
                 IconButton(
                   icon: const Icon(Icons.chat_bubble_outline, size: 26),
                   onPressed: () { 
-                    // Navigation chat (Ã  implÃ©menter)
+                    // Navigation chat (Ã  implémenter)
                     // Navigator.push(...);
                   },
                   padding: EdgeInsets.zero, constraints: const BoxConstraints(),

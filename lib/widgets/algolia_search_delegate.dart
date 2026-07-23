@@ -143,7 +143,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
               child: Row(
                 children: [
                   Text(
-                    '${products.length} rÃ©sultat${products.length > 1 ? 's' : ''}',
+                    '${products.length} résultat${products.length > 1 ? 's' : ''}',
                     style: GoogleFonts.cairo(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -262,7 +262,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
                 child: Row(
                   children: [
                     Text(
-                      'Recherches rÃ©centes',
+                      'Recherches récentes',
                       style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     const Spacer(),
@@ -347,7 +347,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
             Icon(Icons.search_off, size: 80, color: Colors.grey[300]),
             const SizedBox(height: 24),
             Text(
-              'Aucun rÃ©sultat pour "$query"',
+              'Aucun résultat pour "$query"',
               textAlign: TextAlign.center,
               style: GoogleFonts.cairo(
                 fontSize: 18,
@@ -357,7 +357,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
             ),
             const SizedBox(height: 12),
             Text(
-              'Essayez avec d\'autres mots-clÃ©s',
+              'Essayez avec d\'autres mots-clés',
               textAlign: TextAlign.center,
               style: GoogleFonts.cairo(fontSize: 14, color: Colors.grey[500]),
             ),
@@ -395,7 +395,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Marque, modÃ¨le, annÃ©e...',
+              'Marque, modèle, année...',
               style: GoogleFonts.cairo(fontSize: 14, color: Colors.grey[500]),
             ),
           ],

@@ -15,7 +15,7 @@ class CompareScreen extends StatelessWidget {
     bool isAr = languageNotifier.value == 'ar';
     
     // Safety check
-    if (products.isEmpty) return const Scaffold(body: Center(child: Text("Aucun vÃ©hicule Ã  comparer")));
+    if (products.isEmpty) return const Scaffold(body: Center(child: Text("Aucun véhicule Ã  comparer")));
 
     return Scaffold(
       appBar: AppBar(title: Text(isAr ? "Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„Ù…Ø±ÙƒØ¨Ø§Øª" : "Comparateur")),
@@ -29,7 +29,7 @@ class CompareScreen extends StatelessWidget {
             headingRowHeight: 180, // Height for images
             dataRowMinHeight: 50,
             columns: [
-              // Colonne des Ã©tiquettes (vide en header)
+              // Colonne des étiquettes (vide en header)
               const DataColumn(label: SizedBox(width: 80, child: Text(""))), // Label column
               ...products.map((p) => DataColumn(
                 label: SizedBox(
@@ -57,11 +57,11 @@ class CompareScreen extends StatelessWidget {
             ],
             rows: [
               _buildRow(isAr ? "Ø§Ù„Ù…Ø§Ø±ÙƒØ©" : "Marque", (p) => p.brand ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„" : "ModÃ¨le", (p) => p.model ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ø³Ù†Ø©" : "AnnÃ©e", (p) => p.year ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„" : "Modèle", (p) => p.model ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ø³Ù†Ø©" : "Année", (p) => p.year ?? "-"),
               _buildRow(isAr ? "Ø§Ù„Ø¹Ø¯Ø§Ø¯" : "Km", (p) => "${p.km ?? '-'} km"),
               _buildRow(isAr ? "Ø§Ù„Ø·Ø§Ù‚Ø©" : "Carburant", (p) => p.fuel ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ø¹Ù„Ø¨Ø©" : "BoÃ®te", (p) => p.gearbox ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ø¹Ù„Ø¨Ø©" : "Boîte", (p) => p.gearbox ?? "-"),
               _buildRow(isAr ? "Ø§Ù„Ù…Ø­Ø±Ùƒ" : "Moteur", (p) => p.engine ?? "-"),
               _buildRow(isAr ? "Ø§Ù„Ù„ÙˆÙ†" : "Couleur", (p) => p.color ?? "-"),
               _buildRow(isAr ? "Ø§Ù„ÙˆØ«Ø§Ø¦Ù‚" : "Papiers", (p) => p.papers ?? "-"),

@@ -121,7 +121,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 Text(isAr ? "ØªØµÙÙŠØ© ÙˆØªØ±ØªÙŠØ¨" : "Filtres & Tri", style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
                 TextButton(
                   onPressed: _reset,
-                  child: Text(isAr ? "Ø¥Ø¹Ø§Ø¯Ø© ØªØ¹ÙŠÙŠÙ†" : "RÃ©initialiser", style: GoogleFonts.cairo(color: Colors.red)),
+                  child: Text(isAr ? "Ø¥Ø¹Ø§Ø¯Ø© ØªØ¹ÙŠÙŠÙ†" : "Réinitialiser", style: GoogleFonts.cairo(color: Colors.red)),
                 )
               ],
             ),
@@ -137,9 +137,9 @@ class _FilterSheetState extends State<FilterSheet> {
                 Wrap(
                   spacing: 10,
                   children: [
-                    _buildSortChip(isAr ? "Ø§Ù„Ø£Ø­Ø¯Ø«" : "Plus rÃ©cent", 0, isDark),
+                    _buildSortChip(isAr ? "Ø§Ù„Ø£Ø­Ø¯Ø«" : "Plus récent", 0, isDark),
                     _buildSortChip(isAr ? "Ø§Ù„Ø³Ø¹Ø±: ØªØµØ§Ø¹Ø¯ÙŠ" : "Prix croissant", 1, isDark),
-                    _buildSortChip(isAr ? "Ø§Ù„Ø³Ø¹Ø±: ØªÙ†Ø§Ø²Ù„ÙŠ" : "Prix dÃ©croissant", 2, isDark),
+                    _buildSortChip(isAr ? "Ø§Ù„Ø³Ø¹Ø±: ØªÙ†Ø§Ø²Ù„ÙŠ" : "Prix décroissant", 2, isDark),
                   ],
                 ),
                 const SizedBox(height: 25),
@@ -155,7 +155,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 ),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "Ø§Ù„ÙØ¦Ø©" : "CatÃ©gorie", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„ÙØ¦Ø©" : "Catégorie", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedCategory,
                   decoration: _inputDecoration("", isDark),
@@ -186,7 +186,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 const SizedBox(height: 25),
 
                 // VEHICLE SPECIFIC
-                _buildSectionTitle(isAr ? "Ø§Ù„Ø³Ù†Ø©" : "AnnÃ©e", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„Ø³Ù†Ø©" : "Année", isDark),
                 Row(children: [
                   Expanded(child: TextField(controller: _minYearController, keyboardType: TextInputType.number, style: TextStyle(color: isDark ? Colors.white : Colors.black), decoration: _inputDecoration("Min", isDark))),
                   const SizedBox(width: 15),
@@ -194,7 +194,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 ]),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "Ø§Ù„Ù…Ø³Ø§ÙØ© (ÙƒÙ…)" : "KilomÃ©trage", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„Ù…Ø³Ø§ÙØ© (ÙƒÙ…)" : "Kilométrage", isDark),
                 Row(children: [
                   Expanded(child: TextField(controller: _minKmController, keyboardType: TextInputType.number, style: TextStyle(color: isDark ? Colors.white : Colors.black), decoration: _inputDecoration("Min", isDark))),
                   const SizedBox(width: 15),
@@ -213,7 +213,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 ),
                 const SizedBox(height: 25),
 
-                 _buildSectionTitle(isAr ? "Ø¹Ù„Ø¨Ø© Ø§Ù„Ø³Ø±Ø¹Ø©" : "BoÃ®te", isDark),
+                 _buildSectionTitle(isAr ? "Ø¹Ù„Ø¨Ø© Ø§Ù„Ø³Ø±Ø¹Ø©" : "Boîte", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedGearbox,
                   decoration: _inputDecoration("", isDark),
@@ -233,7 +233,7 @@ class _FilterSheetState extends State<FilterSheet> {
               child: ElevatedButton(
                 onPressed: _apply,
                 style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A)),
-                child: Text(isAr ? "Ø¹Ø±Ø¶ Ø§Ù„Ù†ØªØ§Ø¦Ø¬" : "Voir rÃ©sultats", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
+                child: Text(isAr ? "Ø¹Ø±Ø¶ Ø§Ù„Ù†ØªØ§Ø¦Ø¬" : "Voir résultats", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
               ),
             ),
           ),

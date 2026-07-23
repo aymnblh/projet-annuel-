@@ -49,7 +49,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
       setState(() {
         _storeLocation = GeoPoint(position.latitude, position.longitude);
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("ðŸ“ Position du Showroom enregistrÃ©e !"), backgroundColor: Colors.green));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("ðŸ“ Position du Showroom enregistrée !"), backgroundColor: Colors.green));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erreur GPS: $e")));
     } finally {
@@ -71,7 +71,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
       // 1. Paiement (Simulation)
       // On simule une carte pour l'API
       await PaymentService().processPayment(
-          amount: 5000, // Prix plus Ã©levÃ© pour un showroom automobile
+          amount: 5000, // Prix plus élevé pour un showroom automobile
           method: 'cib', 
           cardNumber: '1111222233334444', 
           expiryDate: '12/26', 
@@ -89,7 +89,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
         'storeName': _nameController.text.trim(),
         'storeDescription': _descController.text.trim(),
         'storeAddress': _addressController.text.trim(),
-        'storeLocation': _storeLocation, // Peut Ãªtre null si pas cliquÃ©
+        'storeLocation': _storeLocation, // Peut être null si pas cliqué
         'logoUrl': logoUrl,
         'storeCreatedAt': FieldValue.serverTimestamp(),
       };
@@ -97,7 +97,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
       await Provider.of<UserProvider>(context, listen: false).upgradeToPro(storeData);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("FÃ©licitations ! Votre Showroom est actif ! ðŸŽ‰"), backgroundColor: Colors.green));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Félicitations ! Votre Showroom est actif ! 🎉"), backgroundColor: Colors.green));
         Navigator.pop(context); // Retour au profil
       }
     } catch (e) {
@@ -111,7 +111,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
   Widget build(BuildContext context) {
     bool isAr = languageNotifier.value == 'ar';
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "Ø¥Ù†Ø´Ø§Ø¡ Ù…Ø¹Ø±Ø¶" : "CrÃ©er mon Showroom")),
+      appBar: AppBar(title: Text(isAr ? "Ø¥Ù†Ø´Ø§Ø¡ Ù…Ø¹Ø±Ø¶" : "Créer mon Showroom")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -147,7 +147,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                 controller: _descController,
                 maxLines: 3,
                 decoration: InputDecoration(
-                  labelText: isAr ? "ÙˆØµÙ Ø§Ù„Ù†Ø´Ø§Ø·" : "Description (Marques, SpÃ©cialitÃ©...)",
+                  labelText: isAr ? "ÙˆØµÙ Ø§Ù„Ù†Ø´Ø§Ø·" : "Description (Marques, Spécialité...)",
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.description),
                 ),
@@ -175,7 +175,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                       : Icon(Icons.my_location, color: _storeLocation != null ? Colors.green : Colors.blue),
                   label: Text(
                     _storeLocation != null 
-                        ? (isAr ? "ØªÙ… ØªØ­Ø¯ÙŠØ¯ Ø§Ù„Ù…ÙˆÙ‚Ø¹" : "Position du Showroom enregistrÃ©e âœ“") 
+                        ? (isAr ? "ØªÙ… ØªØ­Ø¯ÙŠØ¯ Ø§Ù„Ù…ÙˆÙ‚Ø¹" : "Position du Showroom enregistrée âœ“") 
                         : (isAr ? "ØªØ­Ø¯ÙŠØ¯ Ù…ÙˆÙ‚Ø¹ Ø§Ù„Ù…Ø¹Ø±Ø¶ Ø¹Ù„Ù‰ Ø§Ù„Ø®Ø±ÙŠØ·Ø©" : "Localiser le Showroom sur Google Maps"),
                   ),
                 ),
@@ -197,7 +197,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                     Text(isAr ? "Ø§Ø´ØªØ±Ø§Ùƒ Ø´Ù‡Ø±ÙŠ" : "Abonnement Showroom", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
                     const Text("5000 EUR", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.orange)),
                     const SizedBox(height: 10),
-                    const Text("Status Showroom â€¢ VisibilitÃ© Max â€¢ Gestion Pro", textAlign: TextAlign.center),
+                    const Text("Status Showroom • Visibilité Max • Gestion Pro", textAlign: TextAlign.center),
                   ],
                 ),
               ),

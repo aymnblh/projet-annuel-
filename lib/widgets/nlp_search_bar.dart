@@ -12,7 +12,7 @@ class NlpSearchBar extends StatefulWidget {
   /// Called with structured filters after AI successfully parses the query.
   final Function(Map<String, dynamic> filters)? onFiltersExtracted;
 
-  /// Fallback when AI parsing fails â€” receives the raw text query.
+  /// Fallback when AI parsing fails — receives the raw text query.
   final Function(String query)? onFallbackSearch;
 
   /// Opens the camera / visual-search screen.
@@ -54,14 +54,14 @@ class _NlpSearchBarState extends State<NlpSearchBar>
   // â”€â”€ Filter label / color map â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   static const Map<String, _ChipStyle> _chipStyles = {
     'brand': _ChipStyle(Icons.directions_car, Color(0xFF2196F3), 'Marque', 'Ø§Ù„Ù…Ø§Ø±ÙƒØ©'),
-    'model': _ChipStyle(Icons.car_repair, Color(0xFF1976D2), 'ModÃ¨le', 'Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„'),
+    'model': _ChipStyle(Icons.car_repair, Color(0xFF1976D2), 'Modèle', 'Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„'),
     'vehicleType': _ChipStyle(Icons.category, Color(0xFF0288D1), 'Type', 'Ø§Ù„Ù†ÙˆØ¹'),
     'fuel': _ChipStyle(Icons.local_gas_station, Color(0xFFFF9800), 'Carburant', 'Ø§Ù„ÙˆÙ‚ÙˆØ¯'),
-    'gearbox': _ChipStyle(Icons.settings, Color(0xFF9C27B0), 'BoÃ®te', 'Ù†Ø§Ù‚Ù„ Ø§Ù„Ø­Ø±ÙƒØ©'),
+    'gearbox': _ChipStyle(Icons.settings, Color(0xFF9C27B0), 'Boîte', 'Ù†Ø§Ù‚Ù„ Ø§Ù„Ø­Ø±ÙƒØ©'),
     'minPrice': _ChipStyle(Icons.arrow_upward, Color(0xFF4CAF50), 'Prix min', 'Ø£Ø¯Ù†Ù‰ Ø³Ø¹Ø±'),
     'maxPrice': _ChipStyle(Icons.arrow_downward, Color(0xFF4CAF50), 'Prix max', 'Ø£Ù‚ØµÙ‰ Ø³Ø¹Ø±'),
-    'minYear': _ChipStyle(Icons.calendar_today, Color(0xFF795548), 'AnnÃ©e min', 'Ø£Ù‚Ù„ Ø³Ù†Ø©'),
-    'maxYear': _ChipStyle(Icons.event, Color(0xFF795548), 'AnnÃ©e max', 'Ø£Ù‚ØµÙ‰ Ø³Ù†Ø©'),
+    'minYear': _ChipStyle(Icons.calendar_today, Color(0xFF795548), 'Année min', 'Ø£Ù‚Ù„ Ø³Ù†Ø©'),
+    'maxYear': _ChipStyle(Icons.event, Color(0xFF795548), 'Année max', 'Ø£Ù‚ØµÙ‰ Ø³Ù†Ø©'),
     'maxKm': _ChipStyle(Icons.speed, Color(0xFFE91E63), 'Km max', 'Ø£Ù‚ØµÙ‰ ÙƒÙ…'),
     'wilaya': _ChipStyle(Icons.location_on, Color(0xFFF44336), 'Région / département', 'Ø§Ù„Ø¯ÙˆÙ„Ø©'),
     'color': _ChipStyle(Icons.palette, Color(0xFF607D8B), 'Couleur', 'Ø§Ù„Ù„ÙˆÙ†'),
@@ -333,7 +333,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
           decoration: InputDecoration(
             hintText: _isArabic
                 ? 'ØµÙ Ø³ÙŠØ§Ø±Ø© Ø£Ø­Ù„Ø§Ù…Ùƒ...'
-                : 'DÃ©crivez la voiture de vos rÃªves...',
+                : 'Décrivez la voiture de vos rêves...',
             hintStyle: GoogleFonts.cairo(
               color: isDark ? Colors.grey[500] : Colors.grey[400],
               fontSize: 14,

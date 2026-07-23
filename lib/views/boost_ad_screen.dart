@@ -38,7 +38,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
   }
 
   Future<void> _fetchAIAdvice() async {
-    // Simulation d'un petit dÃ©lai pour l'effet "AI Thinking"
+    // Simulation d'un petit délai pour l'effet "AI Thinking"
     await Future.delayed(const Duration(milliseconds: 500));
     final advice = await _aiService.suggestOptimalPrice(
       productTitle: widget.productName, 
@@ -122,15 +122,15 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
           context: context,
           barrierDismissible: false,
           builder: (ctx) => AlertDialog(
-            title: const Text("Paiement RÃ©ussi ! ðŸŽ‰"),
-            content: Text(_promoType == 'urgent' ? "Le badge URGENT a Ã©tÃ© ajoutÃ©." : (_promoType == 'meta' ? "Votre demande de sponsoring est envoyÃ©e !" : "Votre annonce est boostÃ©e !")),
+            title: const Text("Paiement Réussi ! 🎉"),
+            content: Text(_promoType == 'urgent' ? "Le badge URGENT a été ajouté." : (_promoType == 'meta' ? "Votre demande de sponsoring est envoyée !" : "Votre annonce est boostée !")),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(ctx); 
                   Navigator.pop(context); 
                 },
-                child: const Text("GÃ©nial !"),
+                child: const Text("Génial !"),
               )
             ],
           ),
@@ -210,7 +210,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(isAr ? "Ø¥Ø¹Ù„Ø§Ù† Ù…Ù…ÙˆÙ„ (ÙÙŠØ³Ø¨ÙˆÙƒ/Ø£Ù†Ø³ØªØºØ±Ø§Ù…)" : "SponsorisÃ© sur Meta", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          Text(isAr ? "Ø¥Ø¹Ù„Ø§Ù† Ù…Ù…ÙˆÙ„ (ÙÙŠØ³Ø¨ÙˆÙƒ/Ø£Ù†Ø³ØªØºØ±Ø§Ù…)" : "Sponsorisé sur Meta", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                           Text(isAr ? "Ø§Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ Ø¢Ù„Ø§Ù Ø§Ù„Ø£Ø´Ø®Ø§Øµ" : "Touchez des milliers de personnes", style: TextStyle(color: Colors.grey[600], fontSize: 12)),
                         ],
                       )
@@ -222,7 +222,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
 
               // DURATION SELECTION (Seulement pour Boost)
               if (_promoType == 'boost') ...[
-                Text(isAr ? "Ù…Ø¯Ø© Ø§Ù„ØªØ±ÙˆÙŠØ¬" : "DurÃ©e du boost", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
+                Text(isAr ? "Ù…Ø¯Ø© Ø§Ù„ØªØ±ÙˆÙŠØ¬" : "Durée du boost", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
                 const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -303,7 +303,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
                 controller: _cardNumberController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: isAr ? "Ø±Ù‚Ù… Ø§Ù„Ø¨Ø·Ø§Ù‚Ø©" : "NumÃ©ro de la carte",
+                  labelText: isAr ? "Ø±Ù‚Ù… Ø§Ù„Ø¨Ø·Ø§Ù‚Ø©" : "Numéro de la carte",
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   prefixIcon: const Icon(Icons.credit_card),
                 ),
@@ -364,7 +364,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: Text("ðŸ”’ ${isAr ? "Ø¯ÙØ¹ Ø¢Ù…Ù† 100%" : "Paiement 100% SÃ©curisÃ©"}", style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                  child: Text("ðŸ”’ ${isAr ? "Ø¯ÙØ¹ Ø¢Ù…Ù† 100%" : "Paiement 100% Sécurisé"}", style: TextStyle(color: Colors.grey[600], fontSize: 12)),
                 ),
               )
             ],

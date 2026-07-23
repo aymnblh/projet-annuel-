@@ -144,7 +144,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                           ),
                           const SizedBox(width: 12),
                           _StatCard(
-                            title: isAr ? 'Ù…ÙƒØ§Ù„Ù…Ø§Øª' : 'Appels reÃ§us',
+                            title: isAr ? 'Ù…ÙƒØ§Ù„Ù…Ø§Øª' : 'Appels reçus',
                             value: _fmt(stats['calls'] ?? 0),
                             icon: Icons.phone_rounded,
                             color: const Color(0xFF16A34A),
@@ -189,7 +189,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                                 child: Text(
                                   isAr
                                       ? 'Ù…Ø¹Ø¯Ù„ Ø§Ù„ØªØ­ÙˆÙŠÙ„: ${_conversionRate(stats)}Ùª Ù…Ù† Ø§Ù„Ø²ÙŠØ§Ø±Ø§Øª ØªØ­ÙˆÙ„Øª Ø¥Ù„Ù‰ Ù…ÙƒØ§Ù„Ù…Ø§Øª.'
-                                      : 'Taux de conversion : ${_conversionRate(stats)} % des vues ont gÃ©nÃ©rÃ© un appel ou WhatsApp.',
+                                      : 'Taux de conversion : ${_conversionRate(stats)} % des vues ont généré un appel ou WhatsApp.',
                                   style: GoogleFonts.cairo(
                                       fontSize: 12,
                                       color: const Color(0xFF16A34A)),

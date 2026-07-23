@@ -11,8 +11,8 @@ import '../widgets/optimized_image.dart';
 import '../views/product_details_screen.dart';
 
 /// Displays two personalised horizontal carousels:
-///   1. ðŸŽ¯ RecommandÃ© pour vous â€” products matching the user's interest profile
-///   2. âœ¨ DÃ©couvertes          â€” products outside the user's usual patterns
+///   1. ðŸŽ¯ Recommandé pour vous — products matching the user's interest profile
+///   2. âœ¨ Découvertes          — products outside the user's usual patterns
 ///
 /// The widget hides itself gracefully when the user is not logged in,
 /// has insufficient browsing history, or when both lists are empty.
@@ -83,7 +83,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
 
     final bool isAr = languageNotifier.value == 'ar';
 
-    // Loading state â€” show shimmer skeletons
+    // Loading state — show shimmer skeletons
     if (_isLoading) {
       return _buildShimmerSection(context, isAr);
     }
@@ -104,7 +104,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
           _buildSectionHeader(
             context,
             icon: 'ðŸŽ¯',
-            titleFr: 'RecommandÃ© pour vous',
+            titleFr: 'Recommandé pour vous',
             titleAr: 'Ù…ÙˆØµÙ‰ Ù„Ùƒ',
             isAr: isAr,
           ),
@@ -118,7 +118,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
           _buildSectionHeader(
             context,
             icon: 'âœ¨',
-            titleFr: 'DÃ©couvertes',
+            titleFr: 'Découvertes',
             titleAr: 'Ø§ÙƒØªØ´Ø§ÙØ§Øª',
             isAr: isAr,
           ),

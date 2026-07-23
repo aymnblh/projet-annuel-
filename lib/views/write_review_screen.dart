@@ -82,7 +82,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
     // Validation
     if (_commentController.text.trim().length < 10) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Commentaire trop court (min 10 caractÃ¨res)')),
+        const SnackBar(content: Text('Commentaire trop court (min 10 caractères)')),
       );
       return;
     }
@@ -132,7 +132,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ã‰crire un avis'),
+        title: const Text('Écrire un avis'),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -230,7 +230,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
             TextField(
               controller: _commentController,
               decoration: InputDecoration(
-                hintText: 'Partagez votre expÃ©rience avec ce produit...',
+                hintText: 'Partagez votre expérience avec ce produit...',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -364,7 +364,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Votre avis sera vÃ©rifiÃ© par un administrateur avant publication.',
+                      'Votre avis sera vérifié par un administrateur avant publication.',
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.blue[700],

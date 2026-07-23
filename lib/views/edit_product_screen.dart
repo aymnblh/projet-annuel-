@@ -25,10 +25,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
   String? _selectedCommune;
 
   final List<String> _categories = [
-    'Tout', 'VÃ©hicules', 'Immobilier', 'TÃ©lÃ©phones & Tablettes', 'Informatique',
-    'Ã‰lectromÃ©nager', 'VÃªtements & Mode', 'Montres & Bijoux', 'BeautÃ© & SantÃ©',
-    'BÃ©bÃ© & Enfant', 'Maison & DÃ©co', 'Bricolage & Jardin', 'Sport & Loisirs',
-    'Jeux VidÃ©o & Consoles', 'Livres & Culture', 'Animaux', 'Emploi & Services', 'Autre'
+    'Tout', 'Véhicules', 'Immobilier', 'Téléphones & Tablettes', 'Informatique',
+    'Électroménager', 'Vêtements & Mode', 'Montres & Bijoux', 'Beauté & Santé',
+    'Bébé & Enfant', 'Maison & Déco', 'Bricolage & Jardin', 'Sport & Loisirs',
+    'Jeux Vidéo & Consoles', 'Livres & Culture', 'Animaux', 'Emploi & Services', 'Autre'
   ];
 
   final List<String> _wilayas = CategoriesData.europeanMarkets;
@@ -59,7 +59,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     // Fermer le clavier
     FocusScope.of(context).unfocus();
 
-    // Map des donnÃ©es Ã  mettre Ã  jour
+    // Map des données Ã  mettre Ã  jour
     Map<String, dynamic> updateData = {
       'title': _titleController.text.trim(),
       'price': double.parse(_priceController.text.trim()),
@@ -76,7 +76,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Annonce mise Ã  jour avec succÃ¨s !"),
+            content: Text("Annonce mise Ã  jour avec succès !"),
             backgroundColor: Colors.green,
             behavior: SnackBarBehavior.floating,
           ),
@@ -157,12 +157,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  _buildSectionTitle("DÃ©tails"),
+                  _buildSectionTitle("Détails"),
                   const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
                     initialValue: _selectedCategory,
-                    decoration: _inputDecoration("CatÃ©gorie", Icons.category),
+                    decoration: _inputDecoration("Catégorie", Icons.category),
                     items: _categories.map((c) => DropdownMenuItem(value: c, child: Text(c, style: GoogleFonts.cairo()))).toList(),
                     onChanged: (val) => setState(() => _selectedCategory = val!),
                   ),
@@ -180,7 +180,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   const SizedBox(height: 16),
                   
                   _buildTextField(
-                    label: "Description dÃ©taillÃ©e...", 
+                    label: "Description détaillée...", 
                     controller: _descriptionController,
                     maxLines: 6,
                     icon: Icons.description,
@@ -272,7 +272,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         if (val == null || val.isEmpty) return 'Ce champ est requis';
         if (isNumber) {
           if (double.tryParse(val) == null) return 'Prix invalide';
-          if (double.parse(val) <= 0) return 'Le prix doit Ãªtre positif';
+          if (double.parse(val) <= 0) return 'Le prix doit être positif';
         }
         return null;
       },

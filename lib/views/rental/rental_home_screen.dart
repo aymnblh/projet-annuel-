@@ -35,7 +35,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
   // Wilayas loaded for filter dropdown
   final List<String> _popularWilayas = [
     'Alger', 'Oran', 'Constantine', 'Annaba', 'Blida',
-    'Tlemcen', 'SÃ©tif', 'Batna', 'BÃ©jaÃ¯a', 'Tizi Ouzou',
+    'Tlemcen', 'Sétif', 'Batna', 'Béjaïa', 'Tizi Ouzou',
   ];
 
   String t(String key) => AppTranslations.get(languageNotifier.value, key);
@@ -126,7 +126,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             (p.model?.toLowerCase().contains(q) ?? false);
         if (!match) return false;
       }
-      // Date availability â€” exclude if any blocked date falls in range
+      // Date availability — exclude if any blocked date falls in range
       if (_startDate != null && _endDate != null && p.blockedDates.isNotEmpty) {
         for (final blocked in p.blockedDates) {
           if (!blocked.isBefore(_startDate!) && !blocked.isAfter(_endDate!)) {
@@ -194,7 +194,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                     ],
                   ),
                   Text(
-                    isAr ? 'Ø§Ø®ØªØ± ÙˆØªÙ†Ù‚Ù„ Ø¨Ø±Ø§Ø­Ø©' : 'Choisissez, rÃ©servez et roulez',
+                    isAr ? 'Ø§Ø®ØªØ± ÙˆØªÙ†Ù‚Ù„ Ø¨Ø±Ø§Ø­Ø©' : 'Choisissez, réservez et roulez',
                     style: GoogleFonts.cairo(
                       fontSize: 13,
                       color: Colors.grey[500],
@@ -295,7 +295,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           // Gearbox
           _FilterChip(
             icon: Icons.settings_rounded,
-            label: _filterGearbox ?? (isAr ? 'Ø¹Ù„Ø¨Ø© Ø§Ù„Ø³Ø±Ø¹Ø©' : 'BoÃ®te'),
+            label: _filterGearbox ?? (isAr ? 'Ø¹Ù„Ø¨Ø© Ø§Ù„Ø³Ø±Ø¹Ø©' : 'Boîte'),
             isActive: _filterGearbox != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: () => _showGearboxPicker(isAr),
@@ -654,7 +654,7 @@ class _RentalCard extends StatelessWidget {
                       const SizedBox(width: 2),
                       Expanded(
                         child: Text(
-                          '${product.wilaya}${product.year != null ? ' Â· ${product.year}' : ''}',
+                          '${product.wilaya}${product.year != null ? ' · ${product.year}' : ''}',
                           style: GoogleFonts.cairo(
                               fontSize: 11, color: Colors.grey[500]),
                           overflow: TextOverflow.ellipsis,

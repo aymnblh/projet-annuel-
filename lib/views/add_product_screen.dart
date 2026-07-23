@@ -72,7 +72,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   // --- DROPDOWNS ---
   String _selectedCategory = "Voitures Occasion";
-  String _etat = "Bon Ã©tat";
+  String _etat = "Bon état";
   String? _selectedFuel;
   String? _selectedGearbox;
   String? _selectedBrand;
@@ -90,10 +90,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   bool _hasVariants = false;
 
   final Map<String, String> _etatMap = {
-    'Neuf': 'Ø¬Ø¯ÙŠØ¯', 'Excellent Ã©tat': 'Ø­Ø§Ù„Ø© Ù…Ù…ØªØ§Ø²Ø©', 'Bon Ã©tat': 'Ø­Ø§Ù„Ø© Ø¬ÙŠØ¯Ø©', 'Ã‰tat moyen': 'Ø­Ø§Ù„Ø© Ù…ØªÙˆØ³Ø·Ø©', 'Pour piÃ¨ces': 'Ù‚Ø·Ø¹Ø© ØºÙŠØ§Ø±'
+    'Neuf': 'Ø¬Ø¯ÙŠØ¯', 'Excellent état': 'Ø­Ø§Ù„Ø© Ù…Ù…ØªØ§Ø²Ø©', 'Bon état': 'Ø­Ø§Ù„Ø© Ø¬ÙŠØ¯Ø©', 'État moyen': 'Ø­Ø§Ù„Ø© Ù…ØªÙˆØ³Ø·Ø©', 'Pour pièces': 'Ù‚Ø·Ø¹Ø© ØºÙŠØ§Ø±'
   };
 
-  // Liste annÃ©es supprimÃ©e car saisie libre
+  // Liste années supprimée car saisie libre
   // final List<String> _years = List.generate(47, (index) => (2026 - index).toString());
 
   String t(String key) => AppTranslations.get(languageNotifier.value, key);
@@ -153,22 +153,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Auto-rempli ! âœ¨ ${_detectedEquipments.length} Ã©quipements dÃ©tectÃ©s"),
+              content: Text("Auto-rempli ! âœ¨ ${_detectedEquipments.length} équipements détectés"),
               backgroundColor: Colors.green,
             ),
           );
         }
       }
     } catch (e) {
-      String errorMsg = "Analyse IA Ã©chouÃ©e";
+      String errorMsg = "Analyse IA échouée";
       if (e.toString().contains('API_KEY')) {
-        errorMsg = "Erreur: ClÃ© API invalide";
+        errorMsg = "Erreur: Clé API invalide";
       } else if (e.toString().contains('quota') || e.toString().contains('RESOURCE_EXHAUSTED')) {
-        errorMsg = "Erreur: Quota API dÃ©passÃ©. RÃ©essayez plus tard.";
+        errorMsg = "Erreur: Quota API dépassé. Réessayez plus tard.";
       } else if (e.toString().contains('network') || e.toString().contains('SocketException')) {
         errorMsg = "Erreur: Pas de connexion Internet";
       } else {
-        errorMsg = "Analyse IA Ã©chouÃ©e: ${e.toString().substring(0, e.toString().length > 100 ? 100 : e.toString().length)}";
+        errorMsg = "Analyse IA échouée: ${e.toString().substring(0, e.toString().length > 100 ? 100 : e.toString().length)}";
       }
       
       if (mounted) {
@@ -209,13 +209,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
       if (description != null && mounted) {
         setState(() => _descController.text = description);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Description gÃ©nÃ©rÃ©e ! âœï¸"), backgroundColor: Colors.green),
+          const SnackBar(content: Text("Description générée ! âœï¸"), backgroundColor: Colors.green),
         );
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Erreur gÃ©nÃ©ration: $e"), backgroundColor: Colors.red),
+          SnackBar(content: Text("Erreur génération: $e"), backgroundColor: Colors.red),
         );
       }
     } finally {
@@ -245,8 +245,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'ðŸ”’ ModÃ©ration: ${result.facesBlurred} visage(s) et '
-              '${result.platesBlurred} plaque(s) floutÃ©s',
+              'ðŸ”’ Modération: ${result.facesBlurred} visage(s) et '
+              '${result.platesBlurred} plaque(s) floutés',
             ),
             backgroundColor: Colors.green,
           ),
@@ -275,9 +275,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Selectionnez le pays")));
       return;
     }
-    // Validation spÃ©cifique Voitures
+    // Validation spécifique Voitures
     if ((_selectedCategory.contains("Voiture") || _selectedCategory == "Camions & Engins") && (_selectedBrand == null || _yearController.text.isEmpty || _selectedFuel == null)) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Veuillez remplir les informations du vÃ©hicule (Marque, AnnÃ©e, Carburant)")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Veuillez remplir les informations du véhicule (Marque, Année, Carburant)")));
       return;
     }
 
@@ -351,7 +351,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'VidÃ©o ${i + 1} compressÃ©e: ${stats.originalSizeFormatted} â†’ '
+                  'Vidéo ${i + 1} compressée: ${stats.originalSizeFormatted} â†’ '
                   '${stats.compressedSizeFormatted} (-${stats.reductionPercentage.toStringAsFixed(0)}%)',
                 ),
                 backgroundColor: Colors.green,
@@ -378,7 +378,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Erreur compression vidÃ©o ${i + 1}: $e'),
+                content: Text('Erreur compression vidéo ${i + 1}: $e'),
                 backgroundColor: Colors.red,
               ),
             );
@@ -571,12 +571,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
           segments: [
             ButtonSegment(
               value: 'sale',
-              label: Text(isAr ? 'Ù„Ù„Ø¨ÙŠØ¹' : 'Ã€ Vendre'),
+              label: Text(isAr ? 'Ù„Ù„Ø¨ÙŠØ¹' : 'À Vendre'),
               icon: const Icon(Icons.sell_rounded),
             ),
             ButtonSegment(
               value: 'rent',
-              label: Text(isAr ? 'Ù„Ù„Ø¥ÙŠØ¬Ø§Ø±' : 'Ã€ Louer'),
+              label: Text(isAr ? 'Ù„Ù„Ø¥ÙŠØ¬Ø§Ø±' : 'À Louer'),
               icon: const Icon(Icons.vpn_key_rounded),
             ),
             ButtonSegment(

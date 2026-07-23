@@ -63,12 +63,12 @@ class SocialSharingService {
     
     if (hasYear || hasKm) {
       final specs = <String>[];
-      if (hasYear) specs.add('AnnÃ©e: ${product.year}');
+      if (hasYear) specs.add('Année: ${product.year}');
       if (hasKm) specs.add('Km: ${product.km}');
       if (hasFuel) specs.add('Carburant: ${product.fuel}');
       
       if (specs.isNotEmpty) {
-        buffer.writeln(specs.join(' â€¢ '));
+        buffer.writeln(specs.join(' • '));
         buffer.writeln();
       }
     }

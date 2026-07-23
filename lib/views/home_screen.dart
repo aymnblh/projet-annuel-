@@ -38,7 +38,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // --- Ã‰TATS ACCUEIL ---
+  // --- ÉTATS ACCUEIL ---
   String _searchQuery = "";
   String _selectedCategory = "Tout";
   
@@ -83,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // --- FILTRES AVANCÃ‰S ---
-  int _sortIndex = 0; // 0: RÃ©cent, 1: Prix Asc, 2: Prix Desc
+  // --- FILTRES AVANCÉS ---
+  int _sortIndex = 0; // 0: Récent, 1: Prix Asc, 2: Prix Desc
   int _limit = 20;
   final ScrollController _scrollController = ScrollController();
 
@@ -324,11 +324,11 @@ class _HomeScreenState extends State<HomeScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("CrÃ©er une alerte"),
+        title: const Text("Créer une alerte"),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text("Soyez notifiÃ© quand une voiture correspondant Ã  ces critÃ¨res est publiÃ©e."),
+            const Text("Soyez notifié quand une voiture correspondant Ã  ces critères est publiée."),
             const SizedBox(height: 10),
             TextField(controller: nameCtrl, decoration: const InputDecoration(labelText: "Nom de l'alerte", border: OutlineInputBorder())),
           ],
@@ -357,10 +357,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Provider.of<UserProvider>(context, listen: false).saveSearchAlert(filters, nameCtrl.text.trim());
               Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Alerte crÃ©Ã©e avec succÃ¨s ! ðŸ””"), backgroundColor: Colors.green));
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Alerte créée avec succès ! ðŸ””"), backgroundColor: Colors.green));
             },
             style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A), foregroundColor: Colors.white),
-            child: const Text("CrÃ©er"),
+            child: const Text("Créer"),
           )
         ],
       ),
@@ -609,7 +609,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () => setState(() {}),
-                            child: const Text("RÃ©essayer")
+                            child: const Text("Réessayer")
                           )
                         ],
                       ),
@@ -743,7 +743,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _selectedProducts.removeWhere((p) => p.id == product.id);
       } else {
         if (_selectedProductIds.length >= 3) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Maximum 3 vÃ©hicules Ã  comparer")));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Maximum 3 véhicules Ã  comparer")));
           return;
         }
         _selectedProductIds.add(product.id);
@@ -776,7 +776,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.price_change),
-            title: Text(isAr ? "ØªÙ‚Ø¯ÙŠØ± Ø§Ù„Ø£Ø³Ø¹Ø§Ø± (Argus)" : "La CÃ´te (Argus)"),
+            title: Text(isAr ? "ØªÙ‚Ø¯ÙŠØ± Ø§Ù„Ø£Ø³Ø¹Ø§Ø± (Argus)" : "La Côte (Argus)"),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PriceEstimationScreen())),
           ),
           ListTile(
@@ -804,7 +804,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: Text(isAr ? "Ø­ÙˆÙ„ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚" : "Ã€ propos"),
+            title: Text(isAr ? "Ø­ÙˆÙ„ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚" : "À propos"),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen())),
           ),
           ListTile(
@@ -846,7 +846,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => CompareScreen(products: _selectedProducts)));
-                  // On pourrait reset la sÃ©lection aprÃ¨s retour, ou laisser le choix
+                  // On pourrait reset la sélection après retour, ou laisser le choix
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
@@ -893,7 +893,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icon(Icons.history, color: theme.colorScheme.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    isAr ? 'Ø´ÙˆÙ‡Ø¯Øª Ù…Ø¤Ø®Ø±Ø§Ù‹' : 'Vus rÃ©cemment',
+                    isAr ? 'Ø´ÙˆÙ‡Ø¯Øª Ù…Ø¤Ø®Ø±Ø§Ù‹' : 'Vus récemment',
                     style: GoogleFonts.cairo(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

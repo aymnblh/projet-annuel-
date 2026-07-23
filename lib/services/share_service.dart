@@ -7,10 +7,10 @@ class ShareService {
     // Construction du message intelligent
     final String deepLink = "oneclick://product/${product.id}";
     final String message = 
-      "DÃ©couvrez ${product.title} Ã  ${product.price.toStringAsFixed(0)} EUR sur OneClick !\n\n"
+      "Découvrez ${product.title} Ã  ${product.price.toStringAsFixed(0)} EUR sur OneClick !\n\n"
       "Voir l'annonce ici : $deepLink";
 
-    Share.share(message, subject: "Regarde Ã§a sur OneClick !");
+    Share.share(message, subject: "Regarde ça sur OneClick !");
   }
 }
 

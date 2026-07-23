@@ -108,7 +108,7 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    primaryColor: Colors.white, // InversÃ© pour le contraste
+    primaryColor: Colors.white, // Inversé pour le contraste
     scaffoldBackgroundColor: const Color(0xFF000000), // Pure Black
     colorScheme: const ColorScheme.dark(
       primary: Colors.white,
