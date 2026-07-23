@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
@@ -56,20 +56,41 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: _primaryBlack,
-        foregroundColor: Colors.white,
+        foregroundColor: Colors.white,          // blanc sur noir = contraste max
+        disabledBackgroundColor: Colors.grey[300],
+        disabledForegroundColor: Colors.grey[600],
         elevation: 5,
         shadowColor: Colors.black.withOpacity(0.3),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 15),
+      ),
+    ),
+    filledButtonTheme: FilledButtonThemeData(
+      style: FilledButton.styleFrom(
+        backgroundColor: _primaryBlack,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 15),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: _primaryBlack,
-        side: const BorderSide(color: _primaryBlack, width: 1.5),
+        backgroundColor: Colors.transparent,
+        side: const BorderSide(color: _primaryBlack, width: 1.8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.w600, fontSize: 15),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: _primaryBlack,
+        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.w600, fontSize: 14),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       ),
     ),
 
@@ -137,21 +158,42 @@ class AppTheme {
     // BUTTONS
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white, // Boutons blancs sur fond noir
-        foregroundColor: Colors.black, // Texte noir
+        backgroundColor: Colors.white,          // blanc sur fond sombre
+        foregroundColor: Colors.black,          // texte noir sur blanc = contraste max
+        disabledBackgroundColor: const Color(0xFF2C2C2C),
+        disabledForegroundColor: Colors.grey[600],
         elevation: 5,
         shadowColor: Colors.white.withOpacity(0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 15),
+      ),
+    ),
+    filledButtonTheme: FilledButtonThemeData(
+      style: FilledButton.styleFrom(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 15),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: Colors.white,
-        side: const BorderSide(color: Colors.white, width: 1.5),
+        backgroundColor: Colors.transparent,
+        side: const BorderSide(color: Colors.white70, width: 1.8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.w600, fontSize: 15),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.white,          // texte blanc sur fond sombre
+        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.w600, fontSize: 14),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       ),
     ),
 
