@@ -390,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                      IconButton(icon: Icon(Icons.menu, color: theme.iconTheme.color), onPressed: () => _scaffoldKey.currentState?.openDrawer()),
-                     Text(isAr ? "Ø§ÙƒØªØ´Ù" : "AutoStore", style: GoogleFonts.cairo(fontSize: 24, fontWeight: FontWeight.w900, color: theme.textTheme.bodyLarge?.color)),
+                     Text("AutoStore", style: GoogleFonts.cairo(fontSize: 24, fontWeight: FontWeight.w900, color: theme.textTheme.bodyLarge?.color)),
                      CircleAvatar(
                        radius: 18,
                        backgroundColor: isDark ? Colors.grey[800] : Colors.grey[200],
@@ -481,7 +481,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 final isSelected = _selectedCategory == cat;
                 String label = cat;
                 if (cat == 'Tout') {
-                  label = isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout';
+                  label = 'Tout';
                 } else if (isAr && CategoriesData.categoryTranslations.containsKey(cat)) label = CategoriesData.categoryTranslations[cat]!;
 
                 return Padding(
@@ -552,7 +552,7 @@ class _HomeScreenState extends State<HomeScreen> {
                      const SizedBox(width: 5),
                      ActionChip(
                        avatar: const Icon(Icons.notifications_active, size: 16, color: Colors.white),
-                       label: Text(isAr ? "Ø­ÙØ¸ Ø§Ù„Ø¨Ø­Ø«" : "M'alerter", style: const TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold)),
+                       label: Text("M'alerter", style: const TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold)),
                        backgroundColor: const Color(0xFF0F172A),
                        onPressed: _showSaveAlertDialog,
                      )
@@ -756,7 +756,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget _buildDrawer() {
-    bool isAr = languageNotifier.value == 'ar';
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -776,40 +775,40 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.price_change),
-            title: Text(isAr ? "ØªÙ‚Ø¯ÙŠØ± Ø§Ù„Ø£Ø³Ø¹Ø§Ø± (Argus)" : "La Côte (Argus)"),
+            title: Text("La Côte (Argus)"),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PriceEstimationScreen())),
           ),
           ListTile(
             leading: const Icon(Icons.notifications_active),
-            title: Text(isAr ? "ØªÙ†Ø¨ÙŠÙ‡Ø§Øª Ø§Ù„Ø¨Ø­Ø«" : "Mes Alertes"),
+            title: Text("Mes Alertes"),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AlertsScreen())),
           ),
            // SHOWROOM LINK (SaaS)
           ListTile(
             leading: const Icon(Icons.dashboard, color: Colors.blueAccent),
-            title: Text(isAr ? "Ù„ÙˆØ­Ø© ØªØ­ÙƒÙ… Ø§Ù„Ù…Ø¹Ø±Ø¶" : "Mon Showroom (Pro)"),
+            title: Text("Mon Showroom (Pro)"),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ShowroomDashboardScreen())),
           ),
           if (_selectedProductIds.isNotEmpty)
             ListTile(
               leading: const Icon(Icons.compare_arrows),
-              title: Text(isAr ? "Ø§Ù„Ù…Ù‚Ø§Ø±Ù†Ø©" : "Comparateur"),
+              title: Text("Comparateur"),
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CompareScreen(products: _selectedProducts))),
             ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.person),
-            title: Text(isAr ? "Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ" : "Mon Profil"),
+            title: Text("Mon Profil"),
             onTap: () {}, 
           ),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: Text(isAr ? "Ø­ÙˆÙ„ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚" : "À propos"),
+            title: Text("À propos"),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen())),
           ),
           ListTile(
             leading: const Icon(Icons.contact_support),
-            title: Text(isAr ? "Ø§ØªØµÙ„ Ø¨Ù†Ø§" : "Contactez-nous"),
+            title: Text("Contactez-nous"),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ContactScreen())),
           ),
         ],
@@ -819,7 +818,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     return Scaffold(
       key: _scaffoldKey, // KEY ADDED
       drawer: _buildDrawer(), // DRAWER ADDED
@@ -857,7 +855,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 icon: const Icon(Icons.compare_arrows),
                 label: Text(
-                  isAr ? "Ù…Ù‚Ø§Ø±Ù†Ø© (${_selectedProducts.length})" : "Comparer (${_selectedProducts.length})",
+                  "Comparer (${_selectedProducts.length})",
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
                 ),
               ),
@@ -893,7 +891,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icon(Icons.history, color: theme.colorScheme.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    isAr ? 'Ø´ÙˆÙ‡Ø¯Øª Ù…Ø¤Ø®Ø±Ø§Ù‹' : 'Vus récemment',
+                    'Vus récemment',
                     style: GoogleFonts.cairo(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -906,7 +904,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       await RecentlyViewedService.clearHistory();
                     },
                     child: Text(
-                      isAr ? 'Ù…Ø³Ø­' : 'Effacer',
+                      'Effacer',
                       style: GoogleFonts.cairo(
                         fontSize: 13,
                         color: Colors.grey[600],

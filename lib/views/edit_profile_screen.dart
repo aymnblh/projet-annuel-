@@ -100,7 +100,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     final userProvider = Provider.of<UserProvider>(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
@@ -109,7 +108,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          isAr ? "تعديل الملف الشخصي" : "Modifier le profil",
+          "Modifier le profil",
           style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
         ),
         backgroundColor: theme.appBarTheme.backgroundColor,
@@ -159,11 +158,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  labelText: isAr ? "الاسم" : "Nom d'utilisateur",
+                  labelText: "Nom d'utilisateur",
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   prefixIcon: const Icon(Icons.person),
                 ),
-                validator: (val) => val!.isEmpty ? (isAr ? "مطلوب" : "Requis") : null,
+                validator: (val) => val!.isEmpty ? ("Requis") : null,
               ),
               const SizedBox(height: 20),
 
@@ -172,7 +171,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: isAr ? "رقم الهاتف" : "Téléphone",
+                  labelText: "Téléphone",
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   prefixIcon: const Icon(Icons.phone),
                 ),
@@ -184,7 +183,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 initialValue: _selectedWilaya,
                 isExpanded: true,
                 decoration: InputDecoration(
-                  labelText: isAr ? "الدولة" : "Pays",
+                  labelText: "Pays",
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   prefixIcon: const Icon(Icons.map),
                 ),
@@ -239,7 +238,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   child: userProvider.isLoading 
                     ? const CircularProgressIndicator(color: Colors.white)
-                    : Text(isAr ? "حفظ التغييرات" : "Enregistrer", style: GoogleFonts.cairo(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                    : Text("Enregistrer", style: GoogleFonts.cairo(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
               ),
             ],

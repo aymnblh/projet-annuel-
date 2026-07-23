@@ -122,33 +122,16 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
             style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A), foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15)),
             child: Text(t('login_btn')),
           ),
-          const SizedBox(height: 40),
-          _buildLanguageSwitcher(),
+
         ],
       ),
     );
   }
 
-  Widget _buildLanguageSwitcher() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(Icons.language, color: Colors.grey),
-        const SizedBox(width: 10),
-        DropdownButton<String>(
-          value: languageNotifier.value,
-          underline: Container(),
-          items: const [DropdownMenuItem(value: 'fr', child: Text("Français ðŸ‡«ðŸ‡·")), DropdownMenuItem(value: 'ar', child: Text("Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© ðŸ‡©ðŸ‡¿"))],
-          onChanged: (val) { if (val != null) setState(() => languageNotifier.value = val); },
-        ),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     if (user == null) return Scaffold(body: _buildGuestView());
-    bool isAr = languageNotifier.value == 'ar';
     final userProvider = Provider.of<UserProvider>(context);
 
     // <--- AJOUT : Vérification si l'utilisateur est Admin
@@ -213,17 +196,15 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                     ),
                   ],
                 ),
-                // Language switcher sous le header (pas dans la Row)
-                const SizedBox(height: 8),
-                _buildLanguageSwitcher(),
-                 
+
+
                  const SizedBox(height: 20),
                  
                  // SWITCH THEME SOMBRE
                  Consumer<ThemeProvider>(
                    builder: (context, themeProvider, _) {
                      return SwitchListTile(
-                       title: Text(isAr ? "Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù„ÙŠÙ„ÙŠ" : "Mode Sombre", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
+                       title: Text("Mode Sombre", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
                        secondary: Icon(Icons.dark_mode, color: themeProvider.isDarkMode ? Colors.amber : Colors.grey),
                        value: themeProvider.isDarkMode,
                        onChanged: (val) => themeProvider.toggleTheme(val),
@@ -280,8 +261,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(isAr ? "Ø£Ù†Ø´Ø¦ Ù…Ø¹Ø±Ø¶Ùƒ Ø§Ù„Ø¢Ù†" : "Ouvrir un Showroom", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-                                Text(isAr ? "ÙƒÙ† Ø¨Ø§Ø¦Ø¹Ù‹Ø§ Ù…Ø­ØªØ±ÙÙ‹Ø§ ÙˆØ²Ø¯ Ù…Ø¨ÙŠØ¹Ø§ØªÙƒ" : "Créez votre vitrine digitale professionnelle", style: const TextStyle(color: Colors.white, fontSize: 12)),
+                                Text("Ouvrir un Showroom", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                                Text("Créez votre vitrine digitale professionnelle", style: const TextStyle(color: Colors.white, fontSize: 12)),
                               ],
                             ),
                           ),
@@ -319,7 +300,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                  // Force visible colors regarding theme
                  icon: Icon(Icons.bar_chart, color: Theme.of(context).colorScheme.primary), 
                  label: Text(
-                   isAr ? "Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­Ù„ÙŠÙ„Ø§Øª" : "Voir mon Dashboard", 
+                   "Voir mon Dashboard", 
                    style: TextStyle(
                      fontWeight: FontWeight.bold,
                      color: Theme.of(context).colorScheme.primary // Adapts to theme
@@ -373,8 +354,6 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           itemCount: products.length,
           itemBuilder: (context, index) {
             final p = products[index];
-            bool isAr = languageNotifier.value == 'ar';
-
             return Card(
               margin: const EdgeInsets.only(bottom: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -388,7 +367,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                       child: Image.network(p.imageUrls.isNotEmpty ? p.imageUrls[0] : '', width: 60, height: 60, fit: BoxFit.cover, errorBuilder: (c,o,s) => const Icon(Icons.image)),
                     ),
                     title: Text(p.title, style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
-                    subtitle: Text("${p.price.toStringAsFixed(0)} EUR • ${p.isSold ? (isAr ? 'Ù…Ø¨Ø§Ø¹' : 'Vendu') : (isAr ? 'Ù†Ø´Ø·' : 'Actif')}", 
+                    subtitle: Text("${p.price.toStringAsFixed(0)} EUR • ${p.isSold ? ('Vendu') : ('Actif')}", 
                       style: TextStyle(color: p.isSold ? Colors.red : Colors.green)),
                   ),
                   const Divider(height: 1),
@@ -400,7 +379,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                           onPressed: () => _markAsSold(p.id, p.isSold),
                           icon: Icon(p.isSold ? Icons.refresh : Icons.check_circle, color: p.isSold ? Colors.orange : Colors.green, size: 20),
                           label: Text(
-                            p.isSold ? (isAr ? "Ø¥Ø¹Ø§Ø¯Ø©" : "Relancer") : (isAr ? "Ø¨ÙŠØ¹Øª" : "Vendu"), 
+                            p.isSold ? ("Relancer") : ("Vendu"), 
                             style: GoogleFonts.cairo(color: p.isSold ? Colors.orange : Colors.green, fontSize: 13)
                           ),
                         ),
@@ -415,7 +394,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                             : () => Navigator.push(context, MaterialPageRoute(builder: (_) => BoostAdScreen(productId: p.id, productName: p.title, category: p.category, currentPrice: p.price))),
                           icon: Icon(Icons.rocket_launch, color: (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? Colors.purple : Colors.blue, size: 20),
                           label: Text(
-                            (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? (isAr ? "Ù…Ø±ÙˆØ¬" : "Boosté") : (isAr ? "ØªØ±ÙˆÙŠØ¬" : "Booster"), 
+                            (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? ("Boosté") : ("Booster"), 
                             style: GoogleFonts.cairo(color: (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? Colors.purple : Colors.blue, fontWeight: FontWeight.bold, fontSize: 13)
                           ),
                         ),
@@ -429,7 +408,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                         child: TextButton.icon(
                           onPressed: () => _deleteProduct(p.id),
                           icon: const Icon(Icons.delete, color: Colors.red, size: 20),
-                          label: Text(isAr ? "Ø­Ø°Ù" : "Suppr.", style: GoogleFonts.cairo(color: Colors.red, fontSize: 13)),
+                          label: Text("Suppr.", style: GoogleFonts.cairo(color: Colors.red, fontSize: 13)),
                         ),
                       ),
                     ],

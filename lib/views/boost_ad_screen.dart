@@ -147,10 +147,8 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
-    
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "ØªØ±ÙˆÙŠØ¬ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†" : "Promouvoir l'annonce")),
+      appBar: AppBar(title: Text("Promouvoir l'annonce")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -210,8 +208,8 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(isAr ? "Ø¥Ø¹Ù„Ø§Ù† Ù…Ù…ÙˆÙ„ (ÙÙŠØ³Ø¨ÙˆÙƒ/Ø£Ù†Ø³ØªØºØ±Ø§Ù…)" : "Sponsorisé sur Meta", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                          Text(isAr ? "Ø§Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ Ø¢Ù„Ø§Ù Ø§Ù„Ø£Ø´Ø®Ø§Øµ" : "Touchez des milliers de personnes", style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                          Text("Sponsorisé sur Meta", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          Text("Touchez des milliers de personnes", style: TextStyle(color: Colors.grey[600], fontSize: 12)),
                         ],
                       )
                     ],
@@ -222,19 +220,19 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
 
               // DURATION SELECTION (Seulement pour Boost)
               if (_promoType == 'boost') ...[
-                Text(isAr ? "Ù…Ø¯Ø© Ø§Ù„ØªØ±ÙˆÙŠØ¬" : "Durée du boost", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
+                Text("Durée du boost", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
                 const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _durationCard(1, "200 EUR", isAr ? "ÙŠÙˆÙ…" : "1 Jour"),
-                    _durationCard(3, "500 EUR", isAr ? "3 Ø£ÙŠØ§Ù…" : "3 Jours"),
-                    _durationCard(7, "1000 EUR", isAr ? "Ø£Ø³Ø¨ÙˆØ¹" : "7 Jours"),
+                    _durationCard(1, "200 EUR", "1 Jour"),
+                    _durationCard(3, "500 EUR", "3 Jours"),
+                    _durationCard(7, "1000 EUR", "7 Jours"),
                   ],
                 ),
                 const SizedBox(height: 30),
               ] else if (_promoType == 'meta') ...[
-                 Text(isAr ? "Ø§Ù„Ù…Ù†ØµØ§Øª" : "Plateformes", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
+                 Text("Plateformes", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
                  const SizedBox(height: 10),
                  Row(
                    children: [
@@ -256,19 +254,19 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
                    ],
                  ),
                  const SizedBox(height: 20),
-                 Text(isAr ? "Ø§Ù„Ù…ÙŠØ²Ø§Ù†ÙŠØ© Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠØ© (Ø´Ø§Ù…Ù„ Ø§Ù„Ø±Ø³ÙˆÙ…)" : "Budget Total (Frais inclus)", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
+                 Text("Budget Total (Frais inclus)", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
                  const SizedBox(height: 15),
                  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
-                     _durationCard(3, "3000 EUR", isAr ? "3 Ø£ÙŠØ§Ù…" : "3 Jours"),
-                     _durationCard(7, "6000 EUR", isAr ? "7 Ø£ÙŠØ§Ù…" : "7 Jours"),
-                     _durationCard(15, "12000 EUR", isAr ? "15 ÙŠÙˆÙ…" : "15 Jours"),
+                     _durationCard(3, "3000 EUR", "3 Jours"),
+                     _durationCard(7, "6000 EUR", "7 Jours"),
+                     _durationCard(15, "12000 EUR", "15 Jours"),
                    ],
                  ),
                  const SizedBox(height: 15),
                  Text(
-                   isAr ? "Ù‡Ø°Ø§ Ø§Ù„Ù…Ø¨Ù„Øº ÙŠØºØ·ÙŠ ØªÙƒØ§Ù„ÙŠÙ Ø¥Ø¹Ù„Ø§Ù†Ø§Øª Ù…ÙŠØªØ§ ÙˆØ±Ø³ÙˆÙ… Ø§Ù„Ø®Ø¯Ù…Ø©." : "Ce montant couvre les frais publicitaires Meta et nos frais de gestion.",
+                   "Ce montant couvre les frais publicitaires Meta et nos frais de gestion.",
                    style: TextStyle(color: Colors.grey[600], fontSize: 12, fontStyle: FontStyle.italic),
                  ),
                  const SizedBox(height: 30),
@@ -287,7 +285,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
               ],
 
               // PAYMENT METHOD
-              Text(isAr ? "Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹" : "Moyen de paiement", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text("Moyen de paiement", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
               const SizedBox(height: 15),
               Row(
                 children: [
@@ -303,7 +301,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
                 controller: _cardNumberController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: isAr ? "Ø±Ù‚Ù… Ø§Ù„Ø¨Ø·Ø§Ù‚Ø©" : "Numéro de la carte",
+                  labelText: "Numéro de la carte",
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   prefixIcon: const Icon(Icons.credit_card),
                 ),
@@ -356,7 +354,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
                   child: _isLoading 
                     ? const CircularProgressIndicator(color: Colors.white)
                     : Text(
-                        "${isAr ? "Ø¯ÙØ¹ " : "Payer "}${_price.toStringAsFixed(0)} EUR", 
+                        "${"Payer "}${_price.toStringAsFixed(0)} EUR", 
                         style: GoogleFonts.cairo(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)
                       ),
                 ),
@@ -364,7 +362,7 @@ class _BoostAdScreenState extends State<BoostAdScreen> {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: Text("ðŸ”’ ${isAr ? "Ø¯ÙØ¹ Ø¢Ù…Ù† 100%" : "Paiement 100% Sécurisé"}", style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                  child: Text("ðŸ”’ ${"Paiement 100% Sécurisé"}", style: TextStyle(color: Colors.grey[600], fontSize: 12)),
                 ),
               )
             ],

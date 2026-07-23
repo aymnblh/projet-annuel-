@@ -15,12 +15,11 @@ class ContactScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isAr ? "اتصل بنا" : "Contactez-nous"),
+        title: Text("Contactez-nous"),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -36,7 +35,7 @@ class ContactScreen extends StatelessWidget {
           const SizedBox(height: 20),
           Center(
             child: Text(
-              isAr ? "نحن هنا لمساعدتك" : "Nous sommes là pour vous aider",
+              "Nous sommes là pour vous aider",
               style: GoogleFonts.cairo(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -44,7 +43,7 @@ class ContactScreen extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: Text(
-              isAr ? "تواصل معنا عبر إحدى الطرق التالية" : "Contactez-nous via l'un des moyens suivants",
+              "Contactez-nous via l'un des moyens suivants",
               style: GoogleFonts.cairo(fontSize: 14, color: Colors.grey),
               textAlign: TextAlign.center,
             ),
@@ -63,7 +62,7 @@ class ContactScreen extends StatelessWidget {
           
           _buildContactCard(
             icon: Icons.phone,
-            title: isAr ? "الهاتف" : "Téléphone",
+            title: "Téléphone",
             subtitle: "+213 XXX XXX XXX",
             onTap: () => _launchUrl("tel:+213XXXXXXXXX"),
             isDark: isDark,
@@ -99,13 +98,13 @@ class ContactScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  isAr ? "ساعات العمل" : "Horaires d'ouverture",
+                  "Horaires d'ouverture",
                   style: GoogleFonts.cairo(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
-                _buildHourRow(isAr ? "الأحد - الخميس" : "Dimanche - Jeudi", "09:00 - 18:00", isDark),
-                _buildHourRow(isAr ? "الجمعة" : "Vendredi", isAr ? "مغلق" : "Fermé", isDark),
-                _buildHourRow(isAr ? "السبت" : "Samedi", "10:00 - 16:00", isDark),
+                _buildHourRow("Dimanche - Jeudi", "09:00 - 18:00", isDark),
+                _buildHourRow("Vendredi", "Fermé", isDark),
+                _buildHourRow("Samedi", "10:00 - 16:00", isDark),
               ],
             ),
           ),

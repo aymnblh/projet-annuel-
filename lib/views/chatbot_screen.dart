@@ -102,9 +102,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
       setState(() {
         _isTyping = false;
         _messages.add(_ChatMessage(
-          text: isAr
-              ? '❌ حدث خطأ. حاول مرة أخرى.'
-              : '❌ Une erreur est survenue. Veuillez réessayer.',
+          text: '❌ Une erreur est survenue. Veuillez réessayer.',
           isUser: false,
         ));
         _showSuggestions = true;
@@ -132,20 +130,18 @@ class _ChatbotScreenState extends State<ChatbotScreen>
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
-          isAr ? 'مسح المحادثة' : 'Effacer la conversation',
+          'Effacer la conversation',
           style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
         ),
         content: Text(
-          isAr
-              ? 'هل أنت متأكد أنك تريد مسح جميع الرسائل؟'
-              : 'Êtes-vous sûr de vouloir supprimer tous les messages ?',
+          'Êtes-vous sûr de vouloir supprimer tous les messages ?',
           style: GoogleFonts.cairo(),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(
-              isAr ? 'إلغاء' : 'Annuler',
+              'Annuler',
               style: GoogleFonts.cairo(color: Colors.grey),
             ),
           ),
@@ -159,7 +155,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
               _chatbotService.clearHistory();
             },
             child: Text(
-              isAr ? 'مسح' : 'Effacer',
+              'Effacer',
               style: GoogleFonts.cairo(
                 color: Colors.red,
                 fontWeight: FontWeight.bold,
@@ -180,8 +176,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Directionality(
-      textDirection: isAr ? TextDirection.rtl : TextDirection.ltr,
-      child: Scaffold(
+            child: Scaffold(
         backgroundColor: isDark ? const Color(0xFF0A0E1A) : const Color(0xFFF5F7FA),
         appBar: _buildAppBar(isAr, isDark),
         body: Column(
@@ -229,7 +224,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
           ),
           const SizedBox(width: 10),
           Text(
-            isAr ? 'مساعد IA ونكليك' : 'Assistant IA OneClick',
+            'Assistant IA OneClick',
             style: GoogleFonts.cairo(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -244,7 +239,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
               Icons.delete_outline_rounded,
               color: isDark ? Colors.grey[400] : Colors.grey[600],
             ),
-            tooltip: isAr ? 'مسح المحادثة' : 'Effacer la conversation',
+            tooltip: 'Effacer la conversation',
             onPressed: _clearChat,
           ),
         const SizedBox(width: 4),
@@ -287,7 +282,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
             ),
             const SizedBox(height: 24),
             Text(
-              isAr ? 'مرحبًا! 👋' : 'Bonjour ! 👋',
+              'Bonjour ! 👋',
               style: GoogleFonts.cairo(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -296,9 +291,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
             ),
             const SizedBox(height: 8),
             Text(
-              isAr
-                  ? 'أنا مساعدك الذكي في OneClick Cars.\nاسألني أي شيء عن السيارات في الجزائر!'
-                  : 'Je suis votre assistant intelligent OneClick Cars.\nPosez-moi n\'importe quelle question sur les voitures en Europe !',
+              'Je suis votre assistant intelligent OneClick Cars.\nPosez-moi n\'importe quelle question sur les voitures en Europe !',
               textAlign: TextAlign.center,
               style: GoogleFonts.cairo(
                 fontSize: 15,
@@ -315,22 +308,22 @@ class _ChatbotScreenState extends State<ChatbotScreen>
               children: [
                 _buildFeaturePill(
                   Icons.search_rounded,
-                  isAr ? 'بحث ذكي' : 'Recherche intelligente',
+                  'Recherche intelligente',
                   isDark,
                 ),
                 _buildFeaturePill(
                   Icons.gavel_rounded,
-                  isAr ? 'الإجراءات القانونية' : 'Procédures légales',
+                  'Procédures légales',
                   isDark,
                 ),
                 _buildFeaturePill(
                   Icons.attach_money_rounded,
-                  isAr ? 'تقدير الأسعار' : 'Estimation de prix',
+                  'Estimation de prix',
                   isDark,
                 ),
                 _buildFeaturePill(
                   Icons.compare_arrows_rounded,
-                  isAr ? 'مقارنة السيارات' : 'Comparaison',
+                  'Comparaison',
                   isDark,
                 ),
               ],
@@ -574,9 +567,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
                 maxLines: 4,
                 minLines: 1,
                 decoration: InputDecoration(
-                  hintText: isAr
-                      ? 'اكتب سؤالك هنا...'
-                      : 'Posez votre question...',
+                  hintText: 'Posez votre question...',
                   hintStyle: GoogleFonts.cairo(
                     color: isDark ? Colors.grey[500] : Colors.grey[400],
                     fontSize: 14,

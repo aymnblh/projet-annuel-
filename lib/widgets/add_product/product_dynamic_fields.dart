@@ -72,7 +72,7 @@ class _ProductDynamicFieldsState extends State<ProductDynamicFields> {
       decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       validator: (val) {
         if (isOptional) return null;
-        return val!.isEmpty ? (widget.isAr ? "مطلوب" : "Requis") : null;
+        return val!.isEmpty ? (widget."Requis") : null;
       },
     );
   }
@@ -96,7 +96,7 @@ class _ProductDynamicFieldsState extends State<ProductDynamicFields> {
     if (CategoriesData.subCategories.containsKey(widget.selectedCategory) && CategoriesData.subCategories[widget.selectedCategory]!.isNotEmpty) {
       children.add(_buildDropdown(
         value: widget.selectedSubType,
-        label: isAr ? "النوع الفرعي" : "Sous-catégorie",
+        label: "Sous-catégorie",
         items: CategoriesData.subCategories[widget.selectedCategory]!,
         map: CategoriesData.subCategoryTranslations,
         onChanged: widget.onSubTypeChanged,
@@ -108,14 +108,14 @@ class _ProductDynamicFieldsState extends State<ProductDynamicFields> {
     if (widget.selectedCategory == 'Véhicules') {
       children.addAll([
         Row(children: [
-          Expanded(child: _buildTextField(widget.yearController, isAr ? "السنة (اختياري)" : "Année (Optionnel)", isNumber: true, isOptional: true)),
+          Expanded(child: _buildTextField(widget.yearController, "Année (Optionnel)", isNumber: true, isOptional: true)),
           const SizedBox(width: 10),
-          Expanded(child: _buildTextField(widget.kmController, isAr ? "المسافة (كم) (اختياري)" : "Kilométrage (Optionnel)", isNumber: true, isOptional: true)),
+          Expanded(child: _buildTextField(widget.kmController, "Kilométrage (Optionnel)", isNumber: true, isOptional: true)),
         ]),
         const SizedBox(height: 10),
         _buildDropdown(
           value: widget.fuelType, 
-          label: isAr ? "الوقود" : "Carburant", 
+          label: "Carburant", 
           items: _fuelMap.keys.toList(), 
           map: _fuelMap, 
           onChanged: widget.onFuelChanged
@@ -128,31 +128,31 @@ class _ProductDynamicFieldsState extends State<ProductDynamicFields> {
       children.addAll([
         _buildDropdown(
           value: widget.immoType, 
-          label: isAr ? "نوع المعاملة" : "Type de transaction", 
+          label: "Type de transaction", 
           items: _immoMap.keys.toList(), 
           map: _immoMap, 
           onChanged: widget.onImmoTypeChanged
         ),
         const SizedBox(height: 10),
-        _buildTextField(widget.surfaceController, isAr ? "المساحة (م²) (اختياري)" : "Surface (m²) (Optionnel)", isNumber: true, isOptional: true),
+        _buildTextField(widget.surfaceController, "Surface (m²) (Optionnel)", isNumber: true, isOptional: true),
       ]);
     }
     
     // 4. MODE & VÊTEMENTS
     else if (widget.selectedCategory == 'Vêtements & Mode') {
-      String sizeLabel = isAr ? "المقاس" : "Taille (S, M, L...)";
+      String sizeLabel = "Taille (S, M, L...)";
       if (widget.selectedSubType == 'Chaussures') {
-        sizeLabel = isAr ? "مقاس الحذاء" : "Pointure (38, 40, 42...)";
+        sizeLabel = "Pointure (38, 40, 42...)";
       }
       
       children.addAll([
         _buildTextField(widget.sizeController, sizeLabel),
         const SizedBox(height: 10),
-        _buildTextField(widget.brandController, isAr ? "العلامة التجارية" : "Marque"),
+        _buildTextField(widget.brandController, "Marque"),
         const SizedBox(height: 10),
         _buildDropdown(
           value: widget.selectedGender,
-          label: isAr ? "الجنس" : "Genre",
+          label: "Genre",
           items: ['Homme', 'Femme', 'Enfant', 'Unisexe'],
           map: {'Homme': 'رجل', 'Femme': 'امرأة', 'Enfant': 'طفل', 'Unisexe': 'للجنسين'},
           onChanged: widget.onGenderChanged
@@ -162,7 +162,7 @@ class _ProductDynamicFieldsState extends State<ProductDynamicFields> {
     
     // 5. TECH
     else if (['Téléphones & Tablettes', 'Informatique'].contains(widget.selectedCategory)) {
-       children.add(_buildTextField(widget.brandController, isAr ? "العلامة التجارية" : "Marque"));
+       children.add(_buildTextField(widget.brandController, "Marque"));
     }
 
     return Column(children: children);

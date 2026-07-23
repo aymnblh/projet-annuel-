@@ -184,7 +184,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                           color: Color(0xFF7C3AED), size: 20),
                       const SizedBox(width: 8),
                       Text(
-                        isAr ? 'ØªØ£Ø¬ÙŠØ± Ø§Ù„Ø³ÙŠØ§Ø±Ø§Øª' : 'Location de Voitures',
+                        'Location de Voitures',
                         style: GoogleFonts.cairo(
                           fontSize: 22,
                           fontWeight: FontWeight.w900,
@@ -194,7 +194,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                     ],
                   ),
                   Text(
-                    isAr ? 'Ø§Ø®ØªØ± ÙˆØªÙ†Ù‚Ù„ Ø¨Ø±Ø§Ø­Ø©' : 'Choisissez, réservez et roulez',
+                    'Choisissez, réservez et roulez',
                     style: GoogleFonts.cairo(
                       fontSize: 13,
                       color: Colors.grey[500],
@@ -220,7 +220,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                           size: 14, color: Color(0xFF4ECDC4)),
                       const SizedBox(width: 4),
                       Text(
-                        isAr ? 'Ø´Ø±Ø§Ø¡' : 'Acheter',
+                        'Acheter',
                         style: GoogleFonts.cairo(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -238,9 +238,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           TextField(
             onChanged: (v) => setState(() => _searchQuery = v),
             decoration: InputDecoration(
-              hintText: isAr
-                  ? 'Ø§Ø¨Ø­Ø« Ø¹Ù† Ø³ÙŠØ§Ø±Ø© (Ù…Ø«Ø§Ù„: Golf, Clio...)'
-                  : 'Rechercher (ex: Golf, Clioâ€¦)',
+              hintText: 'Rechercher (ex: Golf, Clioâ€¦)',
               hintStyle: GoogleFonts.cairo(fontSize: 14, color: Colors.grey),
               prefixIcon:
                   const Icon(Icons.search, color: Color(0xFF7C3AED)),
@@ -275,7 +273,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           // Wilaya
           _FilterChip(
             icon: Icons.location_on_rounded,
-            label: _filterWilaya ?? (isAr ? 'Ø§Ù„ÙˆÙ„Ø§ÙŠØ©' : 'Wilaya'),
+            label: _filterWilaya ?? ('Wilaya'),
             isActive: _filterWilaya != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: () => _showWilayaPicker(isAr),
@@ -286,7 +284,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             icon: Icons.calendar_month_rounded,
             label: _startDate != null
                 ? '${_startDate!.day}/${_startDate!.month} â†’ ${_endDate!.day}/${_endDate!.month}'
-                : (isAr ? 'Ø§Ù„ØªÙˆØ§Ø±ÙŠØ®' : 'Dates'),
+                : ('Dates'),
             isActive: _startDate != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: _pickDateRange,
@@ -295,7 +293,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           // Gearbox
           _FilterChip(
             icon: Icons.settings_rounded,
-            label: _filterGearbox ?? (isAr ? 'Ø¹Ù„Ø¨Ø© Ø§Ù„Ø³Ø±Ø¹Ø©' : 'Boîte'),
+            label: _filterGearbox ?? ('Boîte'),
             isActive: _filterGearbox != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: () => _showGearboxPicker(isAr),
@@ -304,7 +302,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           // Vehicle type
           _FilterChip(
             icon: Icons.directions_car_rounded,
-            label: _filterVehicleType ?? (isAr ? 'Ù†ÙˆØ¹ Ø§Ù„Ø³ÙŠØ§Ø±Ø©' : 'Type'),
+            label: _filterVehicleType ?? ('Type'),
             isActive: _filterVehicleType != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: () => _showVehicleTypePicker(isAr),
@@ -316,7 +314,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             const SizedBox(width: 8),
             _FilterChip(
               icon: Icons.close_rounded,
-              label: isAr ? 'Ù…Ø³Ø­' : 'Effacer',
+              label: 'Effacer',
               isActive: false,
               accentColor: Colors.red,
               onTap: () => setState(() {
@@ -400,9 +398,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                 Icon(Icons.vpn_key_off_rounded, size: 56, color: Colors.grey[300]),
                 const SizedBox(height: 12),
                 Text(
-                  isAr
-                      ? 'Ù„Ø§ ØªÙˆØ¬Ø¯ Ø³ÙŠØ§Ø±Ø§Øª Ù„Ù„Ø¥ÙŠØ¬Ø§Ø±'
-                      : 'Aucune voiture disponible Ã  la location',
+                  'Aucune voiture disponible Ã  la location',
                   style:
                       GoogleFonts.cairo(color: Colors.grey[500], fontSize: 15),
                 ),
@@ -436,7 +432,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
       builder: (_) => ListView(
         children: [
           ListTile(
-            title: Text(isAr ? 'ÙƒÙ„ Ø§Ù„ÙˆÙ„Ø§ÙŠØ§Øª' : 'Toutes les wilayas'),
+            title: Text('Toutes les wilayas'),
             onTap: () {
               setState(() => _filterWilaya = null);
               Navigator.pop(context);
@@ -463,7 +459,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
         shrinkWrap: true,
         children: [
           ListTile(
-            title: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Toutes'),
+            title: Text('Toutes'),
             onTap: () {
               setState(() => _filterGearbox = null);
               Navigator.pop(context);
@@ -490,7 +486,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
         shrinkWrap: true,
         children: [
           ListTile(
-            title: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tous les types'),
+            title: Text('Tous les types'),
             onTap: () {
               setState(() => _filterVehicleType = null);
               Navigator.pop(context);

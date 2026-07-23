@@ -81,8 +81,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return const SizedBox.shrink();
 
-    final bool isAr = languageNotifier.value == 'ar';
-
+    final
     // Loading state — show shimmer skeletons
     if (_isLoading) {
       return _buildShimmerSection(context, isAr);

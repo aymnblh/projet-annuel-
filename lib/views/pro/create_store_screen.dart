@@ -109,9 +109,8 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "Ø¥Ù†Ø´Ø§Ø¡ Ù…Ø¹Ø±Ø¶" : "Créer mon Showroom")),
+      appBar: AppBar(title: Text("Créer mon Showroom")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -129,13 +128,13 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(isAr ? "Ø´Ø¹Ø§Ø± Ø§Ù„Ù…Ø¹Ø±Ø¶" : "Logo du Showroom", style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text("Logo du Showroom", style: const TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 30),
 
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  labelText: isAr ? "Ø§Ø³Ù… Ø§Ù„Ù…Ø¹Ø±Ø¶" : "Nom du Showroom",
+                  labelText: "Nom du Showroom",
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.store),
                 ),
@@ -147,7 +146,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                 controller: _descController,
                 maxLines: 3,
                 decoration: InputDecoration(
-                  labelText: isAr ? "ÙˆØµÙ Ø§Ù„Ù†Ø´Ø§Ø·" : "Description (Marques, Spécialité...)",
+                  labelText: "Description (Marques, Spécialité...)",
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.description),
                 ),
@@ -158,7 +157,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
               TextFormField(
                 controller: _addressController,
                 decoration: InputDecoration(
-                  labelText: isAr ? "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†" : "Adresse physique",
+                  labelText: "Adresse physique",
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.map), 
                 ),
@@ -175,8 +174,8 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                       : Icon(Icons.my_location, color: _storeLocation != null ? Colors.green : Colors.blue),
                   label: Text(
                     _storeLocation != null 
-                        ? (isAr ? "ØªÙ… ØªØ­Ø¯ÙŠØ¯ Ø§Ù„Ù…ÙˆÙ‚Ø¹" : "Position du Showroom enregistrée âœ“") 
-                        : (isAr ? "ØªØ­Ø¯ÙŠØ¯ Ù…ÙˆÙ‚Ø¹ Ø§Ù„Ù…Ø¹Ø±Ø¶ Ø¹Ù„Ù‰ Ø§Ù„Ø®Ø±ÙŠØ·Ø©" : "Localiser le Showroom sur Google Maps"),
+                        ? ("Position du Showroom enregistrée âœ“") 
+                        : ("Localiser le Showroom sur Google Maps"),
                   ),
                 ),
               ),
@@ -194,7 +193,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                 decoration: BoxDecoration(color: Colors.amber.shade50, borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.amber.shade200)),
                 child: Column(
                   children: [
-                    Text(isAr ? "Ø§Ø´ØªØ±Ø§Ùƒ Ø´Ù‡Ø±ÙŠ" : "Abonnement Showroom", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
+                    Text("Abonnement Showroom", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
                     const Text("5000 EUR", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.orange)),
                     const SizedBox(height: 10),
                     const Text("Status Showroom • Visibilité Max • Gestion Pro", textAlign: TextAlign.center),
@@ -211,7 +210,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                   style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A)),
                   child: _isLoading 
                       ? const CircularProgressIndicator(color: Colors.white) 
-                      : Text(isAr ? "Ø¯ÙØ¹ ÙˆØªÙØ¹ÙŠÙ„" : "PAYER ET ACTIVER", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      : Text("PAYER ET ACTIVER", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                 ),
               ),
             ],

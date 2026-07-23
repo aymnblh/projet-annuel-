@@ -28,7 +28,7 @@ import 'dart:async';
 import 'views/deep_link_product_loader.dart';
 
 // VARIABLE GLOBALE POUR CHANGER LA LANGUE
-final ValueNotifier<String> languageNotifier = ValueNotifier<String>('fr');
+final ValueNotifier<String> languageNotifier = ValueNotifier<String>('fr'); // FR uniquement
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   
                   locale: Locale(lang),
-                  supportedLocales: const [Locale('fr'), Locale('ar')],
+                  supportedLocales: const [Locale('fr')],
                   localizationsDelegates: const [
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,

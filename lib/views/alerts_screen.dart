@@ -14,12 +14,10 @@ class AlertsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    bool isAr = languageNotifier.value == 'ar';
-    
     if (user == null) return const Scaffold(body: Center(child: Text("Connectez-vous pour voir vos alertes.")));
 
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "تنبيهاتي" : "Mes Alertes")),
+      appBar: AppBar(title: Text("Mes Alertes")),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').doc(user.uid).collection('search_alerts').orderBy('createdAt', descending: true).snapshots(),
         builder: (context, snapshot) {
@@ -42,14 +40,14 @@ class AlertsScreen extends StatelessWidget {
                    Icon(Icons.notifications_off_outlined, size: 80, color: Colors.grey[300]),
                    const SizedBox(height: 20),
                    Text(
-                     isAr ? "لا توجد تنبيهات" : "Aucune alerte enregistrée",
+                     "Aucune alerte enregistrée",
                      style: const TextStyle(color: Colors.grey, fontSize: 16)
                    ),
                    const SizedBox(height: 10),
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 40),
                      child: Text(
-                       isAr ? "قم بالبحث وحفظ التنبيه لتصلك إشعارات بالسيارات الجديدة." : "Faites une recherche et sauvegardez-la pour être notifié des nouvelles voitures.",
+                       "Faites une recherche et sauvegardez-la pour être notifié des nouvelles voitures.",
                        textAlign: TextAlign.center,
                        style: const TextStyle(color: Colors.grey, fontSize: 12)
                      ),

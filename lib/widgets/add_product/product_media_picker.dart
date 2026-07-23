@@ -325,17 +325,17 @@ class _ProductMediaPickerState extends State<ProductMediaPicker> {
             children: <Widget>[
               ListTile(
                 leading: const Icon(Icons.photo_camera),
-                title: Text(widget.isAr ? 'التقاط صورة' : 'Prendre une photo', style: GoogleFonts.cairo()),
+                title: Text(widget.'Prendre une photo', style: GoogleFonts.cairo()),
                 onTap: () { Navigator.of(context).pop(); _takePhotoWithCamera(); },
               ),
               ListTile(
                 leading: const Icon(Icons.videocam),
-                title: Text(widget.isAr ? 'إضافة فيديو' : 'Ajouter une vidéo', style: GoogleFonts.cairo()),
+                title: Text(widget.'Ajouter une vidéo', style: GoogleFonts.cairo()),
                 onTap: () { Navigator.of(context).pop(); _pickVideo(); },
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: Text(widget.isAr ? 'اختيار صور من المعرض' : 'Choisir photos depuis galerie', style: GoogleFonts.cairo()),
+                title: Text(widget.'Choisir photos depuis galerie', style: GoogleFonts.cairo()),
                 onTap: () { Navigator.of(context).pop(); _pickFromGallery(); },
               ),
             ],
@@ -432,7 +432,7 @@ class _ProductMediaPickerState extends State<ProductMediaPicker> {
                 icon: widget.isAnalyzing 
                   ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) 
                   : const Icon(Icons.auto_awesome, color: Colors.white),
-                label: Text(widget.isAr ? "ملء تلقائي بالذكاء الاصطناعي" : "Remplir avec l'IA", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
+                label: Text(widget."Remplir avec l'IA", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.purple.shade700, foregroundColor: Colors.white),
               ),
             ),

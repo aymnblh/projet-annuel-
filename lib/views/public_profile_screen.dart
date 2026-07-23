@@ -44,9 +44,8 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
-            bool isAr = languageNotifier.value == 'ar';
             return AlertDialog(
-              title: Text(isAr ? "قيم هذا البائع" : "Noter ce vendeur"),
+              title: Text("Noter ce vendeur"),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -66,7 +65,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                   TextField(
                     controller: commentController,
                     decoration: InputDecoration(
-                      hintText: isAr ? "تعليق (اختياري)" : "Commentaire (Optionnel)",
+                      hintText: "Commentaire (Optionnel)",
                       border: const OutlineInputBorder(),
                     ),
                     maxLines: 3,
@@ -74,7 +73,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                 ],
               ),
               actions: [
-                TextButton(onPressed: () => Navigator.pop(context), child: Text(isAr ? "إلغاء" : "Annuler")),
+                TextButton(onPressed: () => Navigator.pop(context), child: Text("Annuler")),
                 ElevatedButton(
                   onPressed: () async {
                     if (rating > 0) {
@@ -86,12 +85,12 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                       });
                       if (context.mounted) {
                         Navigator.pop(context);
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(isAr ? "تم إرسال التقييم" : "Avis envoyé !")));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Avis envoyé !")));
                       }
                     }
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A), foregroundColor: Colors.white),
-                  child: Text(isAr ? "إرسال" : "Envoyer"),
+                  child: Text("Envoyer"),
                 ),
               ],
             );
@@ -103,7 +102,6 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -197,7 +195,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                   stream: FirebaseFirestore.instance.collection('users').doc(widget.userId).collection('reviews').snapshots(),
                   builder: (context, snapshot) {
                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                        return Text(isAr ? "بائع جديد" : "Nouveau vendeur", style: GoogleFonts.cairo(color: Colors.grey));
+                        return Text("Nouveau vendeur", style: GoogleFonts.cairo(color: Colors.grey));
                       }
                       
                       double total = 0;
@@ -213,7 +211,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                           const Icon(Icons.star, color: Colors.amber, size: 20),
                           const SizedBox(width: 5),
                           Text(
-                            "${avg.toStringAsFixed(1)} / 5 (${snapshot.data!.docs.length} ${isAr ? 'آراء' : 'avis'})",
+                            "${avg.toStringAsFixed(1)} / 5 (${snapshot.data!.docs.length} ${'avis'})",
                             style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -224,7 +222,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                    ElevatedButton.icon(
                     onPressed: _showRatingDialog,
                     icon: const Icon(Icons.star_rate_rounded),
-                    label: Text(isAr ? "قيم البائع" : "Noter ce vendeur"),
+                    label: Text("Noter ce vendeur"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber[100],
                       foregroundColor: Colors.brown,
@@ -239,7 +237,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                   padding: const EdgeInsets.all(16),
                   color: theme.cardColor,
                   child: Text(
-                    isPro ? (isAr ? "إعلانات المعرض" : "Vitrine du Showroom") : (isAr ? "إعلانات البائع" : "Annonces du vendeur"),
+                    isPro ? ("Vitrine du Showroom") : ("Annonces du vendeur"),
                     style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -261,7 +259,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
                     if (products.isEmpty) {
                       return Padding(
                         padding: const EdgeInsets.all(40.0),
-                        child: Text(isAr ? "لا توجد إعلانات أخرى" : "Aucune autre annonce", style: GoogleFonts.cairo(color: Colors.grey)),
+                        child: Text("Aucune autre annonce", style: GoogleFonts.cairo(color: Colors.grey)),
                       );
                     }
 

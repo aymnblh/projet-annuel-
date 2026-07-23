@@ -12,13 +12,11 @@ class CompareScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
-    
     // Safety check
     if (products.isEmpty) return const Scaffold(body: Center(child: Text("Aucun véhicule Ã  comparer")));
 
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„Ù…Ø±ÙƒØ¨Ø§Øª" : "Comparateur")),
+      appBar: AppBar(title: Text("Comparateur")),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SingleChildScrollView(
@@ -56,19 +54,19 @@ class CompareScreen extends StatelessWidget {
               ))
             ],
             rows: [
-              _buildRow(isAr ? "Ø§Ù„Ù…Ø§Ø±ÙƒØ©" : "Marque", (p) => p.brand ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„" : "Modèle", (p) => p.model ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ø³Ù†Ø©" : "Année", (p) => p.year ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ø¹Ø¯Ø§Ø¯" : "Km", (p) => "${p.km ?? '-'} km"),
-              _buildRow(isAr ? "Ø§Ù„Ø·Ø§Ù‚Ø©" : "Carburant", (p) => p.fuel ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ø¹Ù„Ø¨Ø©" : "Boîte", (p) => p.gearbox ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ù…Ø­Ø±Ùƒ" : "Moteur", (p) => p.engine ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„Ù„ÙˆÙ†" : "Couleur", (p) => p.color ?? "-"),
-              _buildRow(isAr ? "Ø§Ù„ÙˆØ«Ø§Ø¦Ù‚" : "Papiers", (p) => p.papers ?? "-"),
+              _buildRow("Marque", (p) => p.brand ?? "-"),
+              _buildRow("Modèle", (p) => p.model ?? "-"),
+              _buildRow("Année", (p) => p.year ?? "-"),
+              _buildRow("Km", (p) => "${p.km ?? '-'} km"),
+              _buildRow("Carburant", (p) => p.fuel ?? "-"),
+              _buildRow("Boîte", (p) => p.gearbox ?? "-"),
+              _buildRow("Moteur", (p) => p.engine ?? "-"),
+              _buildRow("Couleur", (p) => p.color ?? "-"),
+              _buildRow("Papiers", (p) => p.papers ?? "-"),
 
-              _buildRow(isAr ? "Ø§Ù„ØªØ¨Ø§Ø¯Ù„" : "Echange", (p) => p.exchange ? "Oui / Ù†Ø¹Ù…" : "Non / Ù„Ø§"),
-              _buildRow(isAr ? "Ø§Ù„ÙˆÙ„Ø§ÙŠØ©" : "Région / département", (p) => p.wilaya),
-              // _buildRow(isAr ? "Ø§Ù„Ù‡Ø§ØªÙ" : "Tel", (p) => p.phone ?? "-"),
+              _buildRow("Echange", (p) => p.exchange ? "Oui / Ù†Ø¹Ù…" : "Non / Ù„Ø§"),
+              _buildRow("Région / département", (p) => p.wilaya),
+              // _buildRow("Tel", (p) => p.phone ?? "-"),
             ],
           ),
         ),

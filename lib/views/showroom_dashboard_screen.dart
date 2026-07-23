@@ -38,14 +38,14 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isAr = languageNotifier.value == 'ar';
+    final
     final theme = Theme.of(context);
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          isAr ? 'Ù„ÙˆØ­Ø© ØªØ­ÙƒÙ… Ø§Ù„Ù…Ø¹Ø±Ø¶' : 'Tableau de Bord',
+          'Tableau de Bord',
           style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFF0F172A),
@@ -94,14 +94,14 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          isAr ? 'Ù…Ø±Ø­Ø¨Ø§ Ø¨Ùƒ!' : 'Bienvenue !',
+                          'Bienvenue !',
                           style: GoogleFonts.cairo(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          isAr ? 'Ø¯Ø§Ø´Ø¨ÙˆØ±Ø¯ Ø§Ù„Ø¨Ø§Ø¦Ø¹' : 'Votre tableau de bord',
+                          'Votre tableau de bord',
                           style: GoogleFonts.cairo(
                               color: Colors.white54, fontSize: 13),
                         ),
@@ -115,7 +115,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
 
               // â”€â”€ REAL STATS CARDS â”€â”€
               Text(
-                isAr ? 'Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ø£Ø¯Ø§Ø¡' : 'Performance des annonces',
+                'Performance des annonces',
                 style: GoogleFonts.cairo(
                     fontSize: 17, fontWeight: FontWeight.bold),
               ),
@@ -137,14 +137,14 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                       Row(
                         children: [
                           _StatCard(
-                            title: isAr ? 'Ø§Ù„Ù…Ø´Ø§Ù‡Ø¯Ø§Øª' : 'Vues totales',
+                            title: 'Vues totales',
                             value: _fmt(stats['views'] ?? 0),
                             icon: Icons.visibility_rounded,
                             color: Colors.blue,
                           ),
                           const SizedBox(width: 12),
                           _StatCard(
-                            title: isAr ? 'Ù…ÙƒØ§Ù„Ù…Ø§Øª' : 'Appels reçus',
+                            title: 'Appels reçus',
                             value: _fmt(stats['calls'] ?? 0),
                             icon: Icons.phone_rounded,
                             color: const Color(0xFF16A34A),
@@ -162,7 +162,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                           ),
                           const SizedBox(width: 12),
                           _StatCard(
-                            title: isAr ? 'Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª' : 'Annonces',
+                            title: 'Annonces',
                             value: _fmt(stats['listings'] ?? 0),
                             icon: Icons.directions_car_rounded,
                             color: Colors.orange,
@@ -187,9 +187,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
-                                  isAr
-                                      ? 'Ù…Ø¹Ø¯Ù„ Ø§Ù„ØªØ­ÙˆÙŠÙ„: ${_conversionRate(stats)}Ùª Ù…Ù† Ø§Ù„Ø²ÙŠØ§Ø±Ø§Øª ØªØ­ÙˆÙ„Øª Ø¥Ù„Ù‰ Ù…ÙƒØ§Ù„Ù…Ø§Øª.'
-                                      : 'Taux de conversion : ${_conversionRate(stats)} % des vues ont généré un appel ou WhatsApp.',
+                                  'Taux de conversion : ${_conversionRate(stats)} % des vues ont généré un appel ou WhatsApp.',
                                   style: GoogleFonts.cairo(
                                       fontSize: 12,
                                       color: const Color(0xFF16A34A)),
@@ -210,7 +208,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    isAr ? 'Ù…Ø®Ø²ÙˆÙ†ÙŠ' : 'Mes annonces',
+                    'Mes annonces',
                     style: GoogleFonts.cairo(
                         fontSize: 17, fontWeight: FontWeight.bold),
                   ),
@@ -221,7 +219,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                           builder: (_) => const AddProductScreen()),
                     ),
                     icon: const Icon(Icons.add_rounded, size: 16),
-                    label: Text(isAr ? 'Ø¥Ø¶Ø§ÙØ©' : 'Ajouter'),
+                    label: Text('Ajouter'),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF0F172A),
                         foregroundColor: Colors.white),
@@ -250,9 +248,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                                 size: 48, color: Colors.grey[300]),
                             const SizedBox(height: 12),
                             Text(
-                              isAr
-                                  ? 'Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¥Ø¹Ù„Ø§Ù†Ø§Øª Ø¨Ø¹Ø¯'
-                                  : 'Aucune annonce pour le moment',
+                              'Aucune annonce pour le moment',
                               style: GoogleFonts.cairo(
                                   color: Colors.grey[500]),
                             ),
@@ -465,8 +461,8 @@ class _InventoryTile extends StatelessWidget {
                     ),
                     child: Text(
                       product.isApproved
-                          ? (isAr ? 'Ù…Ù‚Ø¨ÙˆÙ„' : 'Actif')
-                          : (isAr ? 'Ø¨Ø§Ù†ØªØ¸Ø§Ø±' : 'En attente'),
+                          ? ('Actif')
+                          : ('En attente'),
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,

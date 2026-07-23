@@ -135,9 +135,8 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "ØªÙ‚Ø¯ÙŠØ± Ø§Ù„Ø£Ø³Ø¹Ø§Ø± (Argus)" : "La Côte Auto (Argus)")),
+      appBar: AppBar(title: Text("La Côte Auto (Argus)")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -154,12 +153,12 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
                    const Icon(Icons.price_change, color: Colors.amber, size: 50),
                    const SizedBox(height: 10),
                    Text(
-                     isAr ? "ÙƒÙ… ØªØ³Ø§ÙˆÙŠ Ø³ÙŠØ§Ø±ØªÙƒØŸ" : "Combien vaut votre voiture ?",
+                     "Combien vaut votre voiture ?",
                      style: GoogleFonts.cairo(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                    ),
                    const SizedBox(height: 5),
                    Text(
-                     isAr ? "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ ØªÙ‚Ø¯ÙŠØ± Ù„Ù„Ø³Ø¹Ø± ÙÙŠ Ø§Ù„Ø³ÙˆÙ‚ Ø§Ù„Ø¬Ø²Ø§Ø¦Ø±ÙŠ" : "Obtenez une estimation basée sur le marché actuel.",
+                     "Obtenez une estimation basée sur le marché actuel.",
                      textAlign: TextAlign.center,
                      style: const TextStyle(color: Colors.grey),
                    ),
@@ -170,7 +169,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
 
             // Form
             DropdownButtonFormField<String>(
-              decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ù…Ø§Ø±ÙƒØ©" : "Marque", border: const OutlineInputBorder()),
+              decoration: InputDecoration(labelText: "Marque", border: const OutlineInputBorder()),
               value: _selectedBrand,
               items: CategoriesData.carBrands.map((b) => DropdownMenuItem(value: b, child: Text(b))).toList(),
               onChanged: (v) => setState(() => _selectedBrand = v),
@@ -179,7 +178,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
             
             // Model (Simplified as Text for now or we can use Autocomplete)
             TextFormField(
-              decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„ (Ù…Ø«Ø§Ù„: Clio)" : "Modèle (ex: Clio)", border: const OutlineInputBorder()),
+              decoration: InputDecoration(labelText: "Modèle (ex: Clio)", border: const OutlineInputBorder()),
               onChanged: (v) => _selectedModel = v,
             ),
             const SizedBox(height: 15),
@@ -187,7 +186,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
             Row(children: [
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ø³Ù†Ø©" : "Année", border: const OutlineInputBorder()),
+                  decoration: InputDecoration(labelText: "Année", border: const OutlineInputBorder()),
                   value: _selectedYear,
                   items: _years.map((y) => DropdownMenuItem(value: y, child: Text(y))).toList(),
                   onChanged: (v) => setState(() => _selectedYear = v),
@@ -196,7 +195,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
               const SizedBox(width: 10),
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(labelText: isAr ? "Ø§Ù„ÙˆÙ‚ÙˆØ¯" : "Carburant", border: const OutlineInputBorder()),
+                  decoration: InputDecoration(labelText: "Carburant", border: const OutlineInputBorder()),
                   value: _selectedFuel,
                   items: CategoriesData.fuelTypes.map((f) => DropdownMenuItem(value: f, child: Text(f))).toList(),
                   onChanged: (v) => setState(() => _selectedFuel = v),
@@ -214,7 +213,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.amber[800], foregroundColor: Colors.white),
                   child: _calculating 
                     ? const CircularProgressIndicator(color: Colors.white) 
-                    : Text(isAr ? "Ø­Ø³Ø§Ø¨ Ø§Ù„Ø³Ø¹Ø±" : "ESTIMER LE PRIX", style: const TextStyle(fontWeight: FontWeight.bold)),
+                    : Text("ESTIMER LE PRIX", style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),
               
@@ -232,14 +231,14 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text(isAr ? "Ø§Ù„Ø³Ø¹Ø± Ø§Ù„ØªÙ‚Ø¯ÙŠØ±ÙŠ" : "Estimation du Marché", style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                      Text("Estimation du Marché", style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 10),
                       Text(
                         "${(_estimatedMin! / 10000).toStringAsFixed(0)} - ${(_estimatedMax! / 10000).toStringAsFixed(0)} Millions",
                         style: GoogleFonts.cairo(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.green[800]),
                       ),
                       const SizedBox(height: 5),
-                      Text(isAr ? "Ø§Ù„Ø³Ø¹Ø± Ù‚Ø¯ ÙŠØ®ØªÙ„Ù Ø­Ø³Ø¨ Ø§Ù„Ø­Ø§Ù„Ø© ÙˆØ§Ù„Ø¨Ù„Ø¯" : "Le prix peut varier selon l'état, la région, le département et la ville.", style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      Text("Le prix peut varier selon l'état, la région, le département et la ville.", style: const TextStyle(fontSize: 12, color: Colors.grey)),
                     ],
                   ),
                 ),

@@ -95,7 +95,6 @@ class _FilterSheetState extends State<FilterSheet> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
     return Container(
@@ -118,10 +117,10 @@ class _FilterSheetState extends State<FilterSheet> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(isAr ? "ØªØµÙÙŠØ© ÙˆØªØ±ØªÙŠØ¨" : "Filtres & Tri", style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
+                Text("Filtres & Tri", style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
                 TextButton(
                   onPressed: _reset,
-                  child: Text(isAr ? "Ø¥Ø¹Ø§Ø¯Ø© ØªØ¹ÙŠÙŠÙ†" : "Réinitialiser", style: GoogleFonts.cairo(color: Colors.red)),
+                  child: Text("Réinitialiser", style: GoogleFonts.cairo(color: Colors.red)),
                 )
               ],
             ),
@@ -132,52 +131,52 @@ class _FilterSheetState extends State<FilterSheet> {
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                _buildSectionTitle(isAr ? "Ø±ØªØ¨ Ø­Ø³Ø¨" : "Trier par", isDark),
+                _buildSectionTitle("Trier par", isDark),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 10,
                   children: [
-                    _buildSortChip(isAr ? "Ø§Ù„Ø£Ø­Ø¯Ø«" : "Plus récent", 0, isDark),
-                    _buildSortChip(isAr ? "Ø§Ù„Ø³Ø¹Ø±: ØªØµØ§Ø¹Ø¯ÙŠ" : "Prix croissant", 1, isDark),
-                    _buildSortChip(isAr ? "Ø§Ù„Ø³Ø¹Ø±: ØªÙ†Ø§Ø²Ù„ÙŠ" : "Prix décroissant", 2, isDark),
+                    _buildSortChip("Plus récent", 0, isDark),
+                    _buildSortChip("Prix croissant", 1, isDark),
+                    _buildSortChip("Prix décroissant", 2, isDark),
                   ],
                 ),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "Ø§Ù„Ù…ÙˆÙ‚Ø¹" : "Région / département", isDark),
+                _buildSectionTitle("Région / département", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedWilaya,
-                  decoration: _inputDecoration(isAr ? "Ø§Ù„Ø¯ÙˆÙ„Ø©" : "Région / département", isDark),
+                  decoration: _inputDecoration("Région / département", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: null, child: Text(isAr ? "Ø§Ù„ÙƒÙ„" : "Tout")), ..._wilayas.map((w) => DropdownMenuItem(value: w, child: Text(w)))],
+                  items: [DropdownMenuItem(value: null, child: Text("Tout")), ..._wilayas.map((w) => DropdownMenuItem(value: w, child: Text(w)))],
                   onChanged: (v) => setState(() => _selectedWilaya = v),
                 ),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "Ø§Ù„ÙØ¦Ø©" : "Catégorie", isDark),
+                _buildSectionTitle("Catégorie", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedCategory,
                   decoration: _inputDecoration("", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: 'Tout', child: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout')), ...CategoriesData.subCategories.keys.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
+                  items: [DropdownMenuItem(value: 'Tout', child: Text('Tout')), ...CategoriesData.subCategories.keys.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
                   onChanged: (v) => setState(() => _selectedCategory = v!),
                 ),
                 const SizedBox(height: 25),
                 
-                 _buildSectionTitle(isAr ? "Ø§Ù„Ù…Ø§Ø±ÙƒØ©" : "Marque", isDark),
+                 _buildSectionTitle("Marque", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedBrand,
                   decoration: _inputDecoration("", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout')), ...CategoriesData.carBrands.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
+                  items: [DropdownMenuItem(value: null, child: Text('Tout')), ...CategoriesData.carBrands.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
                   onChanged: (v) => setState(() => _selectedBrand = v),
                 ),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "Ø§Ù„Ø³Ø¹Ø± (Ø¯Ø¬)" : "Prix (EUR)", isDark),
+                _buildSectionTitle("Prix (EUR)", isDark),
                 Row(children: [
                   Expanded(child: TextField(controller: _minPriceController, keyboardType: TextInputType.number, style: TextStyle(color: isDark ? Colors.white : Colors.black), decoration: _inputDecoration("Min", isDark))),
                   const SizedBox(width: 15),
@@ -186,7 +185,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 const SizedBox(height: 25),
 
                 // VEHICLE SPECIFIC
-                _buildSectionTitle(isAr ? "Ø§Ù„Ø³Ù†Ø©" : "Année", isDark),
+                _buildSectionTitle("Année", isDark),
                 Row(children: [
                   Expanded(child: TextField(controller: _minYearController, keyboardType: TextInputType.number, style: TextStyle(color: isDark ? Colors.white : Colors.black), decoration: _inputDecoration("Min", isDark))),
                   const SizedBox(width: 15),
@@ -194,7 +193,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 ]),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "Ø§Ù„Ù…Ø³Ø§ÙØ© (ÙƒÙ…)" : "Kilométrage", isDark),
+                _buildSectionTitle("Kilométrage", isDark),
                 Row(children: [
                   Expanded(child: TextField(controller: _minKmController, keyboardType: TextInputType.number, style: TextStyle(color: isDark ? Colors.white : Colors.black), decoration: _inputDecoration("Min", isDark))),
                   const SizedBox(width: 15),
@@ -202,24 +201,24 @@ class _FilterSheetState extends State<FilterSheet> {
                 ]),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "Ø§Ù„ÙˆÙ‚ÙˆØ¯" : "Carburant", isDark),
+                _buildSectionTitle("Carburant", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedFuel,
                   decoration: _inputDecoration("", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout')), ...CategoriesData.fuelTypes.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
+                  items: [DropdownMenuItem(value: null, child: Text('Tout')), ...CategoriesData.fuelTypes.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
                   onChanged: (v) => setState(() => _selectedFuel = v),
                 ),
                 const SizedBox(height: 25),
 
-                 _buildSectionTitle(isAr ? "Ø¹Ù„Ø¨Ø© Ø§Ù„Ø³Ø±Ø¹Ø©" : "Boîte", isDark),
+                 _buildSectionTitle("Boîte", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedGearbox,
                   decoration: _inputDecoration("", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout')), ...CategoriesData.gearboxes.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
+                  items: [DropdownMenuItem(value: null, child: Text('Tout')), ...CategoriesData.gearboxes.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
                   onChanged: (v) => setState(() => _selectedGearbox = v),
                 ),
               ],
@@ -233,7 +232,7 @@ class _FilterSheetState extends State<FilterSheet> {
               child: ElevatedButton(
                 onPressed: _apply,
                 style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A)),
-                child: Text(isAr ? "Ø¹Ø±Ø¶ Ø§Ù„Ù†ØªØ§Ø¦Ø¬" : "Voir résultats", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
+                child: Text("Voir résultats", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
               ),
             ),
           ),

@@ -8,12 +8,11 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isAr ? "حول التطبيق" : "À propos"),
+        title: Text("À propos"),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -41,7 +40,7 @@ class AboutScreen extends StatelessWidget {
           ),
           Center(
             child: Text(
-              isAr ? "منصة بيع وشراء السيارات في أوروبا" : "Plateforme de vente et achat de voitures en Europe",
+              "Plateforme de vente et achat de voitures en Europe",
               style: GoogleFonts.cairo(fontSize: 14, color: Colors.grey),
               textAlign: TextAlign.center,
             ),
@@ -57,31 +56,29 @@ class AboutScreen extends StatelessWidget {
 
           // Description
           _buildSection(
-            isAr ? "من نحن" : "Qui sommes-nous ?",
-            isAr 
-              ? "OneClick Cars هي منصة رائدة لبيع وشراء السيارات. نوفر تجربة سلسة وآمنة للمستخدمين للعثور على سيارة أحلامهم أو بيع سياراتهم بسهولة."
-              : "OneClick Cars est une plateforme leader pour la vente et l'achat de voitures. Nous offrons une expérience fluide et sécurisée pour trouver la voiture de vos rêves ou vendre votre véhicule facilement.",
+            "Qui sommes-nous ?",
+            "OneClick Cars est une plateforme leader pour la vente et l'achat de voitures. Nous offrons une expérience fluide et sécurisée pour trouver la voiture de vos rêves ou vendre votre véhicule facilement.",
             isDark,
           ),
           const SizedBox(height: 20),
 
           // Features
           _buildSection(
-            isAr ? "المميزات" : "Fonctionnalités",
+            "Fonctionnalités",
             "",
             isDark,
           ),
-          _buildFeature(Icons.search, isAr ? "بحث متقدم مع فلاتر ذكية" : "Recherche avancée avec filtres intelligents", isDark),
-          _buildFeature(Icons.compare_arrows, isAr ? "مقارنة السيارات" : "Comparaison de voitures", isDark),
-          _buildFeature(Icons.notifications_active, isAr ? "تنبيهات البحث" : "Alertes de recherche", isDark),
-          _buildFeature(Icons.price_change, isAr ? "تقدير الأسعار (Argus)" : "Estimation de prix (Argus)", isDark),
-          _buildFeature(Icons.dashboard, isAr ? "لوحة تحكم للمحترفين" : "Dashboard professionnel", isDark),
+          _buildFeature(Icons.search, "Recherche avancée avec filtres intelligents", isDark),
+          _buildFeature(Icons.compare_arrows, "Comparaison de voitures", isDark),
+          _buildFeature(Icons.notifications_active, "Alertes de recherche", isDark),
+          _buildFeature(Icons.price_change, "Estimation de prix (Argus)", isDark),
+          _buildFeature(Icons.dashboard, "Dashboard professionnel", isDark),
           const SizedBox(height: 30),
 
           // Copyright
           Center(
             child: Text(
-              "© 2026 OneClick Cars. ${isAr ? 'جميع الحقوق محفوظة' : 'Tous droits réservés'}.",
+              "© 2026 OneClick Cars. ${'Tous droits réservés'}.",
               style: GoogleFonts.cairo(fontSize: 12, color: Colors.grey[600]),
               textAlign: TextAlign.center,
             ),

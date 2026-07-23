@@ -28,7 +28,6 @@ class BoutiqueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     String storeName = sellerData['storeName'] ?? "Boutique";
     String storeDesc = sellerData['storeDescription'] ?? "";
     String logoUrl = sellerData['logoUrl'] ?? "";
@@ -81,7 +80,7 @@ class BoutiqueScreen extends StatelessWidget {
                                    child: Container(
                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                      decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(5)),
-                                     child: Text(isAr ? "📍 التوجه للمحل" : "📍 Y aller (Maps)", style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 12)),
+                                     child: Text("📍 Y aller (Maps)", style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 12)),
                                    ),
                                  ),
                                )
@@ -119,7 +118,7 @@ class BoutiqueScreen extends StatelessWidget {
                          */
                       },
                       icon: const Icon(Icons.chat_bubble_outline),
-                      label: Text(isAr ? "مراسلة المتجر" : "Contacter la boutique"),
+                      label: Text("Contacter la boutique"),
                     ),
                   )
                 ],
@@ -131,7 +130,7 @@ class BoutiqueScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text(isAr ? "المنتجات" : "Produits en vente", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
+              child: Text("Produits en vente", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
           ),
 
@@ -144,7 +143,7 @@ class BoutiqueScreen extends StatelessWidget {
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) return const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
-              if (snapshot.data!.docs.isEmpty) return SliverToBoxAdapter(child: Center(child: Padding(padding: const EdgeInsets.all(20), child: Text(isAr ? "لا توجد منتجات حاليا" : "Aucun produit pour le moment"))));
+              if (snapshot.data!.docs.isEmpty) return SliverToBoxAdapter(child: Center(child: Padding(padding: const EdgeInsets.all(20), child: Text("Aucun produit pour le moment"))));
 
               final products = snapshot.data!.docs.map((d) => Product.fromFirestore(d)).toList();
 

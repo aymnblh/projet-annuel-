@@ -18,11 +18,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(isAr ? "Ù„ÙˆØ­Ø© Ø§Ù„Ù‚ÙŠØ§Ø¯Ø©" : "Tableau de Bord", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
+        title: Text("Tableau de Bord", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 1,
@@ -35,7 +33,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) return const Center(child: CircularProgressIndicator());
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text(isAr ? "Ù„ÙŠØ³ Ù„Ø¯ÙŠÙƒ Ù…Ù†ØªØ¬Ø§Øª Ø¨Ø¹Ø¯" : "Aucun produit pour l'instant"));
+            return Center(child: Text("Aucun produit pour l'instant"));
           }
 
           final products = snapshot.data!.docs.map((d) => Product.fromFirestore(d)).toList();
@@ -64,25 +62,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: [
                     _buildStatCard(
                       icon: Icons.visibility, 
-                      title: isAr ? "Ø§Ù„Ù…Ø´Ø§Ù‡Ø¯Ø§Øª" : "Vues Totales", 
+                      title: "Vues Totales", 
                       value: "$totalViews", 
                       gradient: const LinearGradient(colors: [Color(0xFF2193b0), Color(0xFF6dd5ed)])
                     ),
                     _buildStatCard(
                       icon: Icons.shopping_bag, 
-                      title: isAr ? "Ø§Ù„Ù…Ø¨ÙŠØ¹Ø§Øª" : "Ventes", 
+                      title: "Ventes", 
                       value: "$totalSold", 
                       gradient: const LinearGradient(colors: [Color(0xFF11998e), Color(0xFF38ef7d)])
                     ),
                     _buildStatCard(
                       icon: Icons.inventory, 
-                      title: isAr ? "Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª" : "Produits", 
+                      title: "Produits", 
                       value: "$totalProducts", 
                       gradient: const LinearGradient(colors: [Color(0xFFf12711), Color(0xFFf5af19)])
                     ),
                     _buildStatCard(
                       icon: Icons.attach_money, 
-                      title: isAr ? "Ø§Ù„Ø£Ø±Ø¨Ø§Ø­" : "Revenus", 
+                      title: "Revenus", 
                       value: "${totalRevenue.toStringAsFixed(0)} EUR", 
                       gradient: const LinearGradient(colors: [Color(0xFF8E2DE2), Color(0xFF4A00E0)])
                     ),
@@ -92,7 +90,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 const SizedBox(height: 25),
                 
                 // 2. CHART (Simulation Views vs Sales)
-                Text(isAr ? "ØªØ­Ù„ÙŠÙ„ Ø§Ù„Ø£Ø¯Ø§Ø¡" : "Performance", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text("Performance", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 15),
                 Container(
                   height: 220,

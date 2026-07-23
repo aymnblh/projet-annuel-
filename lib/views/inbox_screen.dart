@@ -25,7 +25,6 @@ class _InboxScreenState extends State<InboxScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -33,7 +32,7 @@ class _InboxScreenState extends State<InboxScreen> {
       backgroundColor: isDark ? theme.scaffoldBackgroundColor : const Color(0xFFF8FAFC),
       appBar: AppBar(
         title: Text(
-          isAr ? "الرسائل" : "Messages",
+          "Messages",
           style: GoogleFonts.cairo(
             fontWeight: FontWeight.bold,
             color: theme.textTheme.bodyLarge?.color,
@@ -57,7 +56,7 @@ class _InboxScreenState extends State<InboxScreen> {
                 children: [
                   Icon(Icons.chat_bubble_outline, size: 80, color: Colors.grey[300]),
                   const SizedBox(height: 20),
-                  Text(isAr ? "لا توجد رسائل بعد" : "Aucune discussion", style: GoogleFonts.cairo(color: Colors.grey, fontSize: 18)),
+                  Text("Aucune discussion", style: GoogleFonts.cairo(color: Colors.grey, fontSize: 18)),
                 ],
               ),
             );
@@ -82,7 +81,7 @@ class _InboxScreenState extends State<InboxScreen> {
                     Navigator.push(context, MaterialPageRoute(builder: (_) => ChatRoomScreen(
                       chatId: chat.id,
                       otherUserName: chat.productName, // On affiche le nom du produit comme titre
-                      productName: isAr ? "انقر للتفاصيل" : "Discussion sur l'article",
+                      productName: "Discussion sur l'article",
                     )));
                   },
                   // Image du produit
@@ -112,7 +111,7 @@ class _InboxScreenState extends State<InboxScreen> {
                         ),
                       ),
                       Text(
-                        timeago.format(chat.lastMessageTime, locale: isAr ? 'ar_short' : 'fr_short'),
+                        timeago.format(chat.lastMessageTime, locale: 'fr_short'),
                         style: TextStyle(fontSize: 12, color: Colors.grey[400]),
                       ),
                     ],

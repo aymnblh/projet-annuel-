@@ -37,7 +37,7 @@ class _StockManagerState extends State<StockManager> {
       decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       validator: (val) {
         if (isOptional) return null;
-        return val!.isEmpty ? (widget.isAr ? "مطلوب" : "Requis") : null;
+        return val!.isEmpty ? (widget."Requis") : null;
       },
     );
   }
@@ -81,7 +81,7 @@ class _StockManagerState extends State<StockManager> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(isAr ? "إدارة المخزون" : "Gestion de Stock", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, color: Colors.orange[800])),
+              Text("Gestion de Stock", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, color: Colors.orange[800])),
               Switch(
                 value: widget.hasVariants, 
                 onChanged: widget.onHasVariantsChanged,
@@ -91,21 +91,21 @@ class _StockManagerState extends State<StockManager> {
           ),
           Text(
             widget.hasVariants 
-              ? (isAr ? "هذا المنتج لديه خيارات (مقاسات، ألوان...)" : "Ce produit a des variantes (Tailles, Couleurs...)")
-              : (isAr ? "منتج بسيط (بدون خيارات)" : "Produit simple (Pas de variantes)"),
+              ? ("Ce produit a des variantes (Tailles, Couleurs...)")
+              : ("Produit simple (Pas de variantes)"),
             style: TextStyle(fontSize: 12, color: Colors.grey[600]),
           ),
           const SizedBox(height: 10),
 
           if (!widget.hasVariants)
-            _buildTextField(widget.simpleStockController, isAr ? "الكمية المتوفرة" : "Quantité disponible", isNumber: true),
+            _buildTextField(widget.simpleStockController, "Quantité disponible", isNumber: true),
 
           if (widget.hasVariants) ...[
             Row(
               children: [
-                Expanded(flex: 2, child: _buildTextField(_variantNameController, isAr ? "اسم الخيار (مثال: أحمر، XL)" : "Variante (ex: XL, Rouge)")),
+                Expanded(flex: 2, child: _buildTextField(_variantNameController, "Variante (ex: XL, Rouge)")),
                 const SizedBox(width: 10),
-                Expanded(flex: 1, child: _buildTextField(_variantQtyController, isAr ? "الكمية" : "Qté", isNumber: true)),
+                Expanded(flex: 1, child: _buildTextField(_variantQtyController, "Qté", isNumber: true)),
                 IconButton(
                   onPressed: _addVariant,
                   icon: const Icon(Icons.add_circle, color: Colors.orange, size: 30),
@@ -114,7 +114,7 @@ class _StockManagerState extends State<StockManager> {
             ),
             const SizedBox(height: 10),
             if (widget.variants.isEmpty)
-              Text(isAr ? "لا توجد خيارات مضافة" : "Aucune variante ajoutée", style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.grey)),
+              Text("Aucune variante ajoutée", style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.grey)),
             
             ...widget.variants.map((v) => Container(
               margin: const EdgeInsets.only(bottom: 5),

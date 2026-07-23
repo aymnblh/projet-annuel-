@@ -263,8 +263,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
-
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -281,7 +279,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> with SingleTickerProvid
                   
                   if (isOtherTyping) {
                     return Text(
-                      isAr ? 'يكتب...' : 'en train d\'écrire...',
+                      'en train d\'écrire...',
                       style: GoogleFonts.cairo(fontSize: 12, color: Colors.green, fontStyle: FontStyle.italic),
                     );
                   }
@@ -316,7 +314,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> with SingleTickerProvid
                 if (messages.isEmpty) {
                   return Center(
                     child: Text(
-                      isAr ? "ابدأ المحادثة الآن!" : "Dites bonjour ! 👋",
+                      "Dites bonjour ! 👋",
                       style: GoogleFonts.cairo(color: Colors.grey),
                     ),
                   );
@@ -405,7 +403,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> with SingleTickerProvid
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    timeago.format(msg.timestamp, locale: isAr ? 'ar_short' : 'fr_short'),
+                                    timeago.format(msg.timestamp, locale: 'fr_short'),
                                     style: TextStyle(
                                       fontSize: 10,
                                       color: isMe ? Colors.white70 : Colors.black54,
@@ -486,7 +484,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> with SingleTickerProvid
                   child: TextField(
                     controller: _messageController,
                     decoration: InputDecoration(
-                      hintText: isAr ? "اكتب رسالة..." : "Écrire un message...",
+                      hintText: "Écrire un message...",
                       hintStyle: GoogleFonts.cairo(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),

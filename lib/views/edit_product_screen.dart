@@ -98,13 +98,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     final productProvider = context.watch<ProductProvider>();
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(isAr ? "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†" : "Modifier l'annonce", 
+        title: Text("Modifier l'annonce", 
           style: GoogleFonts.cairo(fontWeight: FontWeight.bold, color: const Color(0xFF0F172A))),
         backgroundColor: Colors.white,
         elevation: 0,

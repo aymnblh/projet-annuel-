@@ -506,7 +506,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   // --- UI BUILDERS ---
   
   Widget _buildDropdown(String label, List<String> items, String? value, Function(String?) onChanged, {Map<String, String>? translations}) {
-    bool isAr = languageNotifier.value == 'ar';
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       value: value,
@@ -563,7 +562,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          isAr ? 'Ù†ÙˆØ¹ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†' : 'Type d\'annonce',
+          'Type d\'annonce',
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         const SizedBox(height: 8),
@@ -571,17 +570,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
           segments: [
             ButtonSegment(
               value: 'sale',
-              label: Text(isAr ? 'Ù„Ù„Ø¨ÙŠØ¹' : 'À Vendre'),
+              label: Text('À Vendre'),
               icon: const Icon(Icons.sell_rounded),
             ),
             ButtonSegment(
               value: 'rent',
-              label: Text(isAr ? 'Ù„Ù„Ø¥ÙŠØ¬Ø§Ø±' : 'À Louer'),
+              label: Text('À Louer'),
               icon: const Icon(Icons.vpn_key_rounded),
             ),
             ButtonSegment(
               value: 'both',
-              label: Text(isAr ? 'ÙƒÙ„Ø§Ù‡Ù…Ø§' : 'Les deux'),
+              label: Text('Les deux'),
               icon: const Icon(Icons.compare_arrows_rounded),
             ),
           ],
@@ -606,7 +605,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildDropdown(
-          isAr ? 'Ø¯ÙˆÙ„Ø© Ø§Ù„Ø¨Ø§Ø¦Ø¹' : 'Pays du vendeur',
+          'Pays du vendeur',
           CategoriesData.sellerCountries,
           _sellerCountry,
           (v) => setState(() => _sellerCountry = v ?? 'France'),
@@ -628,9 +627,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      isAr
-                        ? 'ØªÙ†Ø¨ÙŠÙ‡ Ø§Ø³ØªÙŠØ±Ø§Ø¯: Ø§Ù„Ø³ÙŠØ§Ø±Ø© ÙŠØ¬Ø¨ Ø£Ù† ØªÙƒÙˆÙ† Ø£Ù‚Ù„ Ù…Ù† 3 Ø³Ù†ÙˆØ§Øª (${DateTime.now().year - 2} Ø£Ùˆ Ø£Ø­Ø¯Ø«).'
-                        : 'Vente transfrontaliere : verifiez COC, TVA/quitus fiscal, immatriculation et assurance selon le pays.',
+                      'Vente transfrontaliere : verifiez COC, TVA/quitus fiscal, immatriculation et assurance selon le pays.',
                       style: const TextStyle(fontSize: 12, color: Colors.orange),
                     ),
                   ),
@@ -644,11 +641,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAr = languageNotifier.value == 'ar';
     bool isVehicle = _selectedCategory.contains("Voiture") || _selectedCategory == "Camions & Engins" || _selectedCategory == "Motos";
 
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "Ø¥Ø¶Ø§ÙØ© Ø¥Ø¹Ù„Ø§Ù†" : "Publier une annonce"), actions: [
+      appBar: AppBar(title: Text("Publier une annonce"), actions: [
         IconButton(onPressed: _saveDraft, icon: const Icon(Icons.save_outlined))
       ]),
       body: SingleChildScrollView(
@@ -675,17 +671,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
               _buildSellerCountryPicker(isAr),
               const SizedBox(height: 15),
 
-              _buildDropdown(isAr ? "الفئة" : "Catégorie *", CategoriesData.categoryTranslations.keys.toList(), _selectedCategory, (v) => setState(() => _selectedCategory = v!), translations: CategoriesData.categoryTranslations),
+              _buildDropdown("Catégorie *", CategoriesData.categoryTranslations.keys.toList(), _selectedCategory, (v) => setState(() => _selectedCategory = v!), translations: CategoriesData.categoryTranslations),
               const SizedBox(height: 15),
 
-              _buildTextField(_titleController, isAr ? "العنوان" : "Titre de l'annonce"),
+              _buildTextField(_titleController, "Titre de l'annonce"),
               const SizedBox(height: 15),
-              _buildTextField(_priceController, isAr ? "السعر" : "Prix (EUR)", isNumber: true),
+              _buildTextField(_priceController, "Prix (EUR)", isNumber: true),
               const SizedBox(height: 15),
 
               if (isVehicle) ...[
                 const Divider(),
-                Text(isAr ? "مواصفات المركبة" : "Spécifications du véhicule", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text("Spécifications du véhicule", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 const SizedBox(height: 10),
                 
                 Row(children: [
@@ -712,7 +708,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             controller: textEditingController,
                             focusNode: focusNode,
                             decoration: InputDecoration(
-                              labelText: isAr ? "الماركة" : "Marque *",
+                              labelText: "Marque *",
                               border: const OutlineInputBorder(),
                             ),
                             // FIX 2: Capturer la marque même si l'utilisateur saisit manuellement
@@ -731,37 +727,37 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   )),
 
                   const SizedBox(width: 10),
-                  Expanded(child: _buildTextField(_modelController, isAr ? "الموديل" : "Modèle *")),
+                  Expanded(child: _buildTextField(_modelController, "Modèle *")),
                 ]),
                 const SizedBox(height: 10),
                 
                 Row(children: [
-                  Expanded(child: _buildTextField(_yearController, isAr ? "السنة" : "Année (ex: 2023)", isNumber: true)),
+                  Expanded(child: _buildTextField(_yearController, "Année (ex: 2023)", isNumber: true)),
                   const SizedBox(width: 10),
-                  Expanded(child: _buildTextField(_kmController, isAr ? "المسافة (كم)" : "Kilométrage", isNumber: true)),
+                  Expanded(child: _buildTextField(_kmController, "Kilométrage", isNumber: true)),
                 ]),
                 const SizedBox(height: 10),
 
                 Row(children: [
-                  Expanded(child: _buildDropdown(isAr ? "الوقود" : "Carburant *", CategoriesData.fuelTypes, _selectedFuel, (v) => setState(() => _selectedFuel = v), translations: CategoriesData.fuelTranslations)),
+                  Expanded(child: _buildDropdown("Carburant *", CategoriesData.fuelTypes, _selectedFuel, (v) => setState(() => _selectedFuel = v), translations: CategoriesData.fuelTranslations)),
                   const SizedBox(width: 10),
-                  Expanded(child: _buildDropdown(isAr ? "ناقل الحركة" : "Boîte", CategoriesData.gearboxes, _selectedGearbox, (v) => setState(() => _selectedGearbox = v), translations: CategoriesData.gearboxTranslations)),
+                  Expanded(child: _buildDropdown("Boîte", CategoriesData.gearboxes, _selectedGearbox, (v) => setState(() => _selectedGearbox = v), translations: CategoriesData.gearboxTranslations)),
                 ]),
                 const SizedBox(height: 10),
 
                 Row(children: [
-                  Expanded(child: _buildDropdown(isAr ? "اللون" : "Couleur", CategoriesData.colors, _selectedColor, (v) => setState(() => _selectedColor = v), translations: CategoriesData.colorTranslations)),
+                  Expanded(child: _buildDropdown("Couleur", CategoriesData.colors, _selectedColor, (v) => setState(() => _selectedColor = v), translations: CategoriesData.colorTranslations)),
                   const SizedBox(width: 10),
-                  Expanded(child: _buildTextField(_engineController, isAr ? "المحرك" : "Moteur (ex: 1.6 HDI)")),
+                  Expanded(child: _buildTextField(_engineController, "Moteur (ex: 1.6 HDI)")),
                 ]),
                 const SizedBox(height: 10),
 
-                _buildDropdown(isAr ? "الأوراق" : "Papiers", CategoriesData.papers, _selectedPaper, (v) => setState(() => _selectedPaper = v), translations: CategoriesData.papersTranslations),
+                _buildDropdown("Papiers", CategoriesData.papers, _selectedPaper, (v) => setState(() => _selectedPaper = v), translations: CategoriesData.papersTranslations),
                 
                 CheckboxListTile(
                   value: _exchangeAccepted, 
                   onChanged: (v) => setState(() => _exchangeAccepted = v!),
-                  title: Text(isAr ? "أقبل التبادل" : "J'accepte l'échange"),
+                  title: Text("J'accepte l'échange"),
                   contentPadding: EdgeInsets.zero,
                 ),
                 const Divider(),
@@ -770,7 +766,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               // --- AI-DETECTED EQUIPMENTS ---
               if (_detectedEquipments.isNotEmpty) ...[
                 Text(
-                  isAr ? "المميزات المكتشفة بالذكاء الاصطناعي" : "Équipements détectés par l'IA ✨",
+                  "Équipements détectés par l'IA ✨",
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
                 const SizedBox(height: 8),
@@ -790,7 +786,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 15),
               ],
 
-              _buildTextField(_descController, isAr ? "الوصف" : "Description", lines: 4),
+              _buildTextField(_descController, "Description", lines: 4),
               const SizedBox(height: 8),
               
               // --- GENERATE MARKETING DESCRIPTION BUTTON ---
@@ -801,8 +797,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     : const Icon(Icons.auto_awesome, color: Colors.purple),
                 label: Text(
                   _isGeneratingDescription
-                      ? (isAr ? "جاري التوليد..." : "Génération en cours...")
-                      : (isAr ? "✨ توليد وصف بيع احترافي" : "✨ Générer une description vendeuse"),
+                      ? ("Génération en cours...")
+                      : ("✨ Générer une description vendeuse"),
                   style: TextStyle(color: _isGeneratingDescription ? Colors.grey : Colors.purple),
                 ),
                 style: OutlinedButton.styleFrom(
@@ -856,7 +852,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     child: DropdownButtonFormField<int>(
                       isExpanded: true, 
                       value: _selectedWilayaId,
-                      decoration: InputDecoration(labelText: isAr ? "الولاية" : "Pays", border: const OutlineInputBorder()),
+                      decoration: InputDecoration(labelText: "Pays", border: const OutlineInputBorder()),
                       items: _wilayaList.asMap().entries.map((entry) => DropdownMenuItem<int>(
                         value: entry.key + 1,
                         child: Text(entry.value['nom_fr'], overflow: TextOverflow.ellipsis)
@@ -869,7 +865,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     child: DropdownButtonFormField<String>(
                       isExpanded: true, 
                       value: _selectedCommuneName,
-                      decoration: InputDecoration(labelText: isAr ? "المدينة" : "Ville", border: const OutlineInputBorder()),
+                      decoration: InputDecoration(labelText: "Ville", border: const OutlineInputBorder()),
                       items: _filteredCommunes.map((c) => DropdownMenuItem<String>(
                         value: c['nom_fr'],
                         child: Text(c['nom_fr'], overflow: TextOverflow.ellipsis)
@@ -880,7 +876,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ]
               ),
               const SizedBox(height: 15),
-              _buildTextField(_phoneController, isAr ? "الهاتف" : "Téléphone", isNumber: true),
+              _buildTextField(_phoneController, "Téléphone", isNumber: true),
 
               const SizedBox(height: 30),
               ElevatedButton.icon(
@@ -894,7 +890,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
                     : const Icon(Icons.check, color: Colors.white),
                 label: Text(
-                  isAr ? "نشر الإعلان" : "PUBLIER",
+                  "PUBLIER",
                   style: TextStyle(
                     color: getContrastTextColor(const Color(0xFF0F172A)),
                     fontWeight: FontWeight.bold,

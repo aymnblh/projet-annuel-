@@ -187,13 +187,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   // â”€â”€ REPORT LISTING â”€â”€
   void _showReportSheet() {
-    bool isAr = languageNotifier.value == 'ar';
     final reasons = [
-      isAr ? 'Ø§Ù„Ø³Ø¹Ø± ØºÙŠØ± ØµØ­ÙŠØ­' : 'Prix incorrect',
-      isAr ? 'Ø§Ù„Ø³ÙŠØ§Ø±Ø© Ø¨ÙŠØ¹Øª' : 'Voiture déjÃ  vendue',
-      isAr ? 'Ø¥Ø¹Ù„Ø§Ù† Ù…Ø²ÙŠÙ' : 'Annonce frauduleuse',
-      isAr ? 'ØµÙˆØ± Ù…Ø¶Ù„Ù„Ø©' : 'Photos trompeuses',
-      isAr ? 'Ø£Ø®Ø±Ù‰' : 'Autre',
+      'Prix incorrect',
+      'Voiture déjÃ  vendue',
+      'Annonce frauduleuse',
+      'Photos trompeuses',
+      'Autre',
     ];
 
     showModalBottomSheet(
@@ -214,9 +213,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               const SizedBox(height: 6),
               Text(
-                isAr
-                    ? 'Ù„Ù…Ø§Ø°Ø§ ØªØ±ÙŠØ¯ Ø§Ù„Ø¥Ø¨Ù„Ø§Øº Ø¹Ù† Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†ØŸ'
-                    : 'Pour quelle raison signalez-vous cette annonceÂ ?',
+                'Pour quelle raison signalez-vous cette annonceÂ ?',
                 style: GoogleFonts.cairo(
                     fontSize: 13, color: Colors.grey[600]),
               ),
@@ -236,9 +233,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       );
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(isAr
-                              ? 'ØªÙ… Ø§Ù„Ø¥Ø¨Ù„Ø§Øº. Ø´ÙƒØ±Ù‹Ø§ Ù„Ù…Ø³Ø§Ø¹Ø¯ØªÙ†Ø§!'
-                              : 'Signalement envoyé. MerciÂ !'),
+                          content: Text('Signalement envoyé. MerciÂ !'),
                           backgroundColor: Colors.green,
                         ));
                       }
@@ -258,26 +253,25 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       context: context,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (context) {
-        bool isAr = languageNotifier.value == 'ar';
         return Container(
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(isAr ? "🚀 Ù…ÙŠØ² Ø¥Ø¹Ù„Ø§Ù†Ùƒ" : "🚀 Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text("🚀 Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
               const SizedBox(height: 10),
-              Text(isAr ? "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ Ù…Ø´Ø§Ù‡Ø¯Ø§Øª Ø£ÙƒØ«Ø± Ø¨Ù€ 10 Ø£Ø¶Ø¹Ø§Ù!" : "Obtenez jusqu'Ã  10x plus de vues en apparaissant en tête de liste.", textAlign: TextAlign.center),
+              Text("Obtenez jusqu'Ã  10x plus de vues en apparaissant en tête de liste.", textAlign: TextAlign.center),
               const SizedBox(height: 20),
               
               _buildBoostOption(
-                title: isAr ? "24 Ø³Ø§Ø¹Ø©" : "24 Heures",
+                title: "24 Heures",
                 price: "200 EUR",
                 color: Colors.blue.shade100,
                 onTap: () => _processBoostPayment(1),
               ),
               const SizedBox(height: 10),
               _buildBoostOption(
-                title: isAr ? "7 Ø£ÙŠØ§Ù… (Ø§Ù„Ø£ÙƒØ«Ø± Ù…Ø¨ÙŠØ¹Ø§)" : "7 Jours (Populaire)",
+                title: "7 Jours (Populaire)",
                 price: "1000 EUR",
                 color: Colors.amber.shade100,
                 isPopular: true,
@@ -406,8 +400,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final p = widget.product;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    bool isAr = languageNotifier.value == 'ar';
-    final formattedDate = timeago.format(p.createdAt, locale: isAr ? 'ar' : 'fr');
+    final formattedDate = timeago.format(p.createdAt, locale: 'fr');
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -622,26 +615,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       const SizedBox(height: 20),
 
                       // --- CAR SPECS ---
-                      Text(isAr ? "Ù…ÙˆØ§ØµÙØ§Øª Ø§Ù„Ø³ÙŠØ§Ø±Ø©" : "Caractéristiques", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text("Caractéristiques", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 15),
                       Wrap(
                         spacing: 10, runSpacing: 10,
                         children: [
                           if (p.year != null) _buildSpecChip(Icons.calendar_today, "${p.year}"),
                           if (p.km != null) _buildSpecChip(Icons.speed, "${p.km} km"),
-                          if (p.fuel != null) _buildSpecChip(Icons.local_gas_station, CategoriesData.tSpecies(p.fuel!, isAr ? 'ar' : 'fr')),
-                          if (p.gearbox != null) _buildSpecChip(Icons.settings, CategoriesData.tSpecies(p.gearbox!, isAr ? 'ar' : 'fr')),
-                          if (p.color != null) _buildSpecChip(Icons.palette, CategoriesData.tSpecies(p.color!, isAr ? 'ar' : 'fr')),
+                          if (p.fuel != null) _buildSpecChip(Icons.local_gas_station, CategoriesData.tSpecies(p.fuel!, 'fr')),
+                          if (p.gearbox != null) _buildSpecChip(Icons.settings, CategoriesData.tSpecies(p.gearbox!, 'fr')),
+                          if (p.color != null) _buildSpecChip(Icons.palette, CategoriesData.tSpecies(p.color!, 'fr')),
                           if (p.engine != null && p.engine!.isNotEmpty) _buildSpecChip(Icons.engineering, "${p.engine}"),
-                          if (p.exchange == true) _buildSpecChip(Icons.sync_alt, isAr ? "ØªØ¨Ø§Ø¯Ù„" : "Échange"),
-                          if (p.papers != null) _buildSpecChip(Icons.article, CategoriesData.tSpecies(p.papers!, isAr ? 'ar' : 'fr')),
+                          if (p.exchange == true) _buildSpecChip(Icons.sync_alt, "Échange"),
+                          if (p.papers != null) _buildSpecChip(Icons.article, CategoriesData.tSpecies(p.papers!, 'fr')),
                         ],
                       ),
 
                       if (p.detectedEquipments.isNotEmpty) ...[
                         const SizedBox(height: 24),
                         Text(
-                          isAr ? "Equipements IA" : "Equipements detectes",
+                          "Equipements detectes",
                           style: GoogleFonts.cairo(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -671,15 +664,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ],
 
                       const SizedBox(height: 25),
-                      Text(isAr ? "Ø§Ù„ÙˆØµÙ" : "Description", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text("Description", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 10),
                       ReadMoreText(
                         p.description,
                         trimLines: 4,
                         colorClickableText: theme.colorScheme.primary,
                         trimMode: TrimMode.Line,
-                        trimCollapsedText: isAr ? '...Ø¥Ù‚Ø±Ø£ Ø§Ù„Ù…Ø²ÙŠØ¯' : '...Voir plus',
-                        trimExpandedText: isAr ? ' Ø¥Ø®ÙØ§Ø¡' : ' Voir moins',
+                        trimCollapsedText: '...Voir plus',
+                        trimExpandedText: ' Voir moins',
                         style: GoogleFonts.cairo(fontSize: 15, height: 1.6),
                       ),
                       
@@ -704,7 +697,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(isAr ? "Ø§Ù„Ø¨Ø§Ø¦Ø¹" : "Vendeur", style: TextStyle(color: Colors.grey[600], fontSize: 11)),
+                                Text("Vendeur", style: TextStyle(color: Colors.grey[600], fontSize: 11)),
                                 FutureBuilder<DocumentSnapshot>(
                                   future: FirebaseFirestore.instance.collection('users').doc(p.sellerId).get(),
                                   builder: (context, snapshot) {
@@ -728,7 +721,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                       // SIMILAR CARS SECTION
                       Text(
-                        isAr ? "Ø³ÙŠØ§Ø±Ø§Øª Ù…Ù…Ø§Ø«Ù„Ø©" : "Voitures similaires",
+                        "Voitures similaires",
                         style: GoogleFonts.cairo(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -776,9 +769,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   const SizedBox(width: 16),
                                   Expanded(
                                     child: Text(
-                                      isAr
-                                          ? "Ù„Ø§ ØªÙˆØ¬Ø¯ Ø³ÙŠØ§Ø±Ø§Øª Ù…Ù…Ø§Ø«Ù„Ø© Ø­Ø§Ù„ÙŠØ§"
-                                          : "Aucune voiture similaire pour le moment",
+                                      "Aucune voiture similaire pour le moment",
                                       style: GoogleFonts.cairo(
                                         color: Colors.grey[600],
                                         fontSize: 14,
@@ -935,7 +926,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _showBoostOptions,
                   icon: const Icon(Icons.rocket_launch),
-                  label: Text(isAr ? "Ù…ÙŠØ² Ø¥Ø¹Ù„Ø§Ù†Ùƒ (Boost)" : "Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16)),
+                  label: Text("Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16)),
                   style: ElevatedButton.styleFrom(
                      backgroundColor: Colors.amber[800],
                      foregroundColor: Colors.white,
@@ -956,7 +947,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             onPressed: _callSeller,
                             icon: const Icon(Icons.phone_rounded, size: 20),
                             label: Text(
-                              isAr ? 'Ø§ØªØµÙ„ Ø¨Ø§Ù„Ø¨Ø§Ø¦Ø¹' : 'Appeler',
+                              'Appeler',
                               style: GoogleFonts.cairo(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -1004,7 +995,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             onPressed: () => _contactSeller('Seller'),
                             icon: const Icon(
                                 Icons.chat_bubble_outline_rounded),
-                            tooltip: isAr ? 'Ø¯Ø±Ø¯Ø´Ø© Ø¯Ø§Ø®Ù„ÙŠØ©' : 'Chat in-app',
+                            tooltip: 'Chat in-app',
                           ),
                         ),
                       ],
@@ -1020,8 +1011,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               size: 14, color: Colors.grey),
                           const SizedBox(width: 4),
                           Text(
-                            isAr ? 'Ø§Ù„Ø¥Ø¨Ù„Ø§Øº Ø¹Ù† Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†'
-                                : 'Signaler cette annonce',
+                            'Signaler cette annonce',
                             style: GoogleFonts.cairo(
                                 fontSize: 12, color: Colors.grey),
                           ),
