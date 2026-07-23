@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,7 +45,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          isAr ? 'لوحة تحكم المعرض' : 'Tableau de Bord',
+          isAr ? 'Ù„ÙˆØ­Ø© ØªØ­ÙƒÙ… Ø§Ù„Ù…Ø¹Ø±Ø¶' : 'Tableau de Bord',
           style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFF0F172A),
@@ -66,7 +66,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── WELCOME ──
+              // â”€â”€ WELCOME â”€â”€
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -94,14 +94,14 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          isAr ? 'مرحبا بك!' : 'Bienvenue !',
+                          isAr ? 'Ù…Ø±Ø­Ø¨Ø§ Ø¨Ùƒ!' : 'Bienvenue !',
                           style: GoogleFonts.cairo(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          isAr ? 'داشبورد البائع' : 'Votre tableau de bord',
+                          isAr ? 'Ø¯Ø§Ø´Ø¨ÙˆØ±Ø¯ Ø§Ù„Ø¨Ø§Ø¦Ø¹' : 'Votre tableau de bord',
                           style: GoogleFonts.cairo(
                               color: Colors.white54, fontSize: 13),
                         ),
@@ -113,9 +113,9 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
 
               const SizedBox(height: 24),
 
-              // ── REAL STATS CARDS ──
+              // â”€â”€ REAL STATS CARDS â”€â”€
               Text(
-                isAr ? 'إحصائيات الأداء' : 'Performance des annonces',
+                isAr ? 'Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ø£Ø¯Ø§Ø¡' : 'Performance des annonces',
                 style: GoogleFonts.cairo(
                     fontSize: 17, fontWeight: FontWeight.bold),
               ),
@@ -137,14 +137,14 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                       Row(
                         children: [
                           _StatCard(
-                            title: isAr ? 'المشاهدات' : 'Vues totales',
+                            title: isAr ? 'Ø§Ù„Ù…Ø´Ø§Ù‡Ø¯Ø§Øª' : 'Vues totales',
                             value: _fmt(stats['views'] ?? 0),
                             icon: Icons.visibility_rounded,
                             color: Colors.blue,
                           ),
                           const SizedBox(width: 12),
                           _StatCard(
-                            title: isAr ? 'مكالمات' : 'Appels reçus',
+                            title: isAr ? 'Ù…ÙƒØ§Ù„Ù…Ø§Øª' : 'Appels reÃ§us',
                             value: _fmt(stats['calls'] ?? 0),
                             icon: Icons.phone_rounded,
                             color: const Color(0xFF16A34A),
@@ -162,7 +162,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                           ),
                           const SizedBox(width: 12),
                           _StatCard(
-                            title: isAr ? 'الإعلانات' : 'Annonces',
+                            title: isAr ? 'Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª' : 'Annonces',
                             value: _fmt(stats['listings'] ?? 0),
                             icon: Icons.directions_car_rounded,
                             color: Colors.orange,
@@ -188,8 +188,8 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                               Expanded(
                                 child: Text(
                                   isAr
-                                      ? 'معدل التحويل: ${_conversionRate(stats)}٪ من الزيارات تحولت إلى مكالمات.'
-                                      : 'Taux de conversion : ${_conversionRate(stats)} % des vues ont généré un appel ou WhatsApp.',
+                                      ? 'Ù…Ø¹Ø¯Ù„ Ø§Ù„ØªØ­ÙˆÙŠÙ„: ${_conversionRate(stats)}Ùª Ù…Ù† Ø§Ù„Ø²ÙŠØ§Ø±Ø§Øª ØªØ­ÙˆÙ„Øª Ø¥Ù„Ù‰ Ù…ÙƒØ§Ù„Ù…Ø§Øª.'
+                                      : 'Taux de conversion : ${_conversionRate(stats)} % des vues ont gÃ©nÃ©rÃ© un appel ou WhatsApp.',
                                   style: GoogleFonts.cairo(
                                       fontSize: 12,
                                       color: const Color(0xFF16A34A)),
@@ -205,12 +205,12 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
 
               const SizedBox(height: 28),
 
-              // ── INVENTORY ──
+              // â”€â”€ INVENTORY â”€â”€
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    isAr ? 'مخزوني' : 'Mes annonces',
+                    isAr ? 'Ù…Ø®Ø²ÙˆÙ†ÙŠ' : 'Mes annonces',
                     style: GoogleFonts.cairo(
                         fontSize: 17, fontWeight: FontWeight.bold),
                   ),
@@ -221,7 +221,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                           builder: (_) => const AddProductScreen()),
                     ),
                     icon: const Icon(Icons.add_rounded, size: 16),
-                    label: Text(isAr ? 'إضافة' : 'Ajouter'),
+                    label: Text(isAr ? 'Ø¥Ø¶Ø§ÙØ©' : 'Ajouter'),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF0F172A),
                         foregroundColor: Colors.white),
@@ -251,7 +251,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                             const SizedBox(height: 12),
                             Text(
                               isAr
-                                  ? 'لا توجد إعلانات بعد'
+                                  ? 'Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¥Ø¹Ù„Ø§Ù†Ø§Øª Ø¨Ø¹Ø¯'
                                   : 'Aucune annonce pour le moment',
                               style: GoogleFonts.cairo(
                                   color: Colors.grey[500]),
@@ -294,7 +294,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
   }
 }
 
-// ── STAT CARD ──
+// â”€â”€ STAT CARD â”€â”€
 
 class _StatCard extends StatelessWidget {
   final String title;
@@ -347,7 +347,7 @@ class _StatCard extends StatelessWidget {
   }
 }
 
-// ── INVENTORY TILE ──
+// â”€â”€ INVENTORY TILE â”€â”€
 
 class _InventoryTile extends StatelessWidget {
   final Product product;
@@ -414,7 +414,7 @@ class _InventoryTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      '${product.price.toStringAsFixed(0)} DA',
+                      '${product.price.toStringAsFixed(0)} EUR',
                       style: GoogleFonts.cairo(
                           color: theme.colorScheme.primary,
                           fontWeight: FontWeight.w700,
@@ -465,8 +465,8 @@ class _InventoryTile extends StatelessWidget {
                     ),
                     child: Text(
                       product.isApproved
-                          ? (isAr ? 'مقبول' : 'Actif')
-                          : (isAr ? 'بانتظار' : 'En attente'),
+                          ? (isAr ? 'Ù…Ù‚Ø¨ÙˆÙ„' : 'Actif')
+                          : (isAr ? 'Ø¨Ø§Ù†ØªØ¸Ø§Ø±' : 'En attente'),
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
@@ -510,3 +510,4 @@ class _LeadBadge extends StatelessWidget {
     );
   }
 }
+

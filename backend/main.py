@@ -1,13 +1,25 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.exc import OperationalError
+
 from app.db.session import engine
 from app.models import product, review, user
 from app.api import products, reviews, users, auth
 
-# Create all tables
-product.Base.metadata.create_all(bind=engine)
-review.Base.metadata.create_all(bind=engine)
-user.Base.metadata.create_all(bind=engine)
+
+def initialize_database():
+    for _ in range(10):
+        try:
+            product.Base.metadata.create_all(bind=engine)
+            review.Base.metadata.create_all(bind=engine)
+            user.Base.metadata.create_all(bind=engine)
+            return
+        except OperationalError:
+            import time
+            time.sleep(3)
+
+
+initialize_database()
 
 app = FastAPI(
     title="OneClick Cars API",

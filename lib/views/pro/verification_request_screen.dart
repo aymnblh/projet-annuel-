@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../providers/user_provider.dart';
+import '../../services/kyc_fraud_service.dart';
 
 class VerificationRequestScreen extends StatefulWidget {
   const VerificationRequestScreen({super.key});
@@ -64,12 +66,36 @@ class _VerificationRequestScreenState extends State<VerificationRequestScreen> {
         throw Exception("Échec de l'envoi des images.");
       }
 
-      // 2. Update Firestore
-      await Provider.of<UserProvider>(context, listen: false).requestVerification(idUrl, selfieUrl);
-      
+      // 2. KYC analysis automatique
+      final kycResult = await KycFraudService().analyzeVerificationDocuments(_idFile!, _selfieFile!);
+      final additionalData = kycResult != null
+          ? {
+              'kycScore': kycResult['kycScore'],
+              'kycLevel': kycResult['kycLevel'],
+              'kycRisk': kycResult['risk'],
+              'kycRecommendation': kycResult['recommendation'],
+              'kycAnalysis': kycResult,
+            }
+          : null;
+
+      // 3. Update Firestore via UserProvider helper
+      await Provider.of<UserProvider>(context, listen: false).requestVerification(
+        idUrl,
+        selfieUrl,
+        additionalData: additionalData,
+      );
+
       if (mounted) {
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Demande envoyée ! Examen en cours... ⏳")));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              kycResult != null
+                  ? "Demande envoyée ! KYC automatique effectuée."
+                  : "Demande envoyée ! Examen en cours... ⏳",
+            ),
+          ),
+        );
       }
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erreur: $e")));

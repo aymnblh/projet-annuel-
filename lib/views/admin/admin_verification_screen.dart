@@ -76,6 +76,14 @@ class AdminVerificationScreen extends StatelessWidget {
                       Text("Demandeur: $name", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
                       Text("Reçu: ${timeago.format(date)}", style: GoogleFonts.cairo(color: Colors.grey)),
                       const SizedBox(height: 15),
+                      if (data['kycScore'] != null) ...[
+                        Text("Score KYC : ${data['kycScore']}", style: GoogleFonts.cairo(fontSize: 14, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 6),
+                        Text("Niveau : ${data['kycLevel'] ?? 'inconnu'}", style: GoogleFonts.cairo(color: Colors.grey[700])),
+                        const SizedBox(height: 6),
+                        Text("Recommandation : ${data['kycRecommendation'] ?? 'manual_review'}", style: GoogleFonts.cairo(color: Colors.grey[700])),
+                        const SizedBox(height: 15),
+                      ],
                       Row(
                         children: [
                           Expanded(child: _buildImagePreview(context, "ID Card", idUrl)),

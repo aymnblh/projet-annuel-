@@ -1,4 +1,4 @@
-import 'dart:io';
+﻿import 'dart:io';
 import 'dart:convert';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -22,13 +22,13 @@ class AIService {
       
       // 3. Prompt (On insiste sur le JSON ici)
       const prompt = """
-      You are an expert seller assistant for the Algerian secondhand market. 
+      You are an expert seller assistant for the European secondhand market. 
       Analyze the image and return ONLY a raw JSON object (no markdown, no backticks).
       Fields required:
       - 'title': Short title in French.
-      - 'category': Choose strictly one: 'Vêtements', 'Électronique', 'Maison', 'Véhicules', 'Autre'.
+      - 'category': Choose strictly one: 'VÃªtements', 'Ã‰lectronique', 'Maison', 'VÃ©hicules', 'Autre'.
       - 'description': Attractive description in French.
-      - 'price': An integer estimate in Algerian Dinar (DZD) which is valued at 1 EUR = 270 DZD.
+      - 'price': An integer estimate in Euro (EUR).
       """;
 
       final content = [
@@ -70,19 +70,19 @@ class AIService {
     required String productDescription,
     required String price,
     required String lastUserMessage,
-    String? historyContext, // Ex: "User asked: Price? Seller said: 5000DA"
+    String? historyContext, // Ex: "User asked: Price? Seller said: 5000 EUR"
   }) async {
     try {
       final model = GenerativeModel(
         model: 'gemini-1.5-flash',
         apiKey: _apiKey,
         generationConfig: GenerationConfig(
-          temperature: 0.7, // Un peu plus créatif pour le chat
+          temperature: 0.7, // Un peu plus crÃ©atif pour le chat
         ),
       );
 
       final prompt = """
-      You are an Algerian seller assistant on 'OneClick'. You speak Algerian Dialect (Darija) mixed with French.
+      You are an European seller assistant on 'OneClick'. You speak clear, polite French or the buyer language.
       
       Context:
       - Product: $productTitle
@@ -96,9 +96,9 @@ class AIService {
       
       Task: Generate a short, polite, and helpful reply (2-3 sentences max) to the buyer.
       Examples:
-      - If asked "Win jay?" -> "Rani f Alger centre khouya, marhba bik."
-      - If asked "Prix?" -> "Sawmouna $price DA, chhal t3tina?"
-      - If asked generic -> "Salam, oui disponible."
+      - If asked "Where is it?" -> "The car is available in the location shown on the listing."
+      - If asked "Price?" -> "The listed price is $price. A reasonable offer can be discussed."
+      - If asked generic -> "Hello, yes, it is still available."
       
       Reply directly in the requested style (Darija/French).
       """;
@@ -126,13 +126,13 @@ class AIService {
       );
 
       final prompt = """
-      You are an expert market analyst for Algeria.
+      You are an expert market analyst for Europe.
       Product: "$productTitle"
       Category: "$category"
-      Current Price: $currentPrice DZD
+      Current Price: $currentPrice EUR
       
       Task: Suggest a slight discount strategy (5-15%) to sell this item faster.
-      Return ONLY a short string in French, e.g.: "Conseil : Baissez le prix à X DA pour vendre 2x plus vite !"
+      Return ONLY a short string in French, e.g.: "Conseil : Baissez le prix Ã  X EUR pour vendre 2x plus vite !"
       """;
 
       final content = [Content.text(prompt)];
@@ -145,9 +145,9 @@ class AIService {
     }
   }
 
-  // ═══════════════════════════════════════════════════════════════════
-  // NOUVEAU : Recherche NLP — langage naturel → filtres structurés
-  // ═══════════════════════════════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // NOUVEAU : Recherche NLP â€” langage naturel â†’ filtres structurÃ©s
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   Future<Map<String, dynamic>?> parseNaturalLanguageSearch(String query) async {
     try {
       final model = GenerativeModel(
@@ -157,42 +157,41 @@ class AIService {
       );
 
       const prompt = """
-      Tu es un assistant de recherche pour une marketplace de voitures en Algérie.
-      L'utilisateur décrit ce qu'il cherche en langage naturel (français, arabe, darija).
+      Tu es un assistant de recherche pour une marketplace de voitures en Europe.
+      L'utilisateur decrit ce qu'il cherche en langage naturel (francais, anglais, espagnol, allemand, italien ou autre langue europeenne).
       
-      Extrais les filtres de recherche structurés à partir de la requête.
+      Extrais les filtres de recherche structurÃ©s Ã  partir de la requÃªte.
       Retourne UNIQUEMENT un objet JSON brut (pas de markdown, pas de backticks).
       
-      Champs possibles (n'inclure que ceux mentionnés ou clairement impliqués) :
+      Champs possibles (n'inclure que ceux mentionnÃ©s ou clairement impliquÃ©s) :
       - "brand": String (marque, ex: "Renault", "Peugeot", "Toyota")
-      - "model": String (modèle, ex: "Golf", "Clio", "Corolla")
-      - "vehicleType": String parmi ["Citadine", "Berline", "SUV", "4x4", "Break", "Coupé", "Cabriolet", "Monospace", "Utilitaire", "Pick-up", "Camion"]
-      - "fuel": String parmi ["Essence", "Diesel", "GPL", "Hybride", "Électrique"]
+      - "model": String (modÃ¨le, ex: "Golf", "Clio", "Corolla")
+      - "vehicleType": String parmi ["Citadine", "Berline", "SUV", "4x4", "Break", "CoupÃ©", "Cabriolet", "Monospace", "Utilitaire", "Pick-up", "Camion"]
+      - "fuel": String parmi ["Essence", "Diesel", "GPL", "Hybride", "Ã‰lectrique"]
       - "gearbox": String parmi ["Manuelle", "Automatique", "Semi-automatique"]
-      - "minPrice": int (en Dinars Algériens, 1 EUR ≈ 270 DZD, 1M DA = 1000000)
-      - "maxPrice": int (en Dinars Algériens)
-      - "minYear": int (année minimum)
-      - "maxYear": int (année maximum)
-      - "maxKm": int (kilométrage max)
-      - "wilaya": String (ville/wilaya algérienne)
+      - "minPrice": int (en euros EUR)
+      - "maxPrice": int (en euros EUR)
+      - "minYear": int (annÃ©e minimum)
+      - "maxYear": int (annÃ©e maximum)
+      - "maxKm": int (kilomÃ©trage max)
+      - "wilaya": String (pays, region ou grande ville europeenne; ex: "France", "Allemagne", "Paris")
       - "color": String
-      - "keywords": List<String> (mots-clés additionnels non capturés par les filtres)
-      - "features": List<String> (équipements demandés: "toit ouvrant", "GPS", "cuir", etc.)
+      - "keywords": List<String> (mots-clÃ©s additionnels non capturÃ©s par les filtres)
+      - "features": List<String> (Ã©quipements demandÃ©s: "toit ouvrant", "GPS", "cuir", etc.)
       
       Exemples :
-      - "SUV hybride budget 250 millions" → {"vehicleType": "SUV", "fuel": "Hybride", "maxPrice": 2500000}
-      - "Golf 7 diesel Alger moins de 100000 km" → {"brand": "Volkswagen", "model": "Golf", "fuel": "Diesel", "wilaya": "Alger", "maxKm": 100000}
-      - "voiture familiale automatique pas chère" → {"vehicleType": "Monospace", "gearbox": "Automatique", "maxPrice": 2000000, "keywords": ["familiale"]}
-      - "kayen chi tomobil diesel dyal 2020" → {"fuel": "Diesel", "minYear": 2020}
+      - "SUV hybride budget 25000 euros" -> {"vehicleType": "SUV", "fuel": "Hybride", "maxPrice": 25000}
+      - "Golf 7 diesel Paris moins de 100000 km" -> {"brand": "Volkswagen", "model": "Golf", "fuel": "Diesel", "wilaya": "France", "keywords": ["Paris"], "maxKm": 100000}
+      - "voiture familiale automatique pas chere" -> {"vehicleType": "Monospace", "gearbox": "Automatique", "maxPrice": 15000, "keywords": ["familiale"]}
+      - "diesel break 2020 en Allemagne" -> {"fuel": "Diesel", "vehicleType": "Break", "minYear": 2020, "wilaya": "Allemagne"}
       
-      IMPORTANT: Les prix en Algérie sont en millions de DA. "250 millions" = 2500000 DA. "25 millions" = 250000 DA. Quand l'utilisateur dit "budget 200" il veut dire 200 millions centimes = 2000000 DA.
-      Si l'utilisateur mentionne des euros, convertis en DA (1€ ≈ 270 DA).
+      IMPORTANT: Les prix sont en euros. Si l'utilisateur mentionne 25k, 25 000, 25.000 ou 25000 euros, retourne 25000. Ne convertis pas vers une autre devise.
       """;
 
       final content = [
         Content.multi([
           TextPart(prompt),
-          TextPart("Requête utilisateur: \"$query\""),
+          TextPart("RequÃªte utilisateur: \"$query\""),
         ])
       ];
 
@@ -219,9 +218,9 @@ class AIService {
     }
   }
 
-  // ═══════════════════════════════════════════════════════════════════
-  // NOUVEAU : Recherche visuelle — photo → identification voiture
-  // ═══════════════════════════════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // NOUVEAU : Recherche visuelle â€” photo â†’ identification voiture
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   Future<Map<String, dynamic>?> identifyCarFromPhoto(File imageFile) async {
     try {
       final model = GenerativeModel(
@@ -234,22 +233,22 @@ class AIService {
 
       const prompt = """
       Tu es un expert automobile. Analyse cette photo d'une voiture (prise dans la rue, 
-      en concession, ou n'importe où) et identifie le véhicule.
+      en concession, ou n'importe oÃ¹) et identifie le vÃ©hicule.
       
       Retourne UNIQUEMENT un objet JSON brut (pas de markdown, pas de backticks) :
       {
         "brand": "Marque (ex: Volkswagen)",
-        "model": "Modèle (ex: Golf)",
-        "generation": "Génération (ex: Golf 7, Phase 2)",
-        "yearRange": "Fourchette d'années (ex: 2017-2020)",
-        "vehicleType": "Type parmi: Citadine, Berline, SUV, 4x4, Break, Coupé, Cabriolet, Monospace, Utilitaire, Pick-up",
+        "model": "ModÃ¨le (ex: Golf)",
+        "generation": "GÃ©nÃ©ration (ex: Golf 7, Phase 2)",
+        "yearRange": "Fourchette d'annÃ©es (ex: 2017-2020)",
+        "vehicleType": "Type parmi: Citadine, Berline, SUV, 4x4, Break, CoupÃ©, Cabriolet, Monospace, Utilitaire, Pick-up",
         "color": "Couleur principale",
         "confidence": 0.85,
-        "description": "Description courte en français du véhicule identifié"
+        "description": "Description courte en franÃ§ais du vÃ©hicule identifiÃ©"
       }
       
       Si tu ne peux pas identifier la voiture, retourne:
-      {"error": "Impossible d'identifier le véhicule", "confidence": 0.0}
+      {"error": "Impossible d'identifier le vÃ©hicule", "confidence": 0.0}
       """;
 
       final content = [
@@ -282,9 +281,9 @@ class AIService {
     }
   }
 
-  // ═══════════════════════════════════════════════════════════════════
-  // NOUVEAU : Analyse enrichie — détecte marque + équipements visibles
-  // ═══════════════════════════════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // NOUVEAU : Analyse enrichie â€” dÃ©tecte marque + Ã©quipements visibles
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   Future<Map<String, dynamic>?> analyzeImageEnriched(File imageFile) async {
     try {
       final model = GenerativeModel(
@@ -296,25 +295,25 @@ class AIService {
       final imageBytes = await imageFile.readAsBytes();
 
       const prompt = """
-      Tu es un expert vendeur automobile pour le marché algérien de l'occasion.
+      Tu es un expert vendeur automobile pour le marchÃ© algÃ©rien de l'occasion.
       Analyse cette photo de voiture et retourne UNIQUEMENT un objet JSON brut (pas de markdown, pas de backticks).
       
       {
         "title": "Titre court et vendeur (ex: Peugeot 3008 GT Line 2019)",
         "brand": "Marque",
-        "model": "Modèle",
-        "year": "Année estimée (String)",
-        "category": "Catégorie",
+        "model": "ModÃ¨le",
+        "year": "AnnÃ©e estimÃ©e (String)",
+        "category": "CatÃ©gorie",
         "color": "Couleur",
-        "vehicleType": "Citadine/Berline/SUV/4x4/Break/Coupé/Cabriolet/Monospace/Utilitaire/Pick-up",
-        "price": 2500000,
-        "description": "Description technique et vendeuse (moteur, état visible, points forts)",
-        "detectedEquipments": ["Toit ouvrant", "Jantes alliage", "Feux LED", "Sièges cuir", "GPS", "Caméra de recul", "Climatisation auto", "Radar de stationnement", "Barres de toit", "Vitres teintées", "Rétroviseurs électriques", "Airbags", "ABS", "ESP"],
-        "condition": "Neuf/Excellent état/Bon état/État moyen/Pour pièces"
+        "vehicleType": "Citadine/Berline/SUV/4x4/Break/CoupÃ©/Cabriolet/Monospace/Utilitaire/Pick-up",
+        "price": 25000,
+        "description": "Description technique et vendeuse (moteur, Ã©tat visible, points forts)",
+        "detectedEquipments": ["Toit ouvrant", "Jantes alliage", "Feux LED", "SiÃ¨ges cuir", "GPS", "CamÃ©ra de recul", "Climatisation auto", "Radar de stationnement", "Barres de toit", "Vitres teintÃ©es", "RÃ©troviseurs Ã©lectriques", "Airbags", "ABS", "ESP"],
+        "condition": "Neuf/Excellent Ã©tat/Bon Ã©tat/Ã‰tat moyen/Pour piÃ¨ces"
       }
       
-      Pour "detectedEquipments", liste UNIQUEMENT les équipements que tu peux voir ou déduire de la photo.
-      Pour le prix, estime en Dinars Algériens (DZD) pour le marché algérien de l'occasion.
+      Pour "detectedEquipments", liste UNIQUEMENT les Ã©quipements que tu peux voir ou dÃ©duire de la photo.
+      Pour le prix, estime en euros (EUR) pour le marche europeen de l'occasion.
       """;
 
       final content = [
@@ -347,9 +346,9 @@ class AIService {
     }
   }
 
-  // ═══════════════════════════════════════════════════════════════════
-  // NOUVEAU : Génération de description vendeuse marketing
-  // ═══════════════════════════════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // NOUVEAU : GÃ©nÃ©ration de description vendeuse marketing
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   Future<String?> generateSellerDescription({
     required String title,
     required String brand,
@@ -370,28 +369,28 @@ class AIService {
         generationConfig: GenerationConfig(temperature: 0.7),
       );
 
-      final equipmentStr = equipments?.join(', ') ?? 'Non spécifié';
+      final equipmentStr = equipments?.join(', ') ?? 'Non spÃ©cifiÃ©';
 
       final prompt = """
-      Tu es un rédacteur professionnel d'annonces automobiles pour le marché algérien.
-      Rédige une description VENDEUSE, engageante et sans fautes pour cette annonce.
+      Tu es un rÃ©dacteur professionnel d'annonces automobiles pour le marchÃ© algÃ©rien.
+      RÃ©dige une description VENDEUSE, engageante et sans fautes pour cette annonce.
       
-      Véhicule :
+      VÃ©hicule :
       - Titre : $title
-      - Marque : $brand | Modèle : $model
-      - Année : ${year ?? 'Non spécifié'} | Kilométrage : ${km ?? 'Non spécifié'} km
-      - Carburant : ${fuel ?? 'Non spécifié'} | Boîte : ${gearbox ?? 'Non spécifié'}
-      - Couleur : ${color ?? 'Non spécifié'} | Moteur : ${engine ?? 'Non spécifié'}
-      - État : ${condition ?? 'Non spécifié'}
-      - Équipements détectés : $equipmentStr
+      - Marque : $brand | ModÃ¨le : $model
+      - AnnÃ©e : ${year ?? 'Non spÃ©cifiÃ©'} | KilomÃ©trage : ${km ?? 'Non spÃ©cifiÃ©'} km
+      - Carburant : ${fuel ?? 'Non spÃ©cifiÃ©'} | BoÃ®te : ${gearbox ?? 'Non spÃ©cifiÃ©'}
+      - Couleur : ${color ?? 'Non spÃ©cifiÃ©'} | Moteur : ${engine ?? 'Non spÃ©cifiÃ©'}
+      - Ã‰tat : ${condition ?? 'Non spÃ©cifiÃ©'}
+      - Ã‰quipements dÃ©tectÃ©s : $equipmentStr
       
-      Règles :
-      1. Écris en français avec un ton professionnel mais chaleureux
-      2. Mets en avant les points forts et les équipements
-      3. 4-6 phrases maximum, structurées avec des emojis discrets
-      4. Mentionne l'état et les avantages clés
-      5. Termine par un appel à l'action
-      6. N'invente PAS de caractéristiques non mentionnées
+      RÃ¨gles :
+      1. Ã‰cris en franÃ§ais avec un ton professionnel mais chaleureux
+      2. Mets en avant les points forts et les Ã©quipements
+      3. 4-6 phrases maximum, structurÃ©es avec des emojis discrets
+      4. Mentionne l'Ã©tat et les avantages clÃ©s
+      5. Termine par un appel Ã  l'action
+      6. N'invente PAS de caractÃ©ristiques non mentionnÃ©es
       
       Retourne UNIQUEMENT le texte de la description (pas de JSON, pas de guillemets).
       """;
@@ -406,3 +405,4 @@ class AIService {
     }
   }
 }
+

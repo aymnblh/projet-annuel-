@@ -1,0 +1,56 @@
+name: 🚀 Deploy Flutter Web to Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lib/**'
+      - 'web/**'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'firebase.json'
+      - '.github/workflows/deploy_web.yml'
+  workflow_dispatch: # Permet de lancer manuellement depuis GitHub
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    name: Build Flutter Web & Deploy
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.0'
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🔧 Create .env file
+        run: |
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+          echo "ALGOLIA_APP_ID=${{ secrets.ALGOLIA_APP_ID }}" >> .env
+          echo "ALGOLIA_API_KEY=${{ secrets.ALGOLIA_API_KEY }}" >> .env
+          echo "ALGOLIA_INDEX_NAME=${{ secrets.ALGOLIA_INDEX_NAME }}" >> .env
+
+      - name: 🌐 Build Flutter Web (Release)
+        run: flutter build web --release --no-wasm-dry-run
+
+      - name: 🚀 Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: autoscout-cab49
+          channelId: live

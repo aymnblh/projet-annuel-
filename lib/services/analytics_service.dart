@@ -1,4 +1,4 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
+﻿import 'package:firebase_analytics/firebase_analytics.dart';
 import '../models/product.dart';
 
 class AnalyticsService {
@@ -12,7 +12,7 @@ class AnalyticsService {
   // Log View Item
   static Future<void> logViewItem(Product product) async {
     await _analytics.logViewItem(
-      currency: 'DZD',
+      currency: 'EUR',
       value: product.price,
       items: [
         AnalyticsEventItem(
@@ -28,7 +28,7 @@ class AnalyticsService {
   // Log Add to Cart (Used for Drafts here, or generic interest)
   static Future<void> logAddToCart(Product product) async {
     await _analytics.logAddToCart(
-      currency: 'DZD',
+      currency: 'EUR',
       value: product.price,
       items: [
         AnalyticsEventItem(
@@ -299,3 +299,4 @@ class AnalyticsService {
     );
   }
 }
+

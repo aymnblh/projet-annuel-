@@ -191,23 +191,31 @@ class UserProvider with ChangeNotifier {
   bool get isAdmin => _userData != null && (_userData!['isAdmin'] == true); // ADMIN CHECK
   String get verificationStatus => _userData != null ? (_userData!['verificationStatus'] ?? 'none') : 'none'; // none, pending, verified, rejected
 
-  Future<void> requestVerification(String idUrl, String selfieUrl) async {
+  Future<void> requestVerification(
+    String idUrl,
+    String selfieUrl, {
+    Map<String, dynamic>? additionalData,
+  }) async {
      final user = FirebaseAuth.instance.currentUser;
      if (user == null) return;
 
      try {
-       await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+       final payload = {
          'verificationStatus': 'pending',
          'verificationRequestedAt': FieldValue.serverTimestamp(),
          'verificationIdUrl': idUrl,
          'verificationSelfieUrl': selfieUrl,
-       });
+         if (additionalData != null) ...additionalData,
+       };
+
+       await FirebaseFirestore.instance.collection('users').doc(user.uid).update(payload);
        
        // Update Local
        if (_userData != null) {
          _userData!['verificationStatus'] = 'pending';
          _userData!['verificationIdUrl'] = idUrl;
          _userData!['verificationSelfieUrl'] = selfieUrl;
+         if (additionalData != null) _userData!.addAll(additionalData);
        }
        notifyListeners();
      } catch(e) {

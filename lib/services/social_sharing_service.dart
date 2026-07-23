@@ -1,4 +1,4 @@
-import 'package:share_plus/share_plus.dart';
+﻿import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
 import '../models/product.dart';
 import 'analytics_service.dart';
@@ -15,7 +15,7 @@ class SocialSharingService {
     try {
       await Share.share(
         fullText,
-        subject: '🚗 ${product.title}',
+        subject: 'ðŸš— ${product.title}',
       );
       
       // Track share event
@@ -33,16 +33,16 @@ class SocialSharingService {
     final buffer = StringBuffer();
     
     // Title with emoji
-    buffer.writeln('🚗 ${product.title}');
+    buffer.writeln('ðŸš— ${product.title}');
     buffer.writeln();
     
     // Price
-    buffer.writeln('💰 ${product.price.toStringAsFixed(0)} DA');
+    buffer.writeln('ðŸ’° ${product.price.toStringAsFixed(0)} EUR');
     
     // Location
     if (product.wilaya.isNotEmpty) {
       final communeText = (product.commune?.isNotEmpty ?? false) ? ', ${product.commune}' : '';
-      buffer.writeln('📍 ${product.wilaya}$communeText');
+      buffer.writeln('ðŸ“ ${product.wilaya}$communeText');
     }
     
     buffer.writeln();
@@ -63,12 +63,12 @@ class SocialSharingService {
     
     if (hasYear || hasKm) {
       final specs = <String>[];
-      if (hasYear) specs.add('Année: ${product.year}');
+      if (hasYear) specs.add('AnnÃ©e: ${product.year}');
       if (hasKm) specs.add('Km: ${product.km}');
       if (hasFuel) specs.add('Carburant: ${product.fuel}');
       
       if (specs.isNotEmpty) {
-        buffer.writeln(specs.join(' • '));
+        buffer.writeln(specs.join(' â€¢ '));
         buffer.writeln();
       }
     }
@@ -106,7 +106,7 @@ class SocialSharingService {
       // Using share_plus with WhatsApp package name
       await Share.share(
         fullText,
-        subject: '🚗 ${product.title}',
+        subject: 'ðŸš— ${product.title}',
       );
       
       // Track share event
@@ -129,7 +129,7 @@ class SocialSharingService {
       await Share.shareXFiles(
         [XFile(imagePath)],
         text: fullText,
-        subject: '🚗 ${product.title}',
+        subject: 'ðŸš— ${product.title}',
       );
       
       // Track share event
@@ -139,3 +139,4 @@ class SocialSharingService {
     }
   }
 }
+

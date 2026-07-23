@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
@@ -104,11 +104,11 @@ class AppTheme {
     ),
   );
 
-  // --- DARK THEME (Midnight Luxury) ---
+  // --- EURRK THEME (Midnight Luxury) ---
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    primaryColor: Colors.white, // Inversé pour le contraste
+    primaryColor: Colors.white, // InversÃ© pour le contraste
     scaffoldBackgroundColor: const Color(0xFF000000), // Pure Black
     colorScheme: const ColorScheme.dark(
       primary: Colors.white,
@@ -186,3 +186,4 @@ class AppTheme {
     ),
   );
 }
+

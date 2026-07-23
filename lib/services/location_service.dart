@@ -38,9 +38,9 @@ class LocationService {
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
         
-        // En Algérie :
-        // administrativeArea = Souvent la Wilaya (ex: Wilaya d'Alger)
-        // locality = Souvent la Commune (ex: Kouba)
+        // Exemple régional :
+        // administrativeArea = région ou département
+        // locality = ville ou commune
         
         return {
           "latitude": position.latitude,

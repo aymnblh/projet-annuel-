@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   User? user;
 
   // <--- AJOUT : LISTE DES ADMINS
-  // Remplacez par votre vrai email connecté (Google ou Email/Password)
+  // Remplacez par votre vrai email connectÃ© (Google ou Email/Password)
   final List<String> _admins = [
     'aymenboulahia63@gmail.com', 
     'admin@soukdzair.com'
@@ -54,14 +54,14 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     try { return user!.displayName!.trim()[0].toUpperCase(); } catch (e) { return "U"; }
   }
 
-  // --- ACTIONS PROPRIÉTAIRE ---
+  // --- ACTIONS PROPRIÃ‰TAIRE ---
   
   // 1. Marquer comme Vendu
   Future<void> _markAsSold(String productId, bool currentStatus) async {
     await FirebaseFirestore.instance.collection('products').doc(productId).update({
-      'isSold': !currentStatus // On inverse l'état
+      'isSold': !currentStatus // On inverse l'Ã©tat
     });
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(currentStatus ? "Annonce remise en vente" : "Félicitations pour la vente ! 🎉")));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(currentStatus ? "Annonce remise en vente" : "FÃ©licitations pour la vente ! ðŸŽ‰")));
   }
 
   // 2. Supprimer l'annonce
@@ -70,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("Supprimer ?"),
-        content: const Text("Cette action est irréversible."),
+        content: const Text("Cette action est irrÃ©versible."),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context, false), child: const Text("Annuler")),
           TextButton(onPressed: () => Navigator.pop(context, true), child: const Text("Supprimer", style: TextStyle(color: Colors.red))),
@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
     if (confirm) {
       await FirebaseFirestore.instance.collection('products').doc(productId).delete();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce supprimée.")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce supprimÃ©e.")));
     }
   }
 
@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         DropdownButton<String>(
           value: languageNotifier.value,
           underline: Container(),
-          items: const [DropdownMenuItem(value: 'fr', child: Text("Français 🇫🇷")), DropdownMenuItem(value: 'ar', child: Text("العربية 🇩🇿"))],
+          items: const [DropdownMenuItem(value: 'fr', child: Text("FranÃ§ais ðŸ‡«ðŸ‡·")), DropdownMenuItem(value: 'ar', child: Text("Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© ðŸ‡©ðŸ‡¿"))],
           onChanged: (val) { if (val != null) setState(() => languageNotifier.value = val); },
         ),
       ],
@@ -133,11 +133,11 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     bool isAr = languageNotifier.value == 'ar';
     final userProvider = Provider.of<UserProvider>(context);
 
-    // <--- AJOUT : Vérification si l'utilisateur est Admin
+    // <--- AJOUT : VÃ©rification si l'utilisateur est Admin
     bool isAdmin = user!.email != null && _admins.contains(user!.email);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Utilisation du thème
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Utilisation du thÃ¨me
       appBar: AppBar(
         title: Text(t('profile'), style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
         actions: [IconButton(icon: const Icon(Icons.logout, color: Colors.red), onPressed: () => _authService.signOut())],
@@ -146,11 +146,11 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         children: [
           // Header & Options
           Container(
-             color: Theme.of(context).cardColor, // THÈME
+             color: Theme.of(context).cardColor, // THÃˆME
              padding: const EdgeInsets.all(20),
              child: Column(
                children: [
-                 // ... (Header User Info resté le même) ...
+                 // ... (Header User Info restÃ© le mÃªme) ...
                  Row(
                   children: [
                     CircleAvatar(radius: 30, backgroundColor: Theme.of(context).primaryColor, child: Text(_getInitials(), style: const TextStyle(color: Colors.white, fontSize: 24))),
@@ -166,10 +166,10 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                       if (!userProvider.isVerified && userProvider.verificationStatus != 'pending')
                         GestureDetector(
                           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VerificationRequestScreen())),
-                          child: const Text("Obtenir le badge vérifié 🛡️", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 12)),
+                          child: const Text("Obtenir le badge vÃ©rifiÃ© ðŸ›¡ï¸", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 12)),
                         )
                       else if (userProvider.verificationStatus == 'pending')
-                        const Text("Vérification en cours... ⏳", style: TextStyle(color: Colors.orange, fontSize: 12)),
+                        const Text("VÃ©rification en cours... â³", style: TextStyle(color: Colors.orange, fontSize: 12)),
                     ])),
                     IconButton(
                       icon: const Icon(Icons.edit, color: Colors.blue),
@@ -186,7 +186,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                  Consumer<ThemeProvider>(
                    builder: (context, themeProvider, _) {
                      return SwitchListTile(
-                       title: Text(isAr ? "الوضع الليلي" : "Mode Sombre", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
+                       title: Text(isAr ? "Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù„ÙŠÙ„ÙŠ" : "Mode Sombre", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
                        secondary: Icon(Icons.dark_mode, color: themeProvider.isDarkMode ? Colors.amber : Colors.grey),
                        value: themeProvider.isDarkMode,
                        onChanged: (val) => themeProvider.toggleTheme(val),
@@ -196,9 +196,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                    }
                  ),
 
-                 // ... (Suite de la bannière Pro) ...
+                 // ... (Suite de la banniÃ¨re Pro) ...
 
-                // BANNIÈRE PRO
+                // BANNIÃˆRE PRO
                 if (userProvider.isPro) 
                   Container(
                     width: double.infinity,
@@ -243,8 +243,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(isAr ? "أنشئ معرضك الآن" : "Ouvrir un Showroom", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-                                Text(isAr ? "كن بائعًا محترفًا وزد مبيعاتك" : "Créez votre vitrine digitale professionnelle", style: const TextStyle(color: Colors.white, fontSize: 12)),
+                                Text(isAr ? "Ø£Ù†Ø´Ø¦ Ù…Ø¹Ø±Ø¶Ùƒ Ø§Ù„Ø¢Ù†" : "Ouvrir un Showroom", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                                Text(isAr ? "ÙƒÙ† Ø¨Ø§Ø¦Ø¹Ù‹Ø§ Ù…Ø­ØªØ±ÙÙ‹Ø§ ÙˆØ²Ø¯ Ù…Ø¨ÙŠØ¹Ø§ØªÙƒ" : "CrÃ©ez votre vitrine digitale professionnelle", style: const TextStyle(color: Colors.white, fontSize: 12)),
                               ],
                             ),
                           ),
@@ -273,7 +273,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           ),
           
           Container(
-            color: Theme.of(context).cardColor, // UTILISATION DU THEME (plus de blanc forcé)
+            color: Theme.of(context).cardColor, // UTILISATION DU THEME (plus de blanc forcÃ©)
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: SizedBox(
                width: double.infinity,
@@ -282,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                  // Force visible colors regarding theme
                  icon: Icon(Icons.bar_chart, color: Theme.of(context).colorScheme.primary), 
                  label: Text(
-                   isAr ? "لوحة التحليلات" : "Voir mon Dashboard", 
+                   isAr ? "Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­Ù„ÙŠÙ„Ø§Øª" : "Voir mon Dashboard", 
                    style: TextStyle(
                      fontWeight: FontWeight.bold,
                      color: Theme.of(context).colorScheme.primary // Adapts to theme
@@ -323,7 +323,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     );
   }
 
-  // Liste spéciale pour "Mes Annonces" avec boutons de gestion
+  // Liste spÃ©ciale pour "Mes Annonces" avec boutons de gestion
   Widget _buildMyAdsList() {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('products').where('sellerId', isEqualTo: user!.uid).snapshots(),
@@ -343,7 +343,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               child: Column(
                 children: [
-                  // On réutilise pas ProductCard ici car on veut un design "Gestion"
+                  // On rÃ©utilise pas ProductCard ici car on veut un design "Gestion"
                   ListTile(
                     contentPadding: const EdgeInsets.all(10),
                     leading: ClipRRect(
@@ -351,7 +351,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                       child: Image.network(p.imageUrls.isNotEmpty ? p.imageUrls[0] : '', width: 60, height: 60, fit: BoxFit.cover, errorBuilder: (c,o,s) => const Icon(Icons.image)),
                     ),
                     title: Text(p.title, style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
-                    subtitle: Text("${p.price.toStringAsFixed(0)} DA • ${p.isSold ? (isAr ? 'مباع' : 'Vendu') : (isAr ? 'نشط' : 'Actif')}", 
+                    subtitle: Text("${p.price.toStringAsFixed(0)} EUR â€¢ ${p.isSold ? (isAr ? 'Ù…Ø¨Ø§Ø¹' : 'Vendu') : (isAr ? 'Ù†Ø´Ø·' : 'Actif')}", 
                       style: TextStyle(color: p.isSold ? Colors.red : Colors.green)),
                   ),
                   const Divider(height: 1),
@@ -363,22 +363,22 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                           onPressed: () => _markAsSold(p.id, p.isSold),
                           icon: Icon(p.isSold ? Icons.refresh : Icons.check_circle, color: p.isSold ? Colors.orange : Colors.green, size: 20),
                           label: Text(
-                            p.isSold ? (isAr ? "إعادة" : "Relancer") : (isAr ? "بيعت" : "Vendu"), 
+                            p.isSold ? (isAr ? "Ø¥Ø¹Ø§Ø¯Ø©" : "Relancer") : (isAr ? "Ø¨ÙŠØ¹Øª" : "Vendu"), 
                             style: GoogleFonts.cairo(color: p.isSold ? Colors.orange : Colors.green, fontSize: 13)
                           ),
                         ),
                       ),
                       Container(width: 1, height: 30, color: Colors.grey[200]),
                       
-                      // BOUTON BOOST 🚀
+                      // BOUTON BOOST ðŸš€
                       Expanded(
                         child: TextButton.icon(
                           onPressed: (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now()))
-                            ? null // Déjà boosté
+                            ? null // DÃ©jÃ  boostÃ©
                             : () => Navigator.push(context, MaterialPageRoute(builder: (_) => BoostAdScreen(productId: p.id, productName: p.title, category: p.category, currentPrice: p.price))),
                           icon: Icon(Icons.rocket_launch, color: (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? Colors.purple : Colors.blue, size: 20),
                           label: Text(
-                            (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? (isAr ? "مروج" : "Boosté") : (isAr ? "ترويج" : "Booster"), 
+                            (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? (isAr ? "Ù…Ø±ÙˆØ¬" : "BoostÃ©") : (isAr ? "ØªØ±ÙˆÙŠØ¬" : "Booster"), 
                             style: GoogleFonts.cairo(color: (p.isBoosted && p.boostExpiresAt != null && p.boostExpiresAt!.isAfter(DateTime.now())) ? Colors.purple : Colors.blue, fontWeight: FontWeight.bold, fontSize: 13)
                           ),
                         ),
@@ -392,7 +392,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                         child: TextButton.icon(
                           onPressed: () => _deleteProduct(p.id),
                           icon: const Icon(Icons.delete, color: Colors.red, size: 20),
-                          label: Text(isAr ? "حذف" : "Suppr.", style: GoogleFonts.cairo(color: Colors.red, fontSize: 13)),
+                          label: Text(isAr ? "Ø­Ø°Ù" : "Suppr.", style: GoogleFonts.cairo(color: Colors.red, fontSize: 13)),
                         ),
                       ),
                     ],

@@ -298,7 +298,7 @@ class _ChatbotScreenState extends State<ChatbotScreen>
             Text(
               isAr
                   ? 'أنا مساعدك الذكي في OneClick Cars.\nاسألني أي شيء عن السيارات في الجزائر!'
-                  : 'Je suis votre assistant intelligent OneClick Cars.\nPosez-moi n\'importe quelle question sur les voitures en Algérie !',
+                  : 'Je suis votre assistant intelligent OneClick Cars.\nPosez-moi n\'importe quelle question sur les voitures en Europe !',
               textAlign: TextAlign.center,
               style: GoogleFonts.cairo(
                 fontSize: 15,
@@ -664,7 +664,7 @@ class _MessageBubbleState extends State<_MessageBubble>
   late Animation<double> _fadeAnimation;
 
   static const Color _primaryNavy = Color(0xFF0F172A);
-  static const Color _accentAmber = Colors.amber;
+  static const MaterialColor _accentAmber = Colors.amber;
 
   @override
   void initState() {

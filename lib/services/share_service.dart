@@ -1,4 +1,4 @@
-import 'package:share_plus/share_plus.dart';
+﻿import 'package:share_plus/share_plus.dart';
 import '../models/product.dart';
 
 class ShareService {
@@ -7,9 +7,10 @@ class ShareService {
     // Construction du message intelligent
     final String deepLink = "oneclick://product/${product.id}";
     final String message = 
-      "Découvrez ${product.title} à ${product.price.toStringAsFixed(0)} DA sur OneClick !\n\n"
+      "DÃ©couvrez ${product.title} Ã  ${product.price.toStringAsFixed(0)} EUR sur OneClick !\n\n"
       "Voir l'annonce ici : $deepLink";
 
-    Share.share(message, subject: "Regarde ça sur OneClick !");
+    Share.share(message, subject: "Regarde Ã§a sur OneClick !");
   }
 }
+

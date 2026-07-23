@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/product.dart';
 import 'product_details_screen.dart';
-import 'auth_screen.dart'; // ✅ Import obligatoire
+import 'auth_screen.dart'; // âœ… Import obligatoire
 import '../utils/app_translations.dart';
 import '../main.dart';
 import '../widgets/optimized_image.dart';
@@ -28,16 +28,16 @@ class ProductCard extends StatelessWidget {
   void _toggleFavorite(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;
     
-    // 1. SI PAS CONNECTÉ -> On envoie vers l'écran de connexion
+    // 1. SI PAS CONNECTÃ‰ -> On envoie vers l'Ã©cran de connexion
     if (user == null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t('login_required'))));
       
-      // ✅ CORRECTION : On active fromProfile: true pour revenir ici après la connexion
+      // âœ… CORRECTION : On active fromProfile: true pour revenir ici aprÃ¨s la connexion
       Navigator.push(context, MaterialPageRoute(builder: (_) => const AuthScreen(fromProfile: true)));
       return;
     }
 
-    // 2. SI CONNECTÉ -> On ajoute/enlève des favoris
+    // 2. SI CONNECTÃ‰ -> On ajoute/enlÃ¨ve des favoris
     final ref = FirebaseFirestore.instance.collection('users').doc(user.uid).collection('favorites').doc(product.id);
     final doc = await ref.get();
 
@@ -56,16 +56,16 @@ class ProductCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-           // Si mode sélection actif (indiqué par isSelected=true ou onLongPress non null et selectionnée), on gère le tap comme une séléction aussi ?
-           // Pour l'instant on garde le comportement par défaut (détails) sauf si on implémente une logique spécifique dans le parent.
-           // Mais ici on va dire: si onLongPress est fourni, c'est que le parent gère la sélection.
+           // Si mode sÃ©lection actif (indiquÃ© par isSelected=true ou onLongPress non null et selectionnÃ©e), on gÃ¨re le tap comme une sÃ©lÃ©ction aussi ?
+           // Pour l'instant on garde le comportement par dÃ©faut (dÃ©tails) sauf si on implÃ©mente une logique spÃ©cifique dans le parent.
+           // Mais ici on va dire: si onLongPress est fourni, c'est que le parent gÃ¨re la sÃ©lection.
            if (onLongPress != null && isSelected) {
-             onLongPress!(); // Toggle selection via tap si déjà en mode sélection
+             onLongPress!(); // Toggle selection via tap si dÃ©jÃ  en mode sÃ©lection
            } else {
              Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailsScreen(product: product)));
            }
         },
-        onLongPress: onLongPress, // Déclenche le mode sélection
+        onLongPress: onLongPress, // DÃ©clenche le mode sÃ©lection
         child: Container(
           decoration: BoxDecoration(
             color: theme.cardColor,
@@ -164,10 +164,10 @@ class ProductCard extends StatelessWidget {
                             )
                           ),
                           
-                            // NOUVEAU : Détails Voiture (Année • Carburant)
+                            // NOUVEAU : DÃ©tails Voiture (AnnÃ©e â€¢ Carburant)
                             if (product.year != null || product.fuel != null)
                               Text(
-                                "${product.year ?? ''} • ${product.fuel ?? ''}", 
+                                "${product.year ?? ''} â€¢ ${product.fuel ?? ''}", 
                                 style: GoogleFonts.cairo(
                                   fontSize: 12, 
                                   color: isDark ? Colors.grey[400] : Colors.grey[600], 
@@ -202,7 +202,7 @@ class ProductCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "${product.price.toStringAsFixed(0)} DA", 
+                                  "${product.price.toStringAsFixed(0)} EUR", 
                                   style: GoogleFonts.cairo(
                                     fontWeight: FontWeight.w800, 
                                     color: theme.colorScheme.primary, 
@@ -232,3 +232,4 @@ class ProductCard extends StatelessWidget {
       );
   }
 }
+

@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../models/product.dart';
 import '../providers/product_provider.dart';
+import '../utils/categories_data.dart';
 import '../main.dart'; // Pour languageNotifier
 
 class EditProductScreen extends StatefulWidget {
@@ -24,22 +25,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
   String? _selectedCommune;
 
   final List<String> _categories = [
-    'Tout', 'Véhicules', 'Immobilier', 'Téléphones & Tablettes', 'Informatique',
-    'Électroménager', 'Vêtements & Mode', 'Montres & Bijoux', 'Beauté & Santé',
-    'Bébé & Enfant', 'Maison & Déco', 'Bricolage & Jardin', 'Sport & Loisirs',
-    'Jeux Vidéo & Consoles', 'Livres & Culture', 'Animaux', 'Emploi & Services', 'Autre'
+    'Tout', 'VÃ©hicules', 'Immobilier', 'TÃ©lÃ©phones & Tablettes', 'Informatique',
+    'Ã‰lectromÃ©nager', 'VÃªtements & Mode', 'Montres & Bijoux', 'BeautÃ© & SantÃ©',
+    'BÃ©bÃ© & Enfant', 'Maison & DÃ©co', 'Bricolage & Jardin', 'Sport & Loisirs',
+    'Jeux VidÃ©o & Consoles', 'Livres & Culture', 'Animaux', 'Emploi & Services', 'Autre'
   ];
 
-  final List<String> _wilayas = [
-   'Adrar', 'Chlef', 'Laghouat', 'Oum El Bouaghi', 'Batna', 'Béjaïa', 'Biskra', 
-    'Béchar', 'Blida', 'Bouira', 'Tamanrasset', 'Tébessa', 'Tlemcen', 'Tiaret', 
-    'Tizi Ouzou', 'Alger', 'Djelfa', 'Jijel', 'Sétif', 'Saïda', 'Skikda', 
-    'Sidi Bel Abbès', 'Annaba', 'Guelma', 'Constantine', 'Médéa', 'Mostaganem', 
-    'M\'Sila', 'Mascara', 'Ouargla', 'Oran', 'El Bayadh', 'Illizi', 'Bordj Bou Arreridj', 
-    'Boumerdès', 'El Tarf', 'Tindouf', 'Tissemsilt', 'El Oued', 'Khenchela', 
-    'Souk Ahras', 'Tipaza', 'Mila', 'Aïn Defla', 'Naâma', 'Aïn Témouchent', 
-    'Ghardaïa', 'Relizane'
-  ];
+  final List<String> _wilayas = CategoriesData.europeanMarkets;
 
   @override
   void initState() {
@@ -49,7 +41,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _descriptionController = TextEditingController(text: widget.product.description);
     
     _selectedCategory = _categories.contains(widget.product.category) ? widget.product.category : 'Autre';
-    _selectedWilaya = _wilayas.contains(widget.product.wilaya) ? widget.product.wilaya : _wilayas[15];
+    _selectedWilaya = _wilayas.contains(widget.product.wilaya) ? widget.product.wilaya : _wilayas.first;
     _selectedCommune = widget.product.commune;
   }
 
@@ -67,7 +59,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     // Fermer le clavier
     FocusScope.of(context).unfocus();
 
-    // Map des données à mettre à jour
+    // Map des donnÃ©es Ã  mettre Ã  jour
     Map<String, dynamic> updateData = {
       'title': _titleController.text.trim(),
       'price': double.parse(_priceController.text.trim()),
@@ -84,7 +76,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Annonce mise à jour avec succès !"),
+            content: Text("Annonce mise Ã  jour avec succÃ¨s !"),
             backgroundColor: Colors.green,
             behavior: SnackBarBehavior.floating,
           ),
@@ -112,7 +104,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(isAr ? "تعديل الإعلان" : "Modifier l'annonce", 
+        title: Text(isAr ? "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†" : "Modifier l'annonce", 
           style: GoogleFonts.cairo(fontWeight: FontWeight.bold, color: const Color(0xFF0F172A))),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -131,7 +123,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // IMAGE PREVIEW (Non modifiable ici pour simplifier, ou à ajouter plus tard)
+                  // IMAGE PREVIEW (Non modifiable ici pour simplifier, ou Ã  ajouter plus tard)
                   if (widget.product.imageUrls.isNotEmpty)
                     Container(
                       height: 150,
@@ -157,20 +149,20 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   const SizedBox(height: 16),
                   
                   _buildTextField(
-                    label: "Prix (DA)", 
+                    label: "Prix (EUR)", 
                     controller: _priceController,
                     isNumber: true,
                     icon: Icons.attach_money,
-                    suffix: "DA",
+                    suffix: "EUR",
                   ),
                   const SizedBox(height: 24),
 
-                  _buildSectionTitle("Détails"),
+                  _buildSectionTitle("DÃ©tails"),
                   const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
                     initialValue: _selectedCategory,
-                    decoration: _inputDecoration("Catégorie", Icons.category),
+                    decoration: _inputDecoration("CatÃ©gorie", Icons.category),
                     items: _categories.map((c) => DropdownMenuItem(value: c, child: Text(c, style: GoogleFonts.cairo()))).toList(),
                     onChanged: (val) => setState(() => _selectedCategory = val!),
                   ),
@@ -178,7 +170,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
                   DropdownButtonFormField<String>(
                     initialValue: _selectedWilaya,
-                    decoration: _inputDecoration("Wilaya", Icons.location_on),
+                    decoration: _inputDecoration("Région / département", Icons.location_on),
                     items: _wilayas.map((w) => DropdownMenuItem(value: w, child: Text(w, style: GoogleFonts.cairo()))).toList(),
                     onChanged: (val) => setState(() => _selectedWilaya = val!),
                   ),
@@ -188,7 +180,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   const SizedBox(height: 16),
                   
                   _buildTextField(
-                    label: "Description détaillée...", 
+                    label: "Description dÃ©taillÃ©e...", 
                     controller: _descriptionController,
                     maxLines: 6,
                     icon: Icons.description,
@@ -280,7 +272,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         if (val == null || val.isEmpty) return 'Ce champ est requis';
         if (isNumber) {
           if (double.tryParse(val) == null) return 'Prix invalide';
-          if (double.parse(val) <= 0) return 'Le prix doit être positif';
+          if (double.parse(val) <= 0) return 'Le prix doit Ãªtre positif';
         }
         return null;
       },
@@ -290,3 +282,4 @@ class _EditProductScreenState extends State<EditProductScreen> {
     );
   }
 }
+

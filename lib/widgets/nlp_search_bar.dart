@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:permission_handler/permission_handler.dart';
@@ -12,7 +12,7 @@ class NlpSearchBar extends StatefulWidget {
   /// Called with structured filters after AI successfully parses the query.
   final Function(Map<String, dynamic> filters)? onFiltersExtracted;
 
-  /// Fallback when AI parsing fails — receives the raw text query.
+  /// Fallback when AI parsing fails â€” receives the raw text query.
   final Function(String query)? onFallbackSearch;
 
   /// Opens the camera / visual-search screen.
@@ -31,43 +31,43 @@ class NlpSearchBar extends StatefulWidget {
 
 class _NlpSearchBarState extends State<NlpSearchBar>
     with TickerProviderStateMixin {
-  // ── Controllers ──────────────────────────────────────────────────
+  // â”€â”€ Controllers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
-  // ── AI State ─────────────────────────────────────────────────────
+  // â”€â”€ AI State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   bool _isProcessing = false;
   Map<String, dynamic>? _extractedFilters;
   String? _errorMessage;
 
-  // ── Voice State ──────────────────────────────────────────────────
+  // â”€â”€ Voice State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   final stt.SpeechToText _speech = stt.SpeechToText();
   bool _isListening = false;
   bool _speechAvailable = false;
 
-  // ── Animations ───────────────────────────────────────────────────
+  // â”€â”€ Animations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   late AnimationController _sparkleController;
   late AnimationController _chipController;
   late Animation<double> _sparkleRotation;
   late Animation<double> _chipSlide;
 
-  // ── Filter label / color map ─────────────────────────────────────
+  // â”€â”€ Filter label / color map â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   static const Map<String, _ChipStyle> _chipStyles = {
-    'brand': _ChipStyle(Icons.directions_car, Color(0xFF2196F3), 'Marque', 'الماركة'),
-    'model': _ChipStyle(Icons.car_repair, Color(0xFF1976D2), 'Modèle', 'الموديل'),
-    'vehicleType': _ChipStyle(Icons.category, Color(0xFF0288D1), 'Type', 'النوع'),
-    'fuel': _ChipStyle(Icons.local_gas_station, Color(0xFFFF9800), 'Carburant', 'الوقود'),
-    'gearbox': _ChipStyle(Icons.settings, Color(0xFF9C27B0), 'Boîte', 'ناقل الحركة'),
-    'minPrice': _ChipStyle(Icons.arrow_upward, Color(0xFF4CAF50), 'Prix min', 'أدنى سعر'),
-    'maxPrice': _ChipStyle(Icons.arrow_downward, Color(0xFF4CAF50), 'Prix max', 'أقصى سعر'),
-    'minYear': _ChipStyle(Icons.calendar_today, Color(0xFF795548), 'Année min', 'أقل سنة'),
-    'maxYear': _ChipStyle(Icons.event, Color(0xFF795548), 'Année max', 'أقصى سنة'),
-    'maxKm': _ChipStyle(Icons.speed, Color(0xFFE91E63), 'Km max', 'أقصى كم'),
-    'wilaya': _ChipStyle(Icons.location_on, Color(0xFFF44336), 'Wilaya', 'الولاية'),
-    'color': _ChipStyle(Icons.palette, Color(0xFF607D8B), 'Couleur', 'اللون'),
+    'brand': _ChipStyle(Icons.directions_car, Color(0xFF2196F3), 'Marque', 'Ø§Ù„Ù…Ø§Ø±ÙƒØ©'),
+    'model': _ChipStyle(Icons.car_repair, Color(0xFF1976D2), 'ModÃ¨le', 'Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„'),
+    'vehicleType': _ChipStyle(Icons.category, Color(0xFF0288D1), 'Type', 'Ø§Ù„Ù†ÙˆØ¹'),
+    'fuel': _ChipStyle(Icons.local_gas_station, Color(0xFFFF9800), 'Carburant', 'Ø§Ù„ÙˆÙ‚ÙˆØ¯'),
+    'gearbox': _ChipStyle(Icons.settings, Color(0xFF9C27B0), 'BoÃ®te', 'Ù†Ø§Ù‚Ù„ Ø§Ù„Ø­Ø±ÙƒØ©'),
+    'minPrice': _ChipStyle(Icons.arrow_upward, Color(0xFF4CAF50), 'Prix min', 'Ø£Ø¯Ù†Ù‰ Ø³Ø¹Ø±'),
+    'maxPrice': _ChipStyle(Icons.arrow_downward, Color(0xFF4CAF50), 'Prix max', 'Ø£Ù‚ØµÙ‰ Ø³Ø¹Ø±'),
+    'minYear': _ChipStyle(Icons.calendar_today, Color(0xFF795548), 'AnnÃ©e min', 'Ø£Ù‚Ù„ Ø³Ù†Ø©'),
+    'maxYear': _ChipStyle(Icons.event, Color(0xFF795548), 'AnnÃ©e max', 'Ø£Ù‚ØµÙ‰ Ø³Ù†Ø©'),
+    'maxKm': _ChipStyle(Icons.speed, Color(0xFFE91E63), 'Km max', 'Ø£Ù‚ØµÙ‰ ÙƒÙ…'),
+    'wilaya': _ChipStyle(Icons.location_on, Color(0xFFF44336), 'Région / département', 'Ø§Ù„Ø¯ÙˆÙ„Ø©'),
+    'color': _ChipStyle(Icons.palette, Color(0xFF607D8B), 'Couleur', 'Ø§Ù„Ù„ÙˆÙ†'),
   };
 
-  // ── Helpers ──────────────────────────────────────────────────────
+  // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   bool get _isArabic => languageNotifier.value == 'ar';
 
   @override
@@ -111,7 +111,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
     }
   }
 
-  // ── Voice Input ──────────────────────────────────────────────────
+  // â”€â”€ Voice Input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Future<void> _toggleListening() async {
     if (_isListening) {
       await _speech.stop();
@@ -126,7 +126,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
           SnackBar(
             content: Text(
               _isArabic
-                  ? 'يرجى السماح باستخدام الميكروفون'
+                  ? 'ÙŠØ±Ø¬Ù‰ Ø§Ù„Ø³Ù…Ø§Ø­ Ø¨Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ù…ÙŠÙƒØ±ÙˆÙÙˆÙ†'
                   : 'Permission microphone requise',
               style: GoogleFonts.cairo(),
             ),
@@ -143,7 +143,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
           SnackBar(
             content: Text(
               _isArabic
-                  ? 'البحث الصوتي غير متاح'
+                  ? 'Ø§Ù„Ø¨Ø­Ø« Ø§Ù„ØµÙˆØªÙŠ ØºÙŠØ± Ù…ØªØ§Ø­'
                   : 'Recherche vocale non disponible',
               style: GoogleFonts.cairo(),
             ),
@@ -187,7 +187,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
     }
   }
 
-  // ── AI Search ────────────────────────────────────────────────────
+  // â”€â”€ AI Search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Future<void> _submitSearch(String query) async {
     if (query.isEmpty) return;
 
@@ -212,11 +212,11 @@ class _NlpSearchBarState extends State<NlpSearchBar>
         _sparkleController.reset();
         _chipController.forward(from: 0);
       } else {
-        // AI returned nothing → fallback
+        // AI returned nothing â†’ fallback
         setState(() {
           _isProcessing = false;
           _errorMessage = _isArabic
-              ? 'لم يتم استخراج فلاتر. بحث عادي...'
+              ? 'Ù„Ù… ÙŠØªÙ… Ø§Ø³ØªØ®Ø±Ø§Ø¬ ÙÙ„Ø§ØªØ±. Ø¨Ø­Ø« Ø¹Ø§Ø¯ÙŠ...'
               : 'Aucun filtre extrait. Recherche classique...';
         });
         _sparkleController.stop();
@@ -229,7 +229,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
         setState(() {
           _isProcessing = false;
           _errorMessage = _isArabic
-              ? 'خطأ في التحليل. بحث عادي...'
+              ? 'Ø®Ø·Ø£ ÙÙŠ Ø§Ù„ØªØ­Ù„ÙŠÙ„. Ø¨Ø­Ø« Ø¹Ø§Ø¯ÙŠ...'
               : 'Erreur d\'analyse. Recherche classique...';
         });
         _sparkleController.stop();
@@ -272,9 +272,9 @@ class _NlpSearchBarState extends State<NlpSearchBar>
     super.dispose();
   }
 
-  // ══════════════════════════════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   //  BUILD
-  // ══════════════════════════════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -282,23 +282,23 @@ class _NlpSearchBarState extends State<NlpSearchBar>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // ── Search Field ───────────────────────────────────────────
+        // â”€â”€ Search Field â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _buildSearchField(isDark),
 
-        // ── Shimmer Loading ────────────────────────────────────────
+        // â”€â”€ Shimmer Loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         if (_isProcessing) _buildShimmerLoader(isDark),
 
-        // ── Error Message ──────────────────────────────────────────
+        // â”€â”€ Error Message â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         if (_errorMessage != null) _buildErrorBanner(),
 
-        // ── Filter Chips ───────────────────────────────────────────
+        // â”€â”€ Filter Chips â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         if (_extractedFilters != null && _extractedFilters!.isNotEmpty)
           _buildFilterChips(isDark),
       ],
     );
   }
 
-  // ── Search Field ─────────────────────────────────────────────────
+  // â”€â”€ Search Field â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildSearchField(bool isDark) {
     return Container(
       decoration: BoxDecoration(
@@ -332,8 +332,8 @@ class _NlpSearchBarState extends State<NlpSearchBar>
           ),
           decoration: InputDecoration(
             hintText: _isArabic
-                ? 'صف سيارة أحلامك...'
-                : 'Décrivez la voiture de vos rêves...',
+                ? 'ØµÙ Ø³ÙŠØ§Ø±Ø© Ø£Ø­Ù„Ø§Ù…Ùƒ...'
+                : 'DÃ©crivez la voiture de vos rÃªves...',
             hintStyle: GoogleFonts.cairo(
               color: isDark ? Colors.grey[500] : Colors.grey[400],
               fontSize: 14,
@@ -428,7 +428,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
     );
   }
 
-  // ── Shimmer Loader ───────────────────────────────────────────────
+  // â”€â”€ Shimmer Loader â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildShimmerLoader(bool isDark) {
     return Padding(
       padding: const EdgeInsets.only(top: 12),
@@ -470,7 +470,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
     );
   }
 
-  // ── Error Banner ─────────────────────────────────────────────────
+  // â”€â”€ Error Banner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildErrorBanner() {
     return AnimatedOpacity(
       opacity: _errorMessage != null ? 1.0 : 0.0,
@@ -502,7 +502,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
     );
   }
 
-  // ── Filter Chips ─────────────────────────────────────────────────
+  // â”€â”€ Filter Chips â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildFilterChips(bool isDark) {
     final filters = _extractedFilters!;
     // Exclude non-displayable keys like 'keywords' and 'features'
@@ -543,7 +543,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
                       const Icon(Icons.auto_awesome, color: Colors.white, size: 12),
                       const SizedBox(width: 4),
                       Text(
-                        _isArabic ? 'فلاتر مستخرجة بالذكاء الاصطناعي' : 'Filtres IA extraits',
+                        _isArabic ? 'ÙÙ„Ø§ØªØ± Ù…Ø³ØªØ®Ø±Ø¬Ø© Ø¨Ø§Ù„Ø°ÙƒØ§Ø¡ Ø§Ù„Ø§ØµØ·Ù†Ø§Ø¹ÙŠ' : 'Filtres IA extraits',
                         style: GoogleFonts.cairo(
                           color: Colors.white,
                           fontSize: 10,
@@ -557,7 +557,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
                 GestureDetector(
                   onTap: _clearAll,
                   child: Text(
-                    _isArabic ? 'مسح الكل' : 'Tout effacer',
+                    _isArabic ? 'Ù…Ø³Ø­ Ø§Ù„ÙƒÙ„' : 'Tout effacer',
                     style: GoogleFonts.cairo(
                       fontSize: 11,
                       color: Colors.grey,
@@ -629,7 +629,7 @@ class _NlpSearchBarState extends State<NlpSearchBar>
                 onPressed: _applyFilters,
                 icon: const Icon(Icons.search, size: 20),
                 label: Text(
-                  _isArabic ? 'بحث بهذه الفلاتر' : 'Rechercher',
+                  _isArabic ? 'Ø¨Ø­Ø« Ø¨Ù‡Ø°Ù‡ Ø§Ù„ÙÙ„Ø§ØªØ±' : 'Rechercher',
                   style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -706,13 +706,13 @@ class _NlpSearchBarState extends State<NlpSearchBar>
       count++;
       if (count % 3 == 0 && i > 0) buffer.write(' ');
     }
-    return '${buffer.toString().split('').reversed.join()} DA';
+    return '${buffer.toString().split('').reversed.join()} EUR';
   }
 }
 
-// ══════════════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  Chip styling helper
-// ══════════════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 class _ChipStyle {
   final IconData icon;
   final Color color;
@@ -721,3 +721,4 @@ class _ChipStyle {
 
   const _ChipStyle(this.icon, this.color, this.labelFr, this.labelAr);
 }
+

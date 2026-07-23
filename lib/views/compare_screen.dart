@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/product.dart';
@@ -15,10 +15,10 @@ class CompareScreen extends StatelessWidget {
     bool isAr = languageNotifier.value == 'ar';
     
     // Safety check
-    if (products.isEmpty) return const Scaffold(body: Center(child: Text("Aucun véhicule à comparer")));
+    if (products.isEmpty) return const Scaffold(body: Center(child: Text("Aucun vÃ©hicule Ã  comparer")));
 
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "مقارنة المركبات" : "Comparateur")),
+      appBar: AppBar(title: Text(isAr ? "Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„Ù…Ø±ÙƒØ¨Ø§Øª" : "Comparateur")),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SingleChildScrollView(
@@ -29,7 +29,7 @@ class CompareScreen extends StatelessWidget {
             headingRowHeight: 180, // Height for images
             dataRowMinHeight: 50,
             columns: [
-              // Colonne des étiquettes (vide en header)
+              // Colonne des Ã©tiquettes (vide en header)
               const DataColumn(label: SizedBox(width: 80, child: Text(""))), // Label column
               ...products.map((p) => DataColumn(
                 label: SizedBox(
@@ -49,26 +49,26 @@ class CompareScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Text(p.title, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                      Text("${p.price.toStringAsFixed(0)} DA", style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 12)),
+                      Text("${p.price.toStringAsFixed(0)} EUR", style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 12)),
                     ],
                   ),
                 ),
               ))
             ],
             rows: [
-              _buildRow(isAr ? "الماركة" : "Marque", (p) => p.brand ?? "-"),
-              _buildRow(isAr ? "الموديل" : "Modèle", (p) => p.model ?? "-"),
-              _buildRow(isAr ? "السنة" : "Année", (p) => p.year ?? "-"),
-              _buildRow(isAr ? "العداد" : "Km", (p) => "${p.km ?? '-'} km"),
-              _buildRow(isAr ? "الطاقة" : "Carburant", (p) => p.fuel ?? "-"),
-              _buildRow(isAr ? "العلبة" : "Boîte", (p) => p.gearbox ?? "-"),
-              _buildRow(isAr ? "المحرك" : "Moteur", (p) => p.engine ?? "-"),
-              _buildRow(isAr ? "اللون" : "Couleur", (p) => p.color ?? "-"),
-              _buildRow(isAr ? "الوثائق" : "Papiers", (p) => p.papers ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ù…Ø§Ø±ÙƒØ©" : "Marque", (p) => p.brand ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„" : "ModÃ¨le", (p) => p.model ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ø³Ù†Ø©" : "AnnÃ©e", (p) => p.year ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ø¹Ø¯Ø§Ø¯" : "Km", (p) => "${p.km ?? '-'} km"),
+              _buildRow(isAr ? "Ø§Ù„Ø·Ø§Ù‚Ø©" : "Carburant", (p) => p.fuel ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ø¹Ù„Ø¨Ø©" : "BoÃ®te", (p) => p.gearbox ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ù…Ø­Ø±Ùƒ" : "Moteur", (p) => p.engine ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„Ù„ÙˆÙ†" : "Couleur", (p) => p.color ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„ÙˆØ«Ø§Ø¦Ù‚" : "Papiers", (p) => p.papers ?? "-"),
 
-              _buildRow(isAr ? "التبادل" : "Echange", (p) => p.exchange ? "Oui / نعم" : "Non / لا"),
-              _buildRow(isAr ? "الولاية" : "Wilaya", (p) => p.wilaya),
-              // _buildRow(isAr ? "الهاتف" : "Tel", (p) => p.phone ?? "-"),
+              _buildRow(isAr ? "Ø§Ù„ØªØ¨Ø§Ø¯Ù„" : "Echange", (p) => p.exchange ? "Oui / Ù†Ø¹Ù…" : "Non / Ù„Ø§"),
+              _buildRow(isAr ? "Ø§Ù„ÙˆÙ„Ø§ÙŠØ©" : "Région / département", (p) => p.wilaya),
+              // _buildRow(isAr ? "Ø§Ù„Ù‡Ø§ØªÙ" : "Tel", (p) => p.phone ?? "-"),
             ],
           ),
         ),
@@ -91,3 +91,4 @@ class CompareScreen extends StatelessWidget {
     );
   }
 }
+

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../services/recently_viewed_service.dart';
@@ -272,7 +272,7 @@ class CompactProductCard extends StatelessWidget {
 
                     // Price
                     Text(
-                      '${product.price.toStringAsFixed(0)} DA',
+                      '${product.price.toStringAsFixed(0)} EUR',
                       style: GoogleFonts.cairo(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -289,3 +289,4 @@ class CompactProductCard extends StatelessWidget {
     );
   }
 }
+

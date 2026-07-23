@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shimmer/shimmer.dart';
@@ -11,8 +11,8 @@ import '../widgets/optimized_image.dart';
 import '../views/product_details_screen.dart';
 
 /// Displays two personalised horizontal carousels:
-///   1. 🎯 Recommandé pour vous — products matching the user's interest profile
-///   2. ✨ Découvertes          — products outside the user's usual patterns
+///   1. ðŸŽ¯ RecommandÃ© pour vous â€” products matching the user's interest profile
+///   2. âœ¨ DÃ©couvertes          â€” products outside the user's usual patterns
 ///
 /// The widget hides itself gracefully when the user is not logged in,
 /// has insufficient browsing history, or when both lists are empty.
@@ -72,9 +72,9 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
     }
   }
 
-  // ────────────────────────────────────────────
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // Build
-  // ────────────────────────────────────────────
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
 
     final bool isAr = languageNotifier.value == 'ar';
 
-    // Loading state — show shimmer skeletons
+    // Loading state â€” show shimmer skeletons
     if (_isLoading) {
       return _buildShimmerSection(context, isAr);
     }
@@ -91,7 +91,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
     // Not enough browsing data
     if (!_hasProfile) return const SizedBox.shrink();
 
-    // Both lists empty → hide
+    // Both lists empty â†’ hide
     final hasRecommended = _recommended != null && _recommended!.isNotEmpty;
     final hasDiscovery = _discovery != null && _discovery!.isNotEmpty;
     if (!hasRecommended && !hasDiscovery) return const SizedBox.shrink();
@@ -99,13 +99,13 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // ── Section 1: Recommended ──
+        // â”€â”€ Section 1: Recommended â”€â”€
         if (hasRecommended) ...[
           _buildSectionHeader(
             context,
-            icon: '🎯',
-            titleFr: 'Recommandé pour vous',
-            titleAr: 'موصى لك',
+            icon: 'ðŸŽ¯',
+            titleFr: 'RecommandÃ© pour vous',
+            titleAr: 'Ù…ÙˆØµÙ‰ Ù„Ùƒ',
             isAr: isAr,
           ),
           const SizedBox(height: 12),
@@ -113,13 +113,13 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
           const SizedBox(height: 24),
         ],
 
-        // ── Section 2: Discovery ──
+        // â”€â”€ Section 2: Discovery â”€â”€
         if (hasDiscovery) ...[
           _buildSectionHeader(
             context,
-            icon: '✨',
-            titleFr: 'Découvertes',
-            titleAr: 'اكتشافات',
+            icon: 'âœ¨',
+            titleFr: 'DÃ©couvertes',
+            titleAr: 'Ø§ÙƒØªØ´Ø§ÙØ§Øª',
             isAr: isAr,
           ),
           const SizedBox(height: 12),
@@ -130,9 +130,9 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
     );
   }
 
-  // ────────────────────────────────────────────
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // Sub-widgets
-  // ────────────────────────────────────────────
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   Widget _buildSectionHeader(
     BuildContext context, {
@@ -230,9 +230,9 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
   }
 }
 
-// ────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Product Card (private)
-// ────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class _ProductCard extends StatelessWidget {
   final Product product;
@@ -269,7 +269,7 @@ class _ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Image ──
+            // â”€â”€ Image â”€â”€
             Expanded(
               child: Stack(
                 children: [
@@ -312,7 +312,7 @@ class _ProductCard extends StatelessWidget {
               ),
             ),
 
-            // ── Info ──
+            // â”€â”€ Info â”€â”€
             Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
@@ -332,7 +332,7 @@ class _ProductCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   // Price
                   Text(
-                    '${product.price.toStringAsFixed(0)} DA',
+                    '${product.price.toStringAsFixed(0)} EUR',
                     style: GoogleFonts.cairo(
                       fontSize: 14,
                       fontWeight: FontWeight.w900,
@@ -368,3 +368,4 @@ class _ProductCard extends StatelessWidget {
     );
   }
 }
+

@@ -1,4 +1,4 @@
-import 'dart:io';
+﻿import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -49,7 +49,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
       setState(() {
         _storeLocation = GeoPoint(position.latitude, position.longitude);
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("📍 Position du Showroom enregistrée !"), backgroundColor: Colors.green));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("ðŸ“ Position du Showroom enregistrÃ©e !"), backgroundColor: Colors.green));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erreur GPS: $e")));
     } finally {
@@ -71,7 +71,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
       // 1. Paiement (Simulation)
       // On simule une carte pour l'API
       await PaymentService().processPayment(
-          amount: 5000, // Prix plus élevé pour un showroom automobile
+          amount: 5000, // Prix plus Ã©levÃ© pour un showroom automobile
           method: 'cib', 
           cardNumber: '1111222233334444', 
           expiryDate: '12/26', 
@@ -89,7 +89,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
         'storeName': _nameController.text.trim(),
         'storeDescription': _descController.text.trim(),
         'storeAddress': _addressController.text.trim(),
-        'storeLocation': _storeLocation, // Peut être null si pas cliqué
+        'storeLocation': _storeLocation, // Peut Ãªtre null si pas cliquÃ©
         'logoUrl': logoUrl,
         'storeCreatedAt': FieldValue.serverTimestamp(),
       };
@@ -97,7 +97,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
       await Provider.of<UserProvider>(context, listen: false).upgradeToPro(storeData);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Félicitations ! Votre Showroom est actif ! 🎉"), backgroundColor: Colors.green));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("FÃ©licitations ! Votre Showroom est actif ! ðŸŽ‰"), backgroundColor: Colors.green));
         Navigator.pop(context); // Retour au profil
       }
     } catch (e) {
@@ -111,7 +111,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
   Widget build(BuildContext context) {
     bool isAr = languageNotifier.value == 'ar';
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "إنشاء معرض" : "Créer mon Showroom")),
+      appBar: AppBar(title: Text(isAr ? "Ø¥Ù†Ø´Ø§Ø¡ Ù…Ø¹Ø±Ø¶" : "CrÃ©er mon Showroom")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -129,13 +129,13 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(isAr ? "شعار المعرض" : "Logo du Showroom", style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(isAr ? "Ø´Ø¹Ø§Ø± Ø§Ù„Ù…Ø¹Ø±Ø¶" : "Logo du Showroom", style: const TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 30),
 
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  labelText: isAr ? "اسم المعرض" : "Nom du Showroom",
+                  labelText: isAr ? "Ø§Ø³Ù… Ø§Ù„Ù…Ø¹Ø±Ø¶" : "Nom du Showroom",
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.store),
                 ),
@@ -147,7 +147,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                 controller: _descController,
                 maxLines: 3,
                 decoration: InputDecoration(
-                  labelText: isAr ? "وصف النشاط" : "Description (Marques, Spécialité...)",
+                  labelText: isAr ? "ÙˆØµÙ Ø§Ù„Ù†Ø´Ø§Ø·" : "Description (Marques, SpÃ©cialitÃ©...)",
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.description),
                 ),
@@ -158,7 +158,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
               TextFormField(
                 controller: _addressController,
                 decoration: InputDecoration(
-                  labelText: isAr ? "العنوان" : "Adresse physique",
+                  labelText: isAr ? "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†" : "Adresse physique",
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.map), 
                 ),
@@ -175,8 +175,8 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                       : Icon(Icons.my_location, color: _storeLocation != null ? Colors.green : Colors.blue),
                   label: Text(
                     _storeLocation != null 
-                        ? (isAr ? "تم تحديد الموقع" : "Position du Showroom enregistrée ✓") 
-                        : (isAr ? "تحديد موقع المعرض على الخريطة" : "Localiser le Showroom sur Google Maps"),
+                        ? (isAr ? "ØªÙ… ØªØ­Ø¯ÙŠØ¯ Ø§Ù„Ù…ÙˆÙ‚Ø¹" : "Position du Showroom enregistrÃ©e âœ“") 
+                        : (isAr ? "ØªØ­Ø¯ÙŠØ¯ Ù…ÙˆÙ‚Ø¹ Ø§Ù„Ù…Ø¹Ø±Ø¶ Ø¹Ù„Ù‰ Ø§Ù„Ø®Ø±ÙŠØ·Ø©" : "Localiser le Showroom sur Google Maps"),
                   ),
                 ),
               ),
@@ -194,10 +194,10 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                 decoration: BoxDecoration(color: Colors.amber.shade50, borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.amber.shade200)),
                 child: Column(
                   children: [
-                    Text(isAr ? "اشتراك شهري" : "Abonnement Showroom", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
-                    const Text("5000 DA", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.orange)),
+                    Text(isAr ? "Ø§Ø´ØªØ±Ø§Ùƒ Ø´Ù‡Ø±ÙŠ" : "Abonnement Showroom", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
+                    const Text("5000 EUR", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.orange)),
                     const SizedBox(height: 10),
-                    const Text("Status Showroom • Visibilité Max • Gestion Pro", textAlign: TextAlign.center),
+                    const Text("Status Showroom â€¢ VisibilitÃ© Max â€¢ Gestion Pro", textAlign: TextAlign.center),
                   ],
                 ),
               ),
@@ -211,7 +211,7 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
                   style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A)),
                   child: _isLoading 
                       ? const CircularProgressIndicator(color: Colors.white) 
-                      : Text(isAr ? "دفع وتفعيل" : "PAYER ET ACTIVER", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      : Text(isAr ? "Ø¯ÙØ¹ ÙˆØªÙØ¹ÙŠÙ„" : "PAYER ET ACTIVER", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                 ),
               ),
             ],
@@ -221,3 +221,4 @@ class _CreateStoreScreenState extends State<CreateStoreScreen> {
     );
   }
 }
+

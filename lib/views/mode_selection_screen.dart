@@ -177,7 +177,7 @@ class _ModeSelectionScreenState extends State<ModeSelectionScreen>
                               title: 'Acheter',
                               titleAr: 'شراء',
                               subtitle:
-                                  'Des milliers de véhicules d\'occasion et neufs partout en Algérie',
+                                  'Des milliers de vehicules d\'occasion et neufs partout en Europe',
                               gradientColors: const [
                                 Color(0xFF1B4332),
                                 Color(0xFF1E3A5F),

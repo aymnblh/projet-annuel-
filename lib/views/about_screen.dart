@@ -41,7 +41,7 @@ class AboutScreen extends StatelessWidget {
           ),
           Center(
             child: Text(
-              isAr ? "منصة بيع وشراء السيارات في الجزائر" : "Plateforme de vente et achat de voitures en Algérie",
+              isAr ? "منصة بيع وشراء السيارات في أوروبا" : "Plateforme de vente et achat de voitures en Europe",
               style: GoogleFonts.cairo(fontSize: 14, color: Colors.grey),
               textAlign: TextAlign.center,
             ),
@@ -59,8 +59,8 @@ class AboutScreen extends StatelessWidget {
           _buildSection(
             isAr ? "من نحن" : "Qui sommes-nous ?",
             isAr 
-              ? "OneClick Cars هي منصة جزائرية رائدة لبيع وشراء السيارات. نوفر تجربة سلسة وآمنة للمستخدمين للعثور على سيارة أحلامهم أو بيع سياراتهم بسهولة."
-              : "OneClick Cars est une plateforme algérienne leader pour la vente et l'achat de voitures. Nous offrons une expérience fluide et sécurisée pour trouver la voiture de vos rêves ou vendre votre véhicule facilement.",
+              ? "OneClick Cars هي منصة رائدة لبيع وشراء السيارات. نوفر تجربة سلسة وآمنة للمستخدمين للعثور على سيارة أحلامهم أو بيع سياراتهم بسهولة."
+              : "OneClick Cars est une plateforme leader pour la vente et l'achat de voitures. Nous offrons une expérience fluide et sécurisée pour trouver la voiture de vos rêves ou vendre votre véhicule facilement.",
             isDark,
           ),
           const SizedBox(height: 20),

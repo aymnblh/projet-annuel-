@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../utils/categories_data.dart';
@@ -20,16 +20,7 @@ class FilterSheet extends StatefulWidget {
 }
 
 class _FilterSheetState extends State<FilterSheet> {
-  final List<String> _wilayas = [
-   'Adrar', 'Chlef', 'Laghouat', 'Oum El Bouaghi', 'Batna', 'Béjaïa', 'Biskra', 
-    'Béchar', 'Blida', 'Bouira', 'Tamanrasset', 'Tébessa', 'Tlemcen', 'Tiaret', 
-    'Tizi Ouzou', 'Alger', 'Djelfa', 'Jijel', 'Sétif', 'Saïda', 'Skikda', 
-    'Sidi Bel Abbès', 'Annaba', 'Guelma', 'Constantine', 'Médéa', 'Mostaganem', 
-    'M\'Sila', 'Mascara', 'Ouargla', 'Oran', 'El Bayadh', 'Illizi', 'Bordj Bou Arreridj', 
-    'Boumerdès', 'El Tarf', 'Tindouf', 'Tissemsilt', 'El Oued', 'Khenchela', 
-    'Souk Ahras', 'Tipaza', 'Mila', 'Aïn Defla', 'Naâma', 'Aïn Témouchent', 
-    'Ghardaïa', 'Relizane'
-  ];
+  final List<String> _wilayas = CategoriesData.europeanMarkets;
 
   late String _selectedCategory;
   String? _selectedWilaya;
@@ -127,10 +118,10 @@ class _FilterSheetState extends State<FilterSheet> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(isAr ? "تصفية وترتيب" : "Filtres & Tri", style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
+                Text(isAr ? "ØªØµÙÙŠØ© ÙˆØªØ±ØªÙŠØ¨" : "Filtres & Tri", style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
                 TextButton(
                   onPressed: _reset,
-                  child: Text(isAr ? "إعادة تعيين" : "Réinitialiser", style: GoogleFonts.cairo(color: Colors.red)),
+                  child: Text(isAr ? "Ø¥Ø¹Ø§Ø¯Ø© ØªØ¹ÙŠÙŠÙ†" : "RÃ©initialiser", style: GoogleFonts.cairo(color: Colors.red)),
                 )
               ],
             ),
@@ -141,52 +132,52 @@ class _FilterSheetState extends State<FilterSheet> {
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                _buildSectionTitle(isAr ? "رتب حسب" : "Trier par", isDark),
+                _buildSectionTitle(isAr ? "Ø±ØªØ¨ Ø­Ø³Ø¨" : "Trier par", isDark),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 10,
                   children: [
-                    _buildSortChip(isAr ? "الأحدث" : "Plus récent", 0, isDark),
-                    _buildSortChip(isAr ? "السعر: تصاعدي" : "Prix croissant", 1, isDark),
-                    _buildSortChip(isAr ? "السعر: تنازلي" : "Prix décroissant", 2, isDark),
+                    _buildSortChip(isAr ? "Ø§Ù„Ø£Ø­Ø¯Ø«" : "Plus rÃ©cent", 0, isDark),
+                    _buildSortChip(isAr ? "Ø§Ù„Ø³Ø¹Ø±: ØªØµØ§Ø¹Ø¯ÙŠ" : "Prix croissant", 1, isDark),
+                    _buildSortChip(isAr ? "Ø§Ù„Ø³Ø¹Ø±: ØªÙ†Ø§Ø²Ù„ÙŠ" : "Prix dÃ©croissant", 2, isDark),
                   ],
                 ),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "الموقع" : "Localisation", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„Ù…ÙˆÙ‚Ø¹" : "Région / département", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedWilaya,
-                  decoration: _inputDecoration(isAr ? "الولاية" : "Wilaya", isDark),
+                  decoration: _inputDecoration(isAr ? "Ø§Ù„Ø¯ÙˆÙ„Ø©" : "Région / département", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: null, child: Text(isAr ? "الكل" : "Tout")), ..._wilayas.map((w) => DropdownMenuItem(value: w, child: Text(w)))],
+                  items: [DropdownMenuItem(value: null, child: Text(isAr ? "Ø§Ù„ÙƒÙ„" : "Tout")), ..._wilayas.map((w) => DropdownMenuItem(value: w, child: Text(w)))],
                   onChanged: (v) => setState(() => _selectedWilaya = v),
                 ),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "الفئة" : "Catégorie", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„ÙØ¦Ø©" : "CatÃ©gorie", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedCategory,
                   decoration: _inputDecoration("", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: 'Tout', child: Text(isAr ? 'الكل' : 'Tout')), ...CategoriesData.subCategories.keys.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
+                  items: [DropdownMenuItem(value: 'Tout', child: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout')), ...CategoriesData.subCategories.keys.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
                   onChanged: (v) => setState(() => _selectedCategory = v!),
                 ),
                 const SizedBox(height: 25),
                 
-                 _buildSectionTitle(isAr ? "الماركة" : "Marque", isDark),
+                 _buildSectionTitle(isAr ? "Ø§Ù„Ù…Ø§Ø±ÙƒØ©" : "Marque", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedBrand,
                   decoration: _inputDecoration("", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'الكل' : 'Tout')), ...CategoriesData.carBrands.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
+                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout')), ...CategoriesData.carBrands.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
                   onChanged: (v) => setState(() => _selectedBrand = v),
                 ),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "السعر (دج)" : "Prix (DA)", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„Ø³Ø¹Ø± (Ø¯Ø¬)" : "Prix (EUR)", isDark),
                 Row(children: [
                   Expanded(child: TextField(controller: _minPriceController, keyboardType: TextInputType.number, style: TextStyle(color: isDark ? Colors.white : Colors.black), decoration: _inputDecoration("Min", isDark))),
                   const SizedBox(width: 15),
@@ -195,7 +186,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 const SizedBox(height: 25),
 
                 // VEHICLE SPECIFIC
-                _buildSectionTitle(isAr ? "السنة" : "Année", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„Ø³Ù†Ø©" : "AnnÃ©e", isDark),
                 Row(children: [
                   Expanded(child: TextField(controller: _minYearController, keyboardType: TextInputType.number, style: TextStyle(color: isDark ? Colors.white : Colors.black), decoration: _inputDecoration("Min", isDark))),
                   const SizedBox(width: 15),
@@ -203,7 +194,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 ]),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "المسافة (كم)" : "Kilométrage", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„Ù…Ø³Ø§ÙØ© (ÙƒÙ…)" : "KilomÃ©trage", isDark),
                 Row(children: [
                   Expanded(child: TextField(controller: _minKmController, keyboardType: TextInputType.number, style: TextStyle(color: isDark ? Colors.white : Colors.black), decoration: _inputDecoration("Min", isDark))),
                   const SizedBox(width: 15),
@@ -211,24 +202,24 @@ class _FilterSheetState extends State<FilterSheet> {
                 ]),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle(isAr ? "الوقود" : "Carburant", isDark),
+                _buildSectionTitle(isAr ? "Ø§Ù„ÙˆÙ‚ÙˆØ¯" : "Carburant", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedFuel,
                   decoration: _inputDecoration("", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'الكل' : 'Tout')), ...CategoriesData.fuelTypes.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
+                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout')), ...CategoriesData.fuelTypes.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
                   onChanged: (v) => setState(() => _selectedFuel = v),
                 ),
                 const SizedBox(height: 25),
 
-                 _buildSectionTitle(isAr ? "علبة السرعة" : "Boîte", isDark),
+                 _buildSectionTitle(isAr ? "Ø¹Ù„Ø¨Ø© Ø§Ù„Ø³Ø±Ø¹Ø©" : "BoÃ®te", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedGearbox,
                   decoration: _inputDecoration("", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'الكل' : 'Tout')), ...CategoriesData.gearboxes.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
+                  items: [DropdownMenuItem(value: null, child: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tout')), ...CategoriesData.gearboxes.map((c) => DropdownMenuItem(value: c, child: Text(c)))],
                   onChanged: (v) => setState(() => _selectedGearbox = v),
                 ),
               ],
@@ -242,7 +233,7 @@ class _FilterSheetState extends State<FilterSheet> {
               child: ElevatedButton(
                 onPressed: _apply,
                 style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A)),
-                child: Text(isAr ? "عرض النتائج" : "Voir résultats", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
+                child: Text(isAr ? "Ø¹Ø±Ø¶ Ø§Ù„Ù†ØªØ§Ø¦Ø¬" : "Voir rÃ©sultats", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
               ),
             ),
           ),
@@ -278,3 +269,4 @@ class _FilterSheetState extends State<FilterSheet> {
     );
   }
 }
+

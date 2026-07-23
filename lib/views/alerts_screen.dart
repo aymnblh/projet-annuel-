@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +19,7 @@ class AlertsScreen extends StatelessWidget {
     if (user == null) return const Scaffold(body: Center(child: Text("Connectez-vous pour voir vos alertes.")));
 
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "تنبيهات البحث" : "Mes Alertes")),
+      appBar: AppBar(title: Text(isAr ? "تنبيهاتي" : "Mes Alertes")),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').doc(user.uid).collection('search_alerts').orderBy('createdAt', descending: true).snapshots(),
         builder: (context, snapshot) {
@@ -49,7 +49,7 @@ class AlertsScreen extends StatelessWidget {
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 40),
                      child: Text(
-                       isAr ? "قم بإجراء بحث وحفظه لتلقي إشعارات عند توفر سيارات جديدة." : "Faites une recherche et sauvegardez-la pour être notifié des nouvelles voitures.",
+                       isAr ? "قم بالبحث وحفظ التنبيه لتصلك إشعارات بالسيارات الجديدة." : "Faites une recherche et sauvegardez-la pour être notifié des nouvelles voitures.",
                        textAlign: TextAlign.center,
                        style: const TextStyle(color: Colors.grey, fontSize: 12)
                      ),
@@ -71,7 +71,7 @@ class AlertsScreen extends StatelessWidget {
               List<String> details = [];
               if (filters.containsKey('brand') && filters['brand'] != null) details.add(filters['brand']);
               if (filters.containsKey('minYear') && filters['minYear'] != null) details.add("> ${filters['minYear']}");
-              if (filters.containsKey('maxPrice') && filters['maxPrice'] != null) details.add("< ${filters['maxPrice']} DA");
+              if (filters.containsKey('maxPrice') && filters['maxPrice'] != null) details.add("< ${filters['maxPrice']} EUR");
               if (filters.containsKey('fuel') && filters['fuel'] != null) details.add(filters['fuel']);
 
               final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -89,7 +89,7 @@ class AlertsScreen extends StatelessWidget {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (details.isNotEmpty) Text(details.join(" • "), style: TextStyle(fontSize: 12, color: isDark ? Colors.grey[400] : Colors.grey[700])),
+                      if (details.isNotEmpty) Text(details.join(" â€¢ "), style: TextStyle(fontSize: 12, color: isDark ? Colors.grey[400] : Colors.grey[700])),
                       Text(timeago.format(data['createdAt'] != null ? (data['createdAt'] as Timestamp).toDate() : DateTime.now()), style: TextStyle(fontSize: 10, color: isDark ? Colors.grey[500] : Colors.grey)),
                     ],
                   ),
@@ -106,3 +106,4 @@ class AlertsScreen extends StatelessWidget {
     );
   }
 }
+

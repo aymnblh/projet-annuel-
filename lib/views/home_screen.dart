@@ -76,10 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadWilayas() async {
-    try {
-      final String response = await rootBundle.loadString('assets/wilayas.json');
-      setState(() { _wilayaList = json.decode(response); });
-    } catch (e) { debugPrint("Erreur wilayas: $e"); }
+    setState(() {
+      _wilayaList = CategoriesData.europeanMarkets
+          .map((country) => {'nom_fr': country})
+          .toList();
+    });
   }
 
   // --- FILTRES AVANCÃ‰S ---
@@ -540,8 +541,8 @@ class _HomeScreenState extends State<HomeScreen> {
                      if (_filterGearbox != null) _buildFilterChip(_filterGearbox!, () => setState(() => _filterGearbox = null)),
                      if (_filterVehicleType != null) _buildFilterChip(_filterVehicleType!, () => setState(() => _filterVehicleType = null)),
                      if (_filterColor != null) _buildFilterChip(_filterColor!, () => setState(() => _filterColor = null)),
-                     if (_minPrice != null) _buildFilterChip("> ${_minPrice!.toInt()} DA", () => setState(() => _minPrice = null)),
-                     if (_maxPrice != null) _buildFilterChip("< ${_maxPrice!.toInt()} DA", () => setState(() => _maxPrice = null)),
+                     if (_minPrice != null) _buildFilterChip("> ${_minPrice!.toInt()} EUR", () => setState(() => _minPrice = null)),
+                     if (_maxPrice != null) _buildFilterChip("< ${_maxPrice!.toInt()} EUR", () => setState(() => _maxPrice = null)),
                      if (_minYear != null) _buildFilterChip(">= $_minYear", () => setState(() => _minYear = null)),
                      if (_maxYear != null) _buildFilterChip("<= $_maxYear", () => setState(() => _maxYear = null)),
                      if (_minKm != null) _buildFilterChip("> $_minKm km", () => setState(() => _minKm = null)),
@@ -769,7 +770,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Icon(Icons.directions_car, color: Colors.amber, size: 40),
                 const SizedBox(height: 10),
                 Text("OneClick Cars", style: GoogleFonts.cairo(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
-                Text("AlgÃ©rie", style: GoogleFonts.cairo(color: Colors.white70, fontSize: 14)),
+                Text("Europe", style: GoogleFonts.cairo(color: Colors.white70, fontSize: 14)),
               ],
             ),
           ),
@@ -1024,7 +1025,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   // Price
                   Text(
-                    '${product.price.toStringAsFixed(0)} DA',
+                    '${product.price.toStringAsFixed(0)} EUR',
                     style: GoogleFonts.cairo(
                       fontSize: 14,
                       fontWeight: FontWeight.w900,

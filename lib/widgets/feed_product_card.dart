@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -33,7 +33,7 @@ class _FeedProductCardState extends State<FeedProductCard> {
   @override
   void initState() {
     super.initState();
-    // Combine Images + Vidéos
+    // Combine Images + VidÃ©os
     _allMedia = [...widget.product.imageUrls, ...widget.product.videoUrls];
   }
 
@@ -57,12 +57,12 @@ class _FeedProductCardState extends State<FeedProductCard> {
               return;
            }
            userProvider.toggleFavorite(widget.product.id);
-           // RECOMMANDATION : Liker = Fort intérêt
+           // RECOMMANDATION : Liker = Fort intÃ©rÃªt
            userProvider.logInterest(widget.product.category, weight: 5);
         },
         onTap: () {
            final userProvider = Provider.of<UserProvider>(context, listen: false);
-           // RECOMMANDATION : Voir détails = Intérêt léger
+           // RECOMMANDATION : Voir dÃ©tails = IntÃ©rÃªt lÃ©ger
            userProvider.logInterest(widget.product.category, weight: 1);
            
            Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailsScreen(product: widget.product)));
@@ -75,10 +75,10 @@ class _FeedProductCardState extends State<FeedProductCard> {
         ),
       );
     } else {
-      // C'EST UNE VIDÉO
+      // C'EST UNE VIDÃ‰O
       String videoUrl = _allMedia[index];
       
-      // Initialisation Lazy du Controller Vidéo si pas encore fait
+      // Initialisation Lazy du Controller VidÃ©o si pas encore fait
       if (!_videoControllers.containsKey(index)) {
         return FutureBuilder(
           future: _initializePlayer(index, videoUrl),
@@ -103,10 +103,10 @@ class _FeedProductCardState extends State<FeedProductCard> {
       videoPlayerController: videoPlayerController,
       autoPlay: false,
       looping: true,
-      aspectRatio: 1.0, // Carré pour le feed
+      aspectRatio: 1.0, // CarrÃ© pour le feed
       showControls: true, 
       placeholder: Container(color: Colors.black),
-      errorBuilder: (context, errorMessage) => Center(child: Text("Erreur vidéo: $errorMessage", style: const TextStyle(color: Colors.white))),
+      errorBuilder: (context, errorMessage) => Center(child: Text("Erreur vidÃ©o: $errorMessage", style: const TextStyle(color: Colors.white))),
     );
     
     if (mounted) {
@@ -253,7 +253,7 @@ class _FeedProductCardState extends State<FeedProductCard> {
                ),
              ),
              
-            // BADGES (Sponsorisé / Urgent)
+            // BADGES (SponsorisÃ© / Urgent)
             Positioned(
               top: 10, left: 10,
               child: Column(
@@ -407,7 +407,7 @@ class _FeedProductCardState extends State<FeedProductCard> {
                 IconButton(
                   icon: const Icon(Icons.chat_bubble_outline, size: 26),
                   onPressed: () { 
-                    // Navigation chat (à implémenter)
+                    // Navigation chat (Ã  implÃ©menter)
                     // Navigator.push(...);
                   },
                   padding: EdgeInsets.zero, constraints: const BoxConstraints(),
@@ -423,7 +423,7 @@ class _FeedProductCardState extends State<FeedProductCard> {
                 const Spacer(),
                 if (widget.product.price > 0)
                   Text(
-                    "${widget.product.price.toStringAsFixed(0)} DA", 
+                    "${widget.product.price.toStringAsFixed(0)} EUR", 
                     style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)
                   ),
               ],
@@ -520,3 +520,4 @@ class _FeedProductCardState extends State<FeedProductCard> {
     );
   }
 }
+

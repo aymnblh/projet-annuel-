@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../utils/categories_data.dart';
@@ -33,14 +33,14 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
 
     setState(() => _calculating = true);
     
-    // 1. TENTATIVE : Données Réelles (Firestore)
-    // On cherche des véhicules similaires (Même Marque, Même Modèle si précisé, +/- 1 an)
+    // 1. TENTATIVE : DonnÃ©es RÃ©elles (Firestore)
+    // On cherche des vÃ©hicules similaires (MÃªme Marque, MÃªme ModÃ¨le si prÃ©cisÃ©, +/- 1 an)
     double? realMarketAverage;
     int matchingCount = 0;
 
     try {
       // Note: Pour une vraie prod, il faudrait un index composite sur Firestore
-      // Ici on fait une requête simple et on filtre côté client si besoin pour l'exemple
+      // Ici on fait une requÃªte simple et on filtre cÃ´tÃ© client si besoin pour l'exemple
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('products')
           .where('brand', isEqualTo: _selectedBrand)
@@ -52,18 +52,18 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       
       for (var doc in snapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
-        // Filtre Année (+/- 1 an)
+        // Filtre AnnÃ©e (+/- 1 an)
         int? docYear = int.tryParse(data['year']?.toString() ?? "0");
         if (docYear != null && (docYear >= targetYear - 1 && docYear <= targetYear + 1)) {
-             // Filtre Modèle (si saisi) - contient le texte
+             // Filtre ModÃ¨le (si saisi) - contient le texte
              if (_selectedModel != null && _selectedModel!.isNotEmpty) {
                if (!(data['model']?.toString().toLowerCase().contains(_selectedModel!.toLowerCase()) ?? false)) {
-                 continue; // Pas le bon modèle
+                 continue; // Pas le bon modÃ¨le
                }
              }
              
              double price = (data['price'] as num).toDouble();
-             if (price > 100000) { // Ignorer prix absurdes (ex: 1 DA)
+             if (price > 100000) { // Ignorer prix absurdes (ex: 1 EUR)
                total += price;
                matchingCount++;
              }
@@ -86,8 +86,8 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       finalEstimation = realMarketAverage;
     } else {
       isTheoretical = true;
-      // Fallback Heuristique (Approximatif pour le démarrage)
-      double basePrice = 2500000; // 250M par défaut
+      // Fallback Heuristique (Approximatif pour le dÃ©marrage)
+      double basePrice = 2500000; // 250M par dÃ©faut
       
       // Ajustement Marque
       if (_selectedBrand == 'Renault') basePrice = 1800000;
@@ -100,11 +100,11 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       if (_selectedBrand == 'Kia') basePrice = 1700000;
       if (_selectedBrand == 'Toyota') basePrice = 2200000;
 
-      // Ajustement Année
+      // Ajustement AnnÃ©e
       int year = int.parse(_selectedYear!);
       int currentYear = DateTime.now().year;
       int age = currentYear - year;
-      basePrice -= (age * 120000); // Décote 12M/an
+      basePrice -= (age * 120000); // DÃ©cote 12M/an
 
       // Ajustement Carburant
       if (_selectedFuel == 'Diesel') basePrice += 250000; // Diesel + cher
@@ -113,12 +113,12 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       finalEstimation = basePrice;
     }
     
-    // Empêcher prix négatif
+    // EmpÃªcher prix nÃ©gatif
     if (finalEstimation < 500000) finalEstimation = 500000;
 
     if (mounted) {
       setState(() {
-        // Fourchette +/- 5% si réel, +/- 10% si théorique
+        // Fourchette +/- 5% si rÃ©el, +/- 10% si thÃ©orique
         double margin = isTheoretical ? 0.10 : 0.05;
         _estimatedMin = finalEstimation * (1 - margin);
         _estimatedMax = finalEstimation * (1 + margin);
@@ -126,9 +126,9 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
       });
       
       if (isTheoretical) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Estimation théorique (manque de données réelles)"), backgroundColor: Colors.orange));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Estimation thÃ©orique (manque de donnÃ©es rÃ©elles)"), backgroundColor: Colors.orange));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Basé sur $matchingCount véhicule(s) similaire(s) !"), backgroundColor: Colors.green));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("BasÃ© sur $matchingCount vÃ©hicule(s) similaire(s) !"), backgroundColor: Colors.green));
       }
     }
   }
@@ -137,7 +137,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
   Widget build(BuildContext context) {
     bool isAr = languageNotifier.value == 'ar';
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "تقدير الأسعار (Argus)" : "La Côte Auto (Argus)")),
+      appBar: AppBar(title: Text(isAr ? "ØªÙ‚Ø¯ÙŠØ± Ø§Ù„Ø£Ø³Ø¹Ø§Ø± (Argus)" : "La CÃ´te Auto (Argus)")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -154,12 +154,12 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
                    const Icon(Icons.price_change, color: Colors.amber, size: 50),
                    const SizedBox(height: 10),
                    Text(
-                     isAr ? "كم تساوي سيارتك؟" : "Combien vaut votre voiture ?",
+                     isAr ? "ÙƒÙ… ØªØ³Ø§ÙˆÙŠ Ø³ÙŠØ§Ø±ØªÙƒØŸ" : "Combien vaut votre voiture ?",
                      style: GoogleFonts.cairo(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                    ),
                    const SizedBox(height: 5),
                    Text(
-                     isAr ? "احصل على تقدير للسعر في السوق الجزائري" : "Obtenez une estimation basée sur le marché actuel.",
+                     isAr ? "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ ØªÙ‚Ø¯ÙŠØ± Ù„Ù„Ø³Ø¹Ø± ÙÙŠ Ø§Ù„Ø³ÙˆÙ‚ Ø§Ù„Ø¬Ø²Ø§Ø¦Ø±ÙŠ" : "Obtenez une estimation basÃ©e sur le marchÃ© actuel.",
                      textAlign: TextAlign.center,
                      style: const TextStyle(color: Colors.grey),
                    ),
@@ -170,7 +170,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
 
             // Form
             DropdownButtonFormField<String>(
-              decoration: InputDecoration(labelText: isAr ? "الماركة" : "Marque", border: const OutlineInputBorder()),
+              decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ù…Ø§Ø±ÙƒØ©" : "Marque", border: const OutlineInputBorder()),
               value: _selectedBrand,
               items: CategoriesData.carBrands.map((b) => DropdownMenuItem(value: b, child: Text(b))).toList(),
               onChanged: (v) => setState(() => _selectedBrand = v),
@@ -179,7 +179,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
             
             // Model (Simplified as Text for now or we can use Autocomplete)
             TextFormField(
-              decoration: InputDecoration(labelText: isAr ? "الموديل (مثال: Clio)" : "Modèle (ex: Clio)", border: const OutlineInputBorder()),
+              decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ù…ÙˆØ¯ÙŠÙ„ (Ù…Ø«Ø§Ù„: Clio)" : "ModÃ¨le (ex: Clio)", border: const OutlineInputBorder()),
               onChanged: (v) => _selectedModel = v,
             ),
             const SizedBox(height: 15),
@@ -187,7 +187,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
             Row(children: [
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(labelText: isAr ? "السنة" : "Année", border: const OutlineInputBorder()),
+                  decoration: InputDecoration(labelText: isAr ? "Ø§Ù„Ø³Ù†Ø©" : "AnnÃ©e", border: const OutlineInputBorder()),
                   value: _selectedYear,
                   items: _years.map((y) => DropdownMenuItem(value: y, child: Text(y))).toList(),
                   onChanged: (v) => setState(() => _selectedYear = v),
@@ -196,7 +196,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
               const SizedBox(width: 10),
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(labelText: isAr ? "الوقود" : "Carburant", border: const OutlineInputBorder()),
+                  decoration: InputDecoration(labelText: isAr ? "Ø§Ù„ÙˆÙ‚ÙˆØ¯" : "Carburant", border: const OutlineInputBorder()),
                   value: _selectedFuel,
                   items: CategoriesData.fuelTypes.map((f) => DropdownMenuItem(value: f, child: Text(f))).toList(),
                   onChanged: (v) => setState(() => _selectedFuel = v),
@@ -214,7 +214,7 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.amber[800], foregroundColor: Colors.white),
                   child: _calculating 
                     ? const CircularProgressIndicator(color: Colors.white) 
-                    : Text(isAr ? "حساب السعر" : "ESTIMER LE PRIX", style: const TextStyle(fontWeight: FontWeight.bold)),
+                    : Text(isAr ? "Ø­Ø³Ø§Ø¨ Ø§Ù„Ø³Ø¹Ø±" : "ESTIMER LE PRIX", style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),
               
@@ -232,14 +232,14 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text(isAr ? "السعر التقديري" : "Estimation du Marché", style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                      Text(isAr ? "Ø§Ù„Ø³Ø¹Ø± Ø§Ù„ØªÙ‚Ø¯ÙŠØ±ÙŠ" : "Estimation du MarchÃ©", style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 10),
                       Text(
                         "${(_estimatedMin! / 10000).toStringAsFixed(0)} - ${(_estimatedMax! / 10000).toStringAsFixed(0)} Millions",
                         style: GoogleFonts.cairo(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.green[800]),
                       ),
                       const SizedBox(height: 5),
-                      Text(isAr ? "السعر قد يختلف حسب الحالة والولاية" : "Le prix peut varier selon l'état et la wilaya.", style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      Text(isAr ? "Ø§Ù„Ø³Ø¹Ø± Ù‚Ø¯ ÙŠØ®ØªÙ„Ù Ø­Ø³Ø¨ Ø§Ù„Ø­Ø§Ù„Ø© ÙˆØ§Ù„Ø¨Ù„Ø¯" : "Le prix peut varier selon l'état, la région, le département et la ville.", style: const TextStyle(fontSize: 12, color: Colors.grey)),
                     ],
                   ),
                 ),
@@ -250,3 +250,4 @@ class _PriceEstimationScreenState extends State<PriceEstimationScreen> {
     );
   }
 }
+

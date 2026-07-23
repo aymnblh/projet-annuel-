@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -19,10 +19,10 @@ class RentalHomeScreen extends StatefulWidget {
 }
 
 class _RentalHomeScreenState extends State<RentalHomeScreen> {
-  // ── FILTERS ──
+  // â”€â”€ FILTERS â”€â”€
   String? _filterWilaya;
   String? _filterGearbox;       // Manuelle / Automatique
-  String? _filterVehicleType;   // Citadine, SUV…
+  String? _filterVehicleType;   // Citadine, SUVâ€¦
   double _maxPricePerDay = 20000;
   double _currentMaxPrice = 20000;
   DateTime? _startDate;
@@ -35,7 +35,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
   // Wilayas loaded for filter dropdown
   final List<String> _popularWilayas = [
     'Alger', 'Oran', 'Constantine', 'Annaba', 'Blida',
-    'Tlemcen', 'Sétif', 'Batna', 'Béjaïa', 'Tizi Ouzou',
+    'Tlemcen', 'SÃ©tif', 'Batna', 'BÃ©jaÃ¯a', 'Tizi Ouzou',
   ];
 
   String t(String key) => AppTranslations.get(languageNotifier.value, key);
@@ -57,7 +57,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
     super.dispose();
   }
 
-  // ── DATE PICKER ──
+  // â”€â”€ EURTE PICKER â”€â”€
   Future<void> _pickDateRange() async {
     final picked = await showDateRangePicker(
       context: context,
@@ -86,7 +86,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
     }
   }
 
-  // ── QUERY ──
+  // â”€â”€ QUERY â”€â”€
   Stream<QuerySnapshot> _buildQuery() {
     Query q = FirebaseFirestore.instance
         .collection('products')
@@ -111,7 +111,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
         .snapshots();
   }
 
-  // ── FILTER PRODUCTS CLIENT-SIDE ──
+  // â”€â”€ FILTER PRODUCTS CLIENT-SIDE â”€â”€
   List<Product> _filter(List<Product> all) {
     return all.where((p) {
       // Price/day
@@ -126,7 +126,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             (p.model?.toLowerCase().contains(q) ?? false);
         if (!match) return false;
       }
-      // Date availability — exclude if any blocked date falls in range
+      // Date availability â€” exclude if any blocked date falls in range
       if (_startDate != null && _endDate != null && p.blockedDates.isNotEmpty) {
         for (final blocked in p.blockedDates) {
           if (!blocked.isBefore(_startDate!) && !blocked.isAfter(_endDate!)) {
@@ -149,16 +149,16 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── HEADER ──
+            // â”€â”€ HEADER â”€â”€
             _buildHeader(isAr, theme),
 
-            // ── INLINE FILTERS ──
+            // â”€â”€ INLINE FILTERS â”€â”€
             _buildFilterRow(isAr, theme),
 
-            // ── PRICE SLIDER ──
+            // â”€â”€ PRICE SLIDER â”€â”€
             _buildPriceSlider(theme),
 
-            // ── RESULTS ──
+            // â”€â”€ RESULTS â”€â”€
             Expanded(child: _buildResults(isAr, theme)),
           ],
         ),
@@ -184,7 +184,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                           color: Color(0xFF7C3AED), size: 20),
                       const SizedBox(width: 8),
                       Text(
-                        isAr ? 'تأجير السيارات' : 'Location de Voitures',
+                        isAr ? 'ØªØ£Ø¬ÙŠØ± Ø§Ù„Ø³ÙŠØ§Ø±Ø§Øª' : 'Location de Voitures',
                         style: GoogleFonts.cairo(
                           fontSize: 22,
                           fontWeight: FontWeight.w900,
@@ -194,7 +194,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                     ],
                   ),
                   Text(
-                    isAr ? 'اختر وتنقل براحة' : 'Choisissez, réservez et roulez',
+                    isAr ? 'Ø§Ø®ØªØ± ÙˆØªÙ†Ù‚Ù„ Ø¨Ø±Ø§Ø­Ø©' : 'Choisissez, rÃ©servez et roulez',
                     style: GoogleFonts.cairo(
                       fontSize: 13,
                       color: Colors.grey[500],
@@ -220,7 +220,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                           size: 14, color: Color(0xFF4ECDC4)),
                       const SizedBox(width: 4),
                       Text(
-                        isAr ? 'شراء' : 'Acheter',
+                        isAr ? 'Ø´Ø±Ø§Ø¡' : 'Acheter',
                         style: GoogleFonts.cairo(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -239,8 +239,8 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             onChanged: (v) => setState(() => _searchQuery = v),
             decoration: InputDecoration(
               hintText: isAr
-                  ? 'ابحث عن سيارة (مثال: Golf, Clio...)'
-                  : 'Rechercher (ex: Golf, Clio…)',
+                  ? 'Ø§Ø¨Ø­Ø« Ø¹Ù† Ø³ÙŠØ§Ø±Ø© (Ù…Ø«Ø§Ù„: Golf, Clio...)'
+                  : 'Rechercher (ex: Golf, Clioâ€¦)',
               hintStyle: GoogleFonts.cairo(fontSize: 14, color: Colors.grey),
               prefixIcon:
                   const Icon(Icons.search, color: Color(0xFF7C3AED)),
@@ -275,7 +275,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           // Wilaya
           _FilterChip(
             icon: Icons.location_on_rounded,
-            label: _filterWilaya ?? (isAr ? 'الولاية' : 'Wilaya'),
+            label: _filterWilaya ?? (isAr ? 'Ø§Ù„ÙˆÙ„Ø§ÙŠØ©' : 'Wilaya'),
             isActive: _filterWilaya != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: () => _showWilayaPicker(isAr),
@@ -285,8 +285,8 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           _FilterChip(
             icon: Icons.calendar_month_rounded,
             label: _startDate != null
-                ? '${_startDate!.day}/${_startDate!.month} → ${_endDate!.day}/${_endDate!.month}'
-                : (isAr ? 'التواريخ' : 'Dates'),
+                ? '${_startDate!.day}/${_startDate!.month} â†’ ${_endDate!.day}/${_endDate!.month}'
+                : (isAr ? 'Ø§Ù„ØªÙˆØ§Ø±ÙŠØ®' : 'Dates'),
             isActive: _startDate != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: _pickDateRange,
@@ -295,7 +295,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           // Gearbox
           _FilterChip(
             icon: Icons.settings_rounded,
-            label: _filterGearbox ?? (isAr ? 'علبة السرعة' : 'Boîte'),
+            label: _filterGearbox ?? (isAr ? 'Ø¹Ù„Ø¨Ø© Ø§Ù„Ø³Ø±Ø¹Ø©' : 'BoÃ®te'),
             isActive: _filterGearbox != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: () => _showGearboxPicker(isAr),
@@ -304,7 +304,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
           // Vehicle type
           _FilterChip(
             icon: Icons.directions_car_rounded,
-            label: _filterVehicleType ?? (isAr ? 'نوع السيارة' : 'Type'),
+            label: _filterVehicleType ?? (isAr ? 'Ù†ÙˆØ¹ Ø§Ù„Ø³ÙŠØ§Ø±Ø©' : 'Type'),
             isActive: _filterVehicleType != null,
             accentColor: const Color(0xFF7C3AED),
             onTap: () => _showVehicleTypePicker(isAr),
@@ -316,7 +316,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             const SizedBox(width: 8),
             _FilterChip(
               icon: Icons.close_rounded,
-              label: isAr ? 'مسح' : 'Effacer',
+              label: isAr ? 'Ù…Ø³Ø­' : 'Effacer',
               isActive: false,
               accentColor: Colors.red,
               onTap: () => setState(() {
@@ -356,13 +356,13 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                 min: 1000,
                 max: _maxPricePerDay,
                 divisions: 19,
-                label: '${_currentMaxPrice.toInt()} DA',
+                label: '${_currentMaxPrice.toInt()} EUR',
                 onChanged: (v) => setState(() => _currentMaxPrice = v),
               ),
             ),
           ),
           Text(
-            '${_currentMaxPrice.toInt()} DA',
+            '${_currentMaxPrice.toInt()} EUR',
             style: GoogleFonts.cairo(
               fontSize: 12,
               color: const Color(0xFF7C3AED),
@@ -401,8 +401,8 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                 const SizedBox(height: 12),
                 Text(
                   isAr
-                      ? 'لا توجد سيارات للإيجار'
-                      : 'Aucune voiture disponible à la location',
+                      ? 'Ù„Ø§ ØªÙˆØ¬Ø¯ Ø³ÙŠØ§Ø±Ø§Øª Ù„Ù„Ø¥ÙŠØ¬Ø§Ø±'
+                      : 'Aucune voiture disponible Ã  la location',
                   style:
                       GoogleFonts.cairo(color: Colors.grey[500], fontSize: 15),
                 ),
@@ -428,7 +428,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
     );
   }
 
-  // ── PICKERS ──
+  // â”€â”€ PICKERS â”€â”€
 
   void _showWilayaPicker(bool isAr) {
     showModalBottomSheet(
@@ -436,7 +436,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
       builder: (_) => ListView(
         children: [
           ListTile(
-            title: Text(isAr ? 'كل الولايات' : 'Toutes les wilayas'),
+            title: Text(isAr ? 'ÙƒÙ„ Ø§Ù„ÙˆÙ„Ø§ÙŠØ§Øª' : 'Toutes les wilayas'),
             onTap: () {
               setState(() => _filterWilaya = null);
               Navigator.pop(context);
@@ -463,7 +463,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
         shrinkWrap: true,
         children: [
           ListTile(
-            title: Text(isAr ? 'الكل' : 'Toutes'),
+            title: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Toutes'),
             onTap: () {
               setState(() => _filterGearbox = null);
               Navigator.pop(context);
@@ -490,7 +490,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
         shrinkWrap: true,
         children: [
           ListTile(
-            title: Text(isAr ? 'الكل' : 'Tous les types'),
+            title: Text(isAr ? 'Ø§Ù„ÙƒÙ„' : 'Tous les types'),
             onTap: () {
               setState(() => _filterVehicleType = null);
               Navigator.pop(context);
@@ -512,7 +512,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
   }
 }
 
-// ── RENTAL CARD ──
+// â”€â”€ RENTAL CARD â”€â”€
 
 class _RentalCard extends StatelessWidget {
   final Product product;
@@ -628,7 +628,7 @@ class _RentalCard extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '${product.pricePerDay!.toInt()} DA',
+                            text: '${product.pricePerDay!.toInt()} EUR',
                             style: GoogleFonts.cairo(
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
@@ -654,7 +654,7 @@ class _RentalCard extends StatelessWidget {
                       const SizedBox(width: 2),
                       Expanded(
                         child: Text(
-                          '${product.wilaya}${product.year != null ? ' · ${product.year}' : ''}',
+                          '${product.wilaya}${product.year != null ? ' Â· ${product.year}' : ''}',
                           style: GoogleFonts.cairo(
                               fontSize: 11, color: Colors.grey[500]),
                           overflow: TextOverflow.ellipsis,
@@ -690,7 +690,7 @@ class _RentalCard extends StatelessWidget {
   }
 }
 
-// ── FILTER CHIP ──
+// â”€â”€ FILTER CHIP â”€â”€
 
 class _FilterChip extends StatelessWidget {
   final IconData icon;
@@ -742,3 +742,4 @@ class _FilterChip extends StatelessWidget {
     );
   }
 }
+

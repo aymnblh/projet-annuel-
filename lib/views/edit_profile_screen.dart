@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
+import '../utils/categories_data.dart';
 import '../main.dart'; // Pour languageNotifier
 
 class EditProfileScreen extends StatefulWidget {
@@ -33,14 +32,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _loadWilayas() async {
-    try {
-      final String response = await rootBundle.loadString('assets/wilayas.json');
-      setState(() {
-        _wilayaList = json.decode(response);
-      });
-    } catch (e) {
-      print("Erreur chargement wilayas: $e");
-    }
+    setState(() {
+      _wilayaList = CategoriesData.europeanMarkets
+          .map((country) => {'nom_fr': country})
+          .toList();
+    });
   }
 
   @override
@@ -188,7 +184,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 initialValue: _selectedWilaya,
                 isExpanded: true,
                 decoration: InputDecoration(
-                  labelText: isAr ? "الولاية" : "Wilaya",
+                  labelText: isAr ? "الدولة" : "Pays",
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   prefixIcon: const Icon(Icons.map),
                 ),

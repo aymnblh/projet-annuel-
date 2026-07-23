@@ -1,4 +1,4 @@
-
+﻿
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -73,7 +73,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       widget.product.vehicleType,
     );
     
-    // Incrémenter la vue
+    // IncrÃ©menter la vue
     if (FirebaseAuth.instance.currentUser?.uid != widget.product.sellerId) {
       DatabaseService().incrementViewCount(widget.product.id);
       AnalyticsService.logViewItem(widget.product);
@@ -128,12 +128,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     Navigator.push(context, MaterialPageRoute(builder: (_) => PublicProfileScreen(userId: widget.product.sellerId, userName: sellerName)));
   }
 
-  // ── LEAD: APPELER ──
+  // â”€â”€ LEAD: APPELER â”€â”€
   Future<void> _callSeller() async {
     final phone = widget.product.phone;
     if (phone == null || phone.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Pas de numéro disponible')));
+          const SnackBar(content: Text('Pas de numÃ©ro disponible')));
       return;
     }
     // Track lead first (fire-and-forget)
@@ -153,12 +153,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     }
   }
 
-  // ── LEAD: WHATSAPP ──
+  // â”€â”€ LEAD: WHATSAPP â”€â”€
   Future<void> _openWhatsApp() async {
     final phone = widget.product.phone;
     if (phone == null || phone.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Pas de numéro disponible')));
+          const SnackBar(content: Text('Pas de numÃ©ro disponible')));
       return;
     }
     // Track lead first (fire-and-forget)
@@ -171,15 +171,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
     final p = widget.product;
     final msg = Uri.encodeComponent(
-      'Bonjour, je suis intéressé(e) par votre annonce "«${p.title}»" '
-      '(${p.price.toStringAsFixed(0)} DA) sur 1Click. '
+      'Bonjour, je suis intÃ©ressÃ©(e) par votre annonce "Â«${p.title}Â»" '
+      '(${p.price.toStringAsFixed(0)} EUR) sur 1Click. '
       'Est-elle toujours disponible ?',
     );
-    // Strip leading 0 and add Algeria prefix if needed
     String cleanPhone = phone.replaceAll(RegExp(r'\s+'), '');
-    if (cleanPhone.startsWith('0')) {
-      cleanPhone = '+213${cleanPhone.substring(1)}';
-    }
     final uri = Uri.parse('https://wa.me/$cleanPhone?text=$msg');
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       if (mounted) {
@@ -189,15 +185,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     }
   }
 
-  // ── REPORT LISTING ──
+  // â”€â”€ REPORT LISTING â”€â”€
   void _showReportSheet() {
     bool isAr = languageNotifier.value == 'ar';
     final reasons = [
-      isAr ? 'السعر غير صحيح' : 'Prix incorrect',
-      isAr ? 'السيارة بيعت' : 'Voiture déjà vendue',
-      isAr ? 'إعلان مزيف' : 'Annonce frauduleuse',
-      isAr ? 'صور مضللة' : 'Photos trompeuses',
-      isAr ? 'أخرى' : 'Autre',
+      isAr ? 'Ø§Ù„Ø³Ø¹Ø± ØºÙŠØ± ØµØ­ÙŠØ­' : 'Prix incorrect',
+      isAr ? 'Ø§Ù„Ø³ÙŠØ§Ø±Ø© Ø¨ÙŠØ¹Øª' : 'Voiture dÃ©jÃ  vendue',
+      isAr ? 'Ø¥Ø¹Ù„Ø§Ù† Ù…Ø²ÙŠÙ' : 'Annonce frauduleuse',
+      isAr ? 'ØµÙˆØ± Ù…Ø¶Ù„Ù„Ø©' : 'Photos trompeuses',
+      isAr ? 'Ø£Ø®Ø±Ù‰' : 'Autre',
     ];
 
     showModalBottomSheet(
@@ -212,15 +208,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                isAr ? 'Signaler l\'annonce ⚑' : 'Signaler l\'annonce ⚑',
+                isAr ? 'Signaler l\'annonce âš‘' : 'Signaler l\'annonce âš‘',
                 style: GoogleFonts.cairo(
                     fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               Text(
                 isAr
-                    ? 'لماذا تريد الإبلاغ عن هذا الإعلان؟'
-                    : 'Pour quelle raison signalez-vous cette annonce ?',
+                    ? 'Ù„Ù…Ø§Ø°Ø§ ØªØ±ÙŠØ¯ Ø§Ù„Ø¥Ø¨Ù„Ø§Øº Ø¹Ù† Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†ØŸ'
+                    : 'Pour quelle raison signalez-vous cette annonceÂ ?',
                 style: GoogleFonts.cairo(
                     fontSize: 13, color: Colors.grey[600]),
               ),
@@ -241,8 +237,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(isAr
-                              ? 'تم الإبلاغ. شكرًا لمساعدتنا!'
-                              : 'Signalement envoyé. Merci !'),
+                              ? 'ØªÙ… Ø§Ù„Ø¥Ø¨Ù„Ø§Øº. Ø´ÙƒØ±Ù‹Ø§ Ù„Ù…Ø³Ø§Ø¹Ø¯ØªÙ†Ø§!'
+                              : 'Signalement envoyÃ©. MerciÂ !'),
                           backgroundColor: Colors.green,
                         ));
                       }
@@ -268,21 +264,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(isAr ? "🚀 ميز إعلانك" : "🚀 Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text(isAr ? "ðŸš€ Ù…ÙŠØ² Ø¥Ø¹Ù„Ø§Ù†Ùƒ" : "ðŸš€ Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18)),
               const SizedBox(height: 10),
-              Text(isAr ? "احصل على مشاهدات أكثر بـ 10 أضعاف!" : "Obtenez jusqu'à 10x plus de vues en apparaissant en tête de liste.", textAlign: TextAlign.center),
+              Text(isAr ? "Ø§Ø­ØµÙ„ Ø¹Ù„Ù‰ Ù…Ø´Ø§Ù‡Ø¯Ø§Øª Ø£ÙƒØ«Ø± Ø¨Ù€ 10 Ø£Ø¶Ø¹Ø§Ù!" : "Obtenez jusqu'Ã  10x plus de vues en apparaissant en tÃªte de liste.", textAlign: TextAlign.center),
               const SizedBox(height: 20),
               
               _buildBoostOption(
-                title: isAr ? "24 ساعة" : "24 Heures",
-                price: "200 DA",
+                title: isAr ? "24 Ø³Ø§Ø¹Ø©" : "24 Heures",
+                price: "200 EUR",
                 color: Colors.blue.shade100,
                 onTap: () => _processBoostPayment(1),
               ),
               const SizedBox(height: 10),
               _buildBoostOption(
-                title: isAr ? "7 أيام (الأكثر مبيعا)" : "7 Jours (Populaire)",
-                price: "1000 DA",
+                title: isAr ? "7 Ø£ÙŠØ§Ù… (Ø§Ù„Ø£ÙƒØ«Ø± Ù…Ø¨ÙŠØ¹Ø§)" : "7 Jours (Populaire)",
+                price: "1000 EUR",
                 color: Colors.amber.shade100,
                 isPopular: true,
                 onTap: () => _processBoostPayment(7),
@@ -312,7 +308,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(title, style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16)),
-                if (isPopular) Text("Top Deal 🔥", style: TextStyle(fontSize: 10, color: Colors.orange[800], fontWeight: FontWeight.bold)),
+                if (isPopular) Text("Top Deal ðŸ”¥", style: TextStyle(fontSize: 10, color: Colors.orange[800], fontWeight: FontWeight.bold)),
               ],
             ),
             const Spacer(),
@@ -339,7 +335,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         'boostedAt': FieldValue.serverTimestamp(),
       });
       
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce Boostée avec succès ! 🚀"), backgroundColor: Colors.green));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce BoostÃ©e avec succÃ¨s ! ðŸš€"), backgroundColor: Colors.green));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erreur: $e")));
     }
@@ -463,7 +459,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           if (mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('✅ Produit partagé !'),
+                                content: Text('âœ… Produit partagÃ© !'),
                                 backgroundColor: Colors.green,
                                 duration: Duration(seconds: 2),
                               ),
@@ -473,10 +469,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           if (mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('❌ Erreur: ${e.toString()}'),
+                                content: Text('âŒ Erreur: ${e.toString()}'),
                                 backgroundColor: Colors.red,
                                 action: SnackBarAction(
-                                  label: 'Réessayer',
+                                  label: 'RÃ©essayer',
                                   textColor: Colors.white,
                                   onPressed: () async {
                                     await SocialSharingService.shareProduct(p);
@@ -603,7 +599,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             )
                           ),
                           const SizedBox(width: 10),
-                          Text("${p.price.toStringAsFixed(0)} DA", style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold, color: theme.colorScheme.primary)),
+                          Text("${p.price.toStringAsFixed(0)} EUR", style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold, color: theme.colorScheme.primary)),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -626,7 +622,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       const SizedBox(height: 20),
 
                       // --- CAR SPECS ---
-                      Text(isAr ? "مواصفات السيارة" : "Caractéristiques", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(isAr ? "Ù…ÙˆØ§ØµÙØ§Øª Ø§Ù„Ø³ÙŠØ§Ø±Ø©" : "CaractÃ©ristiques", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 15),
                       Wrap(
                         spacing: 10, runSpacing: 10,
@@ -637,7 +633,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           if (p.gearbox != null) _buildSpecChip(Icons.settings, CategoriesData.tSpecies(p.gearbox!, isAr ? 'ar' : 'fr')),
                           if (p.color != null) _buildSpecChip(Icons.palette, CategoriesData.tSpecies(p.color!, isAr ? 'ar' : 'fr')),
                           if (p.engine != null && p.engine!.isNotEmpty) _buildSpecChip(Icons.engineering, "${p.engine}"),
-                          if (p.exchange == true) _buildSpecChip(Icons.sync_alt, isAr ? "تبادل" : "Échange"),
+                          if (p.exchange == true) _buildSpecChip(Icons.sync_alt, isAr ? "ØªØ¨Ø§Ø¯Ù„" : "Ã‰change"),
                           if (p.papers != null) _buildSpecChip(Icons.article, CategoriesData.tSpecies(p.papers!, isAr ? 'ar' : 'fr')),
                         ],
                       ),
@@ -675,15 +671,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ],
 
                       const SizedBox(height: 25),
-                      Text(isAr ? "الوصف" : "Description", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(isAr ? "Ø§Ù„ÙˆØµÙ" : "Description", style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 10),
                       ReadMoreText(
                         p.description,
                         trimLines: 4,
                         colorClickableText: theme.colorScheme.primary,
                         trimMode: TrimMode.Line,
-                        trimCollapsedText: isAr ? '...إقرأ المزيد' : '...Voir plus',
-                        trimExpandedText: isAr ? ' إخفاء' : ' Voir moins',
+                        trimCollapsedText: isAr ? '...Ø¥Ù‚Ø±Ø£ Ø§Ù„Ù…Ø²ÙŠØ¯' : '...Voir plus',
+                        trimExpandedText: isAr ? ' Ø¥Ø®ÙØ§Ø¡' : ' Voir moins',
                         style: GoogleFonts.cairo(fontSize: 15, height: 1.6),
                       ),
                       
@@ -708,7 +704,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(isAr ? "البائع" : "Vendeur", style: TextStyle(color: Colors.grey[600], fontSize: 11)),
+                                Text(isAr ? "Ø§Ù„Ø¨Ø§Ø¦Ø¹" : "Vendeur", style: TextStyle(color: Colors.grey[600], fontSize: 11)),
                                 FutureBuilder<DocumentSnapshot>(
                                   future: FirebaseFirestore.instance.collection('users').doc(p.sellerId).get(),
                                   builder: (context, snapshot) {
@@ -732,7 +728,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                       // SIMILAR CARS SECTION
                       Text(
-                        isAr ? "سيارات مماثلة" : "Voitures similaires",
+                        isAr ? "Ø³ÙŠØ§Ø±Ø§Øª Ù…Ù…Ø§Ø«Ù„Ø©" : "Voitures similaires",
                         style: GoogleFonts.cairo(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -781,7 +777,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   Expanded(
                                     child: Text(
                                       isAr
-                                          ? "لا توجد سيارات مماثلة حاليا"
+                                          ? "Ù„Ø§ ØªÙˆØ¬Ø¯ Ø³ÙŠØ§Ø±Ø§Øª Ù…Ù…Ø§Ø«Ù„Ø© Ø­Ø§Ù„ÙŠØ§"
                                           : "Aucune voiture similaire pour le moment",
                                       style: GoogleFonts.cairo(
                                         color: Colors.grey[600],
@@ -867,7 +863,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                 const SizedBox(height: 4),
                                                 // Price
                                                 Text(
-                                                  "${car.price.toStringAsFixed(0)} DA",
+                                                  "${car.price.toStringAsFixed(0)} EUR",
                                                   style: GoogleFonts.cairo(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w900,
@@ -939,7 +935,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _showBoostOptions,
                   icon: const Icon(Icons.rocket_launch),
-                  label: Text(isAr ? "ميز إعلانك (Boost)" : "Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16)),
+                  label: Text(isAr ? "Ù…ÙŠØ² Ø¥Ø¹Ù„Ø§Ù†Ùƒ (Boost)" : "Booster mon annonce", style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16)),
                   style: ElevatedButton.styleFrom(
                      backgroundColor: Colors.amber[800],
                      foregroundColor: Colors.white,
@@ -951,7 +947,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // ── PRIMARY CTA: APPELER ──
+                    // â”€â”€ PRIMARY CTA: APPELER â”€â”€
                     Row(
                       children: [
                         Expanded(
@@ -960,7 +956,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             onPressed: _callSeller,
                             icon: const Icon(Icons.phone_rounded, size: 20),
                             label: Text(
-                              isAr ? 'اتصل بالبائع' : 'Appeler',
+                              isAr ? 'Ø§ØªØµÙ„ Ø¨Ø§Ù„Ø¨Ø§Ø¦Ø¹' : 'Appeler',
                               style: GoogleFonts.cairo(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -975,7 +971,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        // ── SECONDARY CTA: WHATSAPP ──
+                        // â”€â”€ SECONDARY CTA: WHATSAPP â”€â”€
                         Expanded(
                           flex: 3,
                           child: ElevatedButton.icon(
@@ -997,7 +993,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        // ── IN-APP CHAT ──
+                        // â”€â”€ IN-APP CHAT â”€â”€
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -1008,13 +1004,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             onPressed: () => _contactSeller('Seller'),
                             icon: const Icon(
                                 Icons.chat_bubble_outline_rounded),
-                            tooltip: isAr ? 'دردشة داخلية' : 'Chat in-app',
+                            tooltip: isAr ? 'Ø¯Ø±Ø¯Ø´Ø© Ø¯Ø§Ø®Ù„ÙŠØ©' : 'Chat in-app',
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8),
-                    // ── REPORT LINK ──
+                    // â”€â”€ REPORT LINK â”€â”€
                     GestureDetector(
                       onTap: _showReportSheet,
                       child: Row(
@@ -1024,7 +1020,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               size: 14, color: Colors.grey),
                           const SizedBox(width: 4),
                           Text(
-                            isAr ? 'الإبلاغ عن الإعلان'
+                            isAr ? 'Ø§Ù„Ø¥Ø¨Ù„Ø§Øº Ø¹Ù† Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†'
                                 : 'Signaler cette annonce',
                             style: GoogleFonts.cairo(
                                 fontSize: 12, color: Colors.grey),
@@ -1041,3 +1037,4 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 }
+

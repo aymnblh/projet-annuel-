@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/product.dart';
 import '../services/algolia_service.dart';
@@ -143,7 +143,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
               child: Row(
                 children: [
                   Text(
-                    '${products.length} résultat${products.length > 1 ? 's' : ''}',
+                    '${products.length} rÃ©sultat${products.length > 1 ? 's' : ''}',
                     style: GoogleFonts.cairo(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -214,7 +214,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${product.price.toStringAsFixed(0)} DA',
+                    '${product.price.toStringAsFixed(0)} EUR',
                     style: GoogleFonts.cairo(
                       fontSize: 15,
                       fontWeight: FontWeight.w900,
@@ -262,7 +262,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
                 child: Row(
                   children: [
                     Text(
-                      'Recherches récentes',
+                      'Recherches rÃ©centes',
                       style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     const Spacer(),
@@ -347,7 +347,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
             Icon(Icons.search_off, size: 80, color: Colors.grey[300]),
             const SizedBox(height: 24),
             Text(
-              'Aucun résultat pour "$query"',
+              'Aucun rÃ©sultat pour "$query"',
               textAlign: TextAlign.center,
               style: GoogleFonts.cairo(
                 fontSize: 18,
@@ -357,7 +357,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
             ),
             const SizedBox(height: 12),
             Text(
-              'Essayez avec d\'autres mots-clés',
+              'Essayez avec d\'autres mots-clÃ©s',
               textAlign: TextAlign.center,
               style: GoogleFonts.cairo(fontSize: 14, color: Colors.grey[500]),
             ),
@@ -395,7 +395,7 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Marque, modèle, année...',
+              'Marque, modÃ¨le, annÃ©e...',
               style: GoogleFonts.cairo(fontSize: 14, color: Colors.grey[500]),
             ),
           ],
@@ -419,3 +419,4 @@ class AlgoliaSearchDelegate extends SearchDelegate<Product?> {
     super.dispose();
   }
 }
+

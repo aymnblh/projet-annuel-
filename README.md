@@ -1,6 +1,6 @@
-# 🛍️ OneClick - Marketplace Algérie 🇩🇿
+# 🛍️ OneClick - Marketplace pour les utilisateurs
 
-**OneClick** est une application mobile e-commerce moderne conçue pour le marché algérien. Elle permet aux particuliers de vendre leurs objets (style OuedKniss/Avito) et aux professionnels de créer des boutiques virtuelles.
+**OneClick** est une application mobile e-commerce moderne conçue pour les utilisateurs. Elle permet aux particuliers de vendre leurs objets et aux professionnels de créer des boutiques virtuelles.
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### 👤 Pour les Utilisateurs (Acheteurs/Vendeurs)
 *   **Fil d'actualité Intelligent** : Algorithme de tri (Boosts en premier, puis Récents) avec pagination infinie.
-*   **Recherche & Filtres** : Recherche instantanée (par titre, catégorie, wilaya, commune) avec historique.
+*   **Recherche & Filtres** : Recherche instantanée (par titre, catégorie, région/département, ville) avec historique.
 *   **Messagerie Temps Réel** : Chat intégré (Texte, Audio, Images) avec statuts "Lu/Distribué".
 *   **Système de Favoris** : Sauvegarde des articles préférés.
 *   **Deep Linking** : Partage d'annonces via liens `oneclick://product/ID` qui ouvrent directement l'app.
@@ -70,4 +70,4 @@ flutter build apk --release
 
 ---
 
-*Développé avec 💙 pour l'Algérie.*
+*Développé avec 💙 pour les utilisateurs.*

@@ -19,7 +19,7 @@ class Product {
   final String listingType;
 
   // --- SELLER LOCATION ---
-  final String sellerCountry; // defaults to 'Algérie'
+  final String sellerCountry; // defaults to 'France'
 
   // --- CAR SPECIFIC FIELDS ---
   final String? subCategory;
@@ -84,7 +84,7 @@ class Product {
     required this.createdAt,
     required this.isSold,
     this.listingType = 'sale',
-    this.sellerCountry = 'Algérie',
+    this.sellerCountry = 'France',
     this.subCategory,
     this.brand,
     this.model,
@@ -156,7 +156,7 @@ class Product {
       createdAt: toDateTime(data['createdAt']),
       isSold: data['isSold'] ?? false,
       listingType: data['listingType'] ?? 'sale',
-      sellerCountry: data['sellerCountry'] ?? 'Algérie',
+      sellerCountry: data['sellerCountry'] ?? 'France',
       subCategory: data['subCategory'],
       brand: data['brand'],
       model: data['model'],
@@ -216,7 +216,7 @@ class Product {
       createdAt: toDateTime(data['created_at']),
       isSold: data['is_sold'] ?? false,
       listingType: data['listing_type'] ?? 'sale',
-      sellerCountry: data['seller_country'] ?? 'Algérie',
+      sellerCountry: data['seller_country'] ?? 'France',
       subCategory: data['sub_category'],
       brand: data['brand'],
       model: data['model'],
@@ -314,6 +314,6 @@ class Product {
     return (DateTime.now().year - carYear) < 3;
   }
 
-  /// True if this listing is from outside Algeria
-  bool get isImported => sellerCountry != 'Algérie';
+  /// True if this listing is outside the configured European marketplace.
+  bool get isImported => sellerCountry == 'Autre';
 }

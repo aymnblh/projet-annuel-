@@ -14,7 +14,9 @@ import '../widgets/add_product/product_media_picker.dart';
 import '../services/video_compression_service.dart'; // NEW: Video compression
 import '../services/ai_service.dart'; // NEW: AI enriched analysis
 import '../services/image_moderation_service.dart'; // NEW: Image moderation (blur faces/plates)
+import '../services/kyc_fraud_service.dart';
 import '../main.dart';
+import '../utils/button_utils.dart';
 
 class AddProductScreen extends StatefulWidget {
   /// Pass 'rent' from RentalMobileLayout to pre-select the listing type.
@@ -66,7 +68,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   // --- DROPDOWNS ---
   String _selectedCategory = "Voitures Occasion";
-  String _etat = "Bon état";
+  String _etat = "Bon Ã©tat";
   String? _selectedFuel;
   String? _selectedGearbox;
   String? _selectedBrand;
@@ -75,7 +77,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   bool _exchangeAccepted = false;
 
   // --- SELLER LOCATION ---
-  String _sellerCountry = 'Algérie';
+  String _sellerCountry = 'France';
 
   // --- LISTING TYPE ---
   late String _listingType; // 'sale' | 'rent' | 'both'
@@ -84,10 +86,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   bool _hasVariants = false;
 
   final Map<String, String> _etatMap = {
-    'Neuf': 'جديد', 'Excellent état': 'حالة ممتازة', 'Bon état': 'حالة جيدة', 'État moyen': 'حالة متوسطة', 'Pour pièces': 'قطعة غيار'
+    'Neuf': 'Ø¬Ø¯ÙŠØ¯', 'Excellent Ã©tat': 'Ø­Ø§Ù„Ø© Ù…Ù…ØªØ§Ø²Ø©', 'Bon Ã©tat': 'Ø­Ø§Ù„Ø© Ø¬ÙŠØ¯Ø©', 'Ã‰tat moyen': 'Ø­Ø§Ù„Ø© Ù…ØªÙˆØ³Ø·Ø©', 'Pour piÃ¨ces': 'Ù‚Ø·Ø¹Ø© ØºÙŠØ§Ø±'
   };
 
-  // Liste années supprimée car saisie libre
+  // Liste annÃ©es supprimÃ©e car saisie libre
   // final List<String> _years = List.generate(47, (index) => (2026 - index).toString());
 
   String t(String key) => AppTranslations.get(languageNotifier.value, key);
@@ -101,15 +103,24 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   Future<void> _loadLocationData() async {
-    try {
-      final wStr = await rootBundle.loadString('assets/wilayas.json');
-      final cStr = await rootBundle.loadString('assets/communes.json');
-      setState(() {
-        _wilayaList = json.decode(wStr);
-        _communeList = json.decode(cStr);
-      });
-    } catch (e) {
-      debugPrint("JSON Error: $e");
+    setState(() {
+      _wilayaList = CategoriesData.europeanMarkets
+          .map((country) => {'nom_fr': country})
+          .toList();
+      _communeList = CategoriesData.europeanCitiesByCountry.entries
+          .expand(
+            (entry) => entry.value.map(
+              (city) => {
+                'country': entry.key,
+                'nom_fr': city,
+              },
+            ),
+          )
+          .toList();
+    });
+    // FIX 1: Pré-sélectionner automatiquement le premier pays
+    if (_wilayaList.isNotEmpty && _selectedWilayaId == null) {
+      _onWilayaChanged(1);
     }
   }
 
@@ -138,22 +149,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Auto-rempli ! ✨ ${_detectedEquipments.length} équipements détectés"),
+              content: Text("Auto-rempli ! âœ¨ ${_detectedEquipments.length} Ã©quipements dÃ©tectÃ©s"),
               backgroundColor: Colors.green,
             ),
           );
         }
       }
     } catch (e) {
-      String errorMsg = "Analyse IA échouée";
+      String errorMsg = "Analyse IA Ã©chouÃ©e";
       if (e.toString().contains('API_KEY')) {
-        errorMsg = "Erreur: Clé API invalide";
+        errorMsg = "Erreur: ClÃ© API invalide";
       } else if (e.toString().contains('quota') || e.toString().contains('RESOURCE_EXHAUSTED')) {
-        errorMsg = "Erreur: Quota API dépassé. Réessayez plus tard.";
+        errorMsg = "Erreur: Quota API dÃ©passÃ©. RÃ©essayez plus tard.";
       } else if (e.toString().contains('network') || e.toString().contains('SocketException')) {
         errorMsg = "Erreur: Pas de connexion Internet";
       } else {
-        errorMsg = "Analyse IA échouée: ${e.toString().substring(0, e.toString().length > 100 ? 100 : e.toString().length)}";
+        errorMsg = "Analyse IA Ã©chouÃ©e: ${e.toString().substring(0, e.toString().length > 100 ? 100 : e.toString().length)}";
       }
       
       if (mounted) {
@@ -194,13 +205,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
       if (description != null && mounted) {
         setState(() => _descController.text = description);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Description générée ! ✍️"), backgroundColor: Colors.green),
+          const SnackBar(content: Text("Description gÃ©nÃ©rÃ©e ! âœï¸"), backgroundColor: Colors.green),
         );
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Erreur génération: $e"), backgroundColor: Colors.red),
+          SnackBar(content: Text("Erreur gÃ©nÃ©ration: $e"), backgroundColor: Colors.red),
         );
       }
     } finally {
@@ -230,8 +241,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              '🔒 Modération: ${result.facesBlurred} visage(s) et '
-              '${result.platesBlurred} plaque(s) floutés',
+              'ðŸ”’ ModÃ©ration: ${result.facesBlurred} visage(s) et '
+              '${result.platesBlurred} plaque(s) floutÃ©s',
             ),
             backgroundColor: Colors.green,
           ),
@@ -257,32 +268,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
       return;
     }
     if (_selectedWilayaId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Sélectionnez la Wilaya")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Selectionnez le pays")));
       return;
     }
-    // Validation spécifique Voitures
+    // Validation spÃ©cifique Voitures
     if ((_selectedCategory.contains("Voiture") || _selectedCategory == "Camions & Engins") && (_selectedBrand == null || _yearController.text.isEmpty || _selectedFuel == null)) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Veuillez remplir les informations du véhicule (Marque, Année, Carburant)")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Veuillez remplir les informations du vÃ©hicule (Marque, AnnÃ©e, Carburant)")));
       return;
-    }
-
-    // --- IMPORT AGE VALIDATION (loi algérienne : véhicules de moins de 3 ans) ---
-    if (_sellerCountry != 'Algérie') {
-      final int currentYear = DateTime.now().year;
-      final int? carYear = int.tryParse(_yearController.text.trim());
-      if (carYear != null && (currentYear - carYear) >= 3) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Import refusé : les véhicules de plus de 3 ans ne peuvent pas '
-              'être importés en Algérie (année min autorisée : ${currentYear - 2}).',
-            ),
-            backgroundColor: Colors.red,
-            duration: const Duration(seconds: 6),
-          ),
-        );
-        return;
-      }
     }
 
     setState(() => _isLoading = true);
@@ -291,23 +283,30 @@ class _AddProductScreenState extends State<AddProductScreen> {
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) {
         if (mounted) {
-           setState(() => _isLoading = false);
-           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Erreur: Vous n'êtes pas connecté."), backgroundColor: Colors.red));
+          setState(() => _isLoading = false);
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Erreur: Vous n'êtes pas connecté."), backgroundColor: Colors.red));
         }
         return;
       }
       
-      // --- IMAGE MODERATION (blur faces & license plates) ---
-      final moderatedFiles = await _moderateImages(_images);
-      
-      // Upload Moderated Images
       List<String> imageUrls = [];
-      for (int i = 0; i < moderatedFiles.length; i++) {
-        String fileName = "cars/${DateTime.now().millisecondsSinceEpoch}_img_$i.jpg";
-        Reference ref = FirebaseStorage.instance.ref().child(fileName);
-        await ref.putFile(moderatedFiles[i]);
-        imageUrls.add(await ref.getDownloadURL());
+      try {
+        final moderatedFiles = await _moderateImages(_images);
+        for (int i = 0; i < moderatedFiles.length; i++) {
+          final fileName = "cars/${DateTime.now().millisecondsSinceEpoch}_img_$i.jpg";
+          final ref = FirebaseStorage.instance.ref().child(fileName);
+          await ref.putFile(moderatedFiles[i]);
+          imageUrls.add(await ref.getDownloadURL());
+        }
+      } catch (e) {
+        debugPrint('Image upload error: $e');
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('⚠️ Les images n’ont pas pu être traitées, la publication continue avec les fichiers disponibles.'), backgroundColor: Colors.orange),
+          );
+        }
       }
+
       // Upload Videos with Compression
       List<String> videoUrls = [];
       final compressionService = VideoCompressionService();
@@ -348,7 +347,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'Vidéo ${i + 1} compressée: ${stats.originalSizeFormatted} → '
+                  'VidÃ©o ${i + 1} compressÃ©e: ${stats.originalSizeFormatted} â†’ '
                   '${stats.compressedSizeFormatted} (-${stats.reductionPercentage.toStringAsFixed(0)}%)',
                 ),
                 backgroundColor: Colors.green,
@@ -375,7 +374,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Erreur compression vidéo ${i + 1}: $e'),
+                content: Text('Erreur compression vidÃ©o ${i + 1}: $e'),
                 backgroundColor: Colors.red,
               ),
             );
@@ -428,7 +427,24 @@ class _AddProductScreenState extends State<AddProductScreen> {
         
         'viewCount': 0,
         'isApproved': false, // Moderation: Default false
+        'fraudRiskScore': 0,
+        'fraudRiskLevel': 'low',
+        'fraudRiskReasons': [],
+        'fraudRecommendation': 'manual_review',
       };
+
+      final fraudResult = await KycFraudService().evaluateProductFraud(productData, sellerData: {
+        'uid': user.uid,
+        'email': user.email,
+        'name': user.displayName,
+      });
+
+      if (fraudResult != null) {
+        productData['fraudRiskScore'] = fraudResult['fraudRiskScore'];
+        productData['fraudRiskLevel'] = fraudResult['fraudRiskLevel'];
+        productData['fraudRiskReasons'] = fraudResult['fraudRiskReasons'];
+        productData['fraudRecommendation'] = fraudResult['recommendation'];
+      }
 
       await FirebaseFirestore.instance.collection('products').add(productData);
       
@@ -439,9 +455,32 @@ class _AddProductScreenState extends State<AddProductScreen> {
     } catch (e) {
       if (mounted) {
         setState(() => _isLoading = false);
+        // FIX 3: Messages d'erreur clairs selon le type d'exception Firebase
+        String errorMsg;
+        if (e is FirebaseException) {
+          switch (e.code) {
+            case 'permission-denied':
+              errorMsg = '🔒 Accès refusé. Vérifiez que vous êtes bien connecté.';
+              break;
+            case 'unavailable':
+            case 'network-request-failed':
+              errorMsg = '📶 Pas de connexion Internet. Vérifiez votre réseau et réessayez.';
+              break;
+            case 'unauthenticated':
+              errorMsg = '🔑 Session expirée. Veuillez vous reconnecter.';
+              break;
+            case 'storage/unauthorized':
+              errorMsg = '🖼️ Erreur de téléchargement des photos. Réessayez.';
+              break;
+            default:
+              errorMsg = 'Erreur Firebase (${e.code}): ${e.message}';
+          }
+        } else {
+          errorMsg = 'Erreur: ${e.toString()}';
+        }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("Erreur: $e", maxLines: 10), 
+            content: Text(errorMsg, maxLines: 5),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 10),
             action: SnackBarAction(label: 'OK', textColor: Colors.white, onPressed: () {}),
@@ -487,7 +526,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
       _selectedWilayaId = wilayaId;
       _selectedCommuneName = null;
       _selectedWilayaName = _wilayaList[wilayaId - 1]['nom_fr'];
-      _filteredCommunes = _communeList.where((c) => c['id_wilaya'] == wilayaId).toList();
+      _sellerCountry = _selectedWilayaName ?? _sellerCountry;
+      _filteredCommunes = _communeList
+          .where((c) => c['country'] == _selectedWilayaName)
+          .toList();
     });
   }
 
@@ -508,7 +550,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          isAr ? 'نوع الإعلان' : 'Type d\'annonce',
+          isAr ? 'Ù†ÙˆØ¹ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†' : 'Type d\'annonce',
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         const SizedBox(height: 8),
@@ -516,17 +558,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
           segments: [
             ButtonSegment(
               value: 'sale',
-              label: Text(isAr ? 'للبيع' : 'À Vendre'),
+              label: Text(isAr ? 'Ù„Ù„Ø¨ÙŠØ¹' : 'Ã€ Vendre'),
               icon: const Icon(Icons.sell_rounded),
             ),
             ButtonSegment(
               value: 'rent',
-              label: Text(isAr ? 'للإيجار' : 'À Louer'),
+              label: Text(isAr ? 'Ù„Ù„Ø¥ÙŠØ¬Ø§Ø±' : 'Ã€ Louer'),
               icon: const Icon(Icons.vpn_key_rounded),
             ),
             ButtonSegment(
               value: 'both',
-              label: Text(isAr ? 'كلاهما' : 'Les deux'),
+              label: Text(isAr ? 'ÙƒÙ„Ø§Ù‡Ù…Ø§' : 'Les deux'),
               icon: const Icon(Icons.compare_arrows_rounded),
             ),
           ],
@@ -546,15 +588,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   Widget _buildSellerCountryPicker(bool isAr) {
-    final bool isImport = _sellerCountry != 'Algérie';
+    final bool isImport = _sellerCountry == 'Autre';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildDropdown(
-          isAr ? 'دولة البائع' : 'Pays du vendeur',
+          isAr ? 'Ø¯ÙˆÙ„Ø© Ø§Ù„Ø¨Ø§Ø¦Ø¹' : 'Pays du vendeur',
           CategoriesData.sellerCountries,
           _sellerCountry,
-          (v) => setState(() => _sellerCountry = v ?? 'Algérie'),
+          (v) => setState(() => _sellerCountry = v ?? 'France'),
           translations: CategoriesData.countryTranslations,
         ),
         if (isImport) ...
@@ -574,8 +616,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   Expanded(
                     child: Text(
                       isAr
-                        ? 'تنبيه استيراد: السيارة يجب أن تكون أقل من 3 سنوات (${DateTime.now().year - 2} أو أحدث).'
-                        : 'Import : le véhicule doit avoir moins de 3 ans (modèle ≥ ${DateTime.now().year - 2}) conformément à la loi algérienne.',
+                        ? 'ØªÙ†Ø¨ÙŠÙ‡ Ø§Ø³ØªÙŠØ±Ø§Ø¯: Ø§Ù„Ø³ÙŠØ§Ø±Ø© ÙŠØ¬Ø¨ Ø£Ù† ØªÙƒÙˆÙ† Ø£Ù‚Ù„ Ù…Ù† 3 Ø³Ù†ÙˆØ§Øª (${DateTime.now().year - 2} Ø£Ùˆ Ø£Ø­Ø¯Ø«).'
+                        : 'Vente transfrontaliere : verifiez COC, TVA/quitus fiscal, immatriculation et assurance selon le pays.',
                       style: const TextStyle(fontSize: 12, color: Colors.orange),
                     ),
                   ),
@@ -593,7 +635,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     bool isVehicle = _selectedCategory.contains("Voiture") || _selectedCategory == "Camions & Engins" || _selectedCategory == "Motos";
 
     return Scaffold(
-      appBar: AppBar(title: Text(isAr ? "إضافة إعلان" : "Publier une annonce"), actions: [
+      appBar: AppBar(title: Text(isAr ? "Ø¥Ø¶Ø§ÙØ© Ø¥Ø¹Ù„Ø§Ù†" : "Publier une annonce"), actions: [
         IconButton(onPressed: _saveDraft, icon: const Icon(Icons.save_outlined))
       ]),
       body: SingleChildScrollView(
@@ -625,12 +667,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
               _buildTextField(_titleController, isAr ? "العنوان" : "Titre de l'annonce"),
               const SizedBox(height: 15),
-              _buildTextField(_priceController, isAr ? "السعر" : "Prix (DA)", isNumber: true),
+              _buildTextField(_priceController, isAr ? "السعر" : "Prix (EUR)", isNumber: true),
               const SizedBox(height: 15),
 
               if (isVehicle) ...[
                 const Divider(),
-                Text(isAr ? "مواصفات المركبة" : "Véhicule Specs", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(isAr ? "مواصفات المركبة" : "Spécifications du véhicule", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 const SizedBox(height: 10),
                 
                 Row(children: [
@@ -646,7 +688,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           });
                         },
                         onSelected: (String selection) {
-                           setState(() => _selectedBrand = selection);
+                          setState(() => _selectedBrand = selection);
                         },
                         fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
                           // Allow pre-filling if _selectedBrand is set (e.g. by AI)
@@ -660,10 +702,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               labelText: isAr ? "الماركة" : "Marque *",
                               border: const OutlineInputBorder(),
                             ),
+                            // FIX 2: Capturer la marque même si l'utilisateur saisit manuellement
+                            onChanged: (val) {
+                              _selectedBrand = val.isNotEmpty ? val : null;
+                            },
                             validator: (val) {
                                if (val == null || val.isEmpty) return "Requis";
-                               // Ensure value is in list? optional logic
-                               _selectedBrand = val; // Capture manual input if needed or just rely on selection
+                               _selectedBrand = val;
                                return null;
                             },
                           );
@@ -671,6 +716,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       );
                     }
                   )),
+
                   const SizedBox(width: 10),
                   Expanded(child: _buildTextField(_modelController, isAr ? "الموديل" : "Modèle *")),
                 ]),
@@ -684,9 +730,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 10),
 
                 Row(children: [
-                  Expanded(child: _buildDropdown(isAr ? "الطاقة" : "Carburant *", CategoriesData.fuelTypes, _selectedFuel, (v) => setState(() => _selectedFuel = v), translations: CategoriesData.fuelTranslations)),
+                  Expanded(child: _buildDropdown(isAr ? "الوقود" : "Carburant *", CategoriesData.fuelTypes, _selectedFuel, (v) => setState(() => _selectedFuel = v), translations: CategoriesData.fuelTranslations)),
                   const SizedBox(width: 10),
-                  Expanded(child: _buildDropdown(isAr ? "علبة السرعة" : "Boîte", CategoriesData.gearboxes, _selectedGearbox, (v) => setState(() => _selectedGearbox = v), translations: CategoriesData.gearboxTranslations)),
+                  Expanded(child: _buildDropdown(isAr ? "ناقل الحركة" : "Boîte", CategoriesData.gearboxes, _selectedGearbox, (v) => setState(() => _selectedGearbox = v), translations: CategoriesData.gearboxTranslations)),
                 ]),
                 const SizedBox(height: 10),
 
@@ -697,7 +743,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ]),
                 const SizedBox(height: 10),
 
-                _buildDropdown(isAr ? "الوثائق" : "Papiers", CategoriesData.papers, _selectedPaper, (v) => setState(() => _selectedPaper = v), translations: CategoriesData.papersTranslations),
+                _buildDropdown(isAr ? "الأوراق" : "Papiers", CategoriesData.papers, _selectedPaper, (v) => setState(() => _selectedPaper = v), translations: CategoriesData.papersTranslations),
                 
                 CheckboxListTile(
                   value: _exchangeAccepted, 
@@ -711,7 +757,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               // --- AI-DETECTED EQUIPMENTS ---
               if (_detectedEquipments.isNotEmpty) ...[
                 Text(
-                  isAr ? "المعدات المكتشفة بالذكاء الاصطناعي" : "Équipements détectés par l'IA ✨",
+                  isAr ? "المميزات المكتشفة بالذكاء الاصطناعي" : "Équipements détectés par l'IA ✨",
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
                 const SizedBox(height: 8),
@@ -743,7 +789,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 label: Text(
                   _isGeneratingDescription
                       ? (isAr ? "جاري التوليد..." : "Génération en cours...")
-                      : (isAr ? "✨ توليد وصف احترافي" : "✨ Générer une description vendeuse"),
+                      : (isAr ? "✨ توليد وصف بيع احترافي" : "✨ Générer une description vendeuse"),
                   style: TextStyle(color: _isGeneratingDescription ? Colors.grey : Colors.purple),
                 ),
                 style: OutlinedButton.styleFrom(
@@ -767,7 +813,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)),
                       const SizedBox(width: 12),
                       Text(
-                        '🔒 Modération image $_moderationProgress/${_images.length}...',
+                        '🛡️ Modération image $_moderationProgress/${_images.length}...',
                         style: const TextStyle(fontSize: 13),
                       ),
                     ],
@@ -797,7 +843,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     child: DropdownButtonFormField<int>(
                       isExpanded: true, 
                       value: _selectedWilayaId,
-                      decoration: InputDecoration(labelText: isAr ? "الولاية" : "Wilaya", border: const OutlineInputBorder()),
+                      decoration: InputDecoration(labelText: isAr ? "الولاية" : "Pays", border: const OutlineInputBorder()),
                       items: _wilayaList.asMap().entries.map((entry) => DropdownMenuItem<int>(
                         value: entry.key + 1,
                         child: Text(entry.value['nom_fr'], overflow: TextOverflow.ellipsis)
@@ -810,7 +856,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     child: DropdownButtonFormField<String>(
                       isExpanded: true, 
                       value: _selectedCommuneName,
-                      decoration: InputDecoration(labelText: isAr ? "البلدية" : "Commune", border: const OutlineInputBorder()),
+                      decoration: InputDecoration(labelText: isAr ? "المدينة" : "Ville", border: const OutlineInputBorder()),
                       items: _filteredCommunes.map((c) => DropdownMenuItem<String>(
                         value: c['nom_fr'],
                         child: Text(c['nom_fr'], overflow: TextOverflow.ellipsis)
@@ -826,9 +872,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
               const SizedBox(height: 30),
               ElevatedButton.icon(
                 onPressed: _isLoading ? null : _submitProduct,
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0F172A), padding: const EdgeInsets.all(15)),
-                icon: _isLoading ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2)) : const Icon(Icons.check, color: Colors.white),
-                label: Text(isAr ? "نشر الإعلان" : "PUBLIER", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0F172A),
+                  padding: const EdgeInsets.all(15),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                ),
+                icon: _isLoading
+                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                    : const Icon(Icons.check, color: Colors.white),
+                label: Text(
+                  isAr ? "نشر الإعلان" : "PUBLIER",
+                  style: TextStyle(
+                    color: getContrastTextColor(const Color(0xFF0F172A)),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               )
             ],
           ),
@@ -837,3 +896,4 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 }
+
