@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -140,7 +140,6 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isAr = languageNotifier.value == 'ar';
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -149,24 +148,24 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // â”€â”€ HEADER â”€â”€
-            _buildHeader(isAr, theme),
+            // HEADER
+            _buildHeader(theme),
 
-            // â”€â”€ INLINE FILTERS â”€â”€
-            _buildFilterRow(isAr, theme),
+            // INLINE FILTERS
+            _buildFilterRow(theme),
 
-            // â”€â”€ PRICE SLIDER â”€â”€
+            // PRICE SLIDER
             _buildPriceSlider(theme),
 
-            // â”€â”€ RESULTS â”€â”€
-            Expanded(child: _buildResults(isAr, theme)),
+            // RESULTS
+            Expanded(child: _buildResults(theme)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHeader(bool isAr, ThemeData theme) {
+  Widget _buildHeader(ThemeData theme) {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
       child: Column(
@@ -263,7 +262,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
     );
   }
 
-  Widget _buildFilterRow(bool isAr, ThemeData theme) {
+  Widget _buildFilterRow(ThemeData theme) {
     return SizedBox(
       height: 44,
       child: ListView(
@@ -276,14 +275,14 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             label: _filterWilaya ?? ('Wilaya'),
             isActive: _filterWilaya != null,
             accentColor: const Color(0xFF7C3AED),
-            onTap: () => _showWilayaPicker(isAr),
+            onTap: () => _showWilayaPicker(),
           ),
           const SizedBox(width: 8),
           // Dates
           _FilterChip(
             icon: Icons.calendar_month_rounded,
             label: _startDate != null
-                ? '${_startDate!.day}/${_startDate!.month} â†’ ${_endDate!.day}/${_endDate!.month}'
+                ? '${_startDate!.day}/${_startDate!.month} → ${_endDate!.day}/${_endDate!.month}'
                 : ('Dates'),
             isActive: _startDate != null,
             accentColor: const Color(0xFF7C3AED),
@@ -296,7 +295,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             label: _filterGearbox ?? ('Boîte'),
             isActive: _filterGearbox != null,
             accentColor: const Color(0xFF7C3AED),
-            onTap: () => _showGearboxPicker(isAr),
+            onTap: () => _showGearboxPicker(),
           ),
           const SizedBox(width: 8),
           // Vehicle type
@@ -305,7 +304,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             label: _filterVehicleType ?? ('Type'),
             isActive: _filterVehicleType != null,
             accentColor: const Color(0xFF7C3AED),
-            onTap: () => _showVehicleTypePicker(isAr),
+            onTap: () => _showVehicleTypePicker(),
           ),
           if (_filterWilaya != null ||
               _filterGearbox != null ||
@@ -372,7 +371,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
     );
   }
 
-  Widget _buildResults(bool isAr, ThemeData theme) {
+  Widget _buildResults(ThemeData theme) {
     return StreamBuilder<QuerySnapshot>(
       stream: _buildQuery(),
       builder: (context, snapshot) {
@@ -398,7 +397,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                 Icon(Icons.vpn_key_off_rounded, size: 56, color: Colors.grey[300]),
                 const SizedBox(height: 12),
                 Text(
-                  'Aucune voiture disponible Ã  la location',
+                  'Aucune voiture disponible à la location',
                   style:
                       GoogleFonts.cairo(color: Colors.grey[500], fontSize: 15),
                 ),
@@ -424,9 +423,9 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
     );
   }
 
-  // â”€â”€ PICKERS â”€â”€
+  // PICKERS
 
-  void _showWilayaPicker(bool isAr) {
+  void _showWilayaPicker() {
     showModalBottomSheet(
       context: context,
       builder: (_) => ListView(
@@ -452,7 +451,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
     );
   }
 
-  void _showGearboxPicker(bool isAr) {
+  void _showGearboxPicker() {
     showModalBottomSheet(
       context: context,
       builder: (_) => ListView(
@@ -466,7 +465,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             },
           ),
           ...CategoriesData.gearboxes.map((g) => ListTile(
-                title: Text(isAr ? (CategoriesData.gearboxTranslations[g] ?? g) : g),
+                title: Text(g),
                 selected: _filterGearbox == g,
                 selectedColor: const Color(0xFF7C3AED),
                 onTap: () {
@@ -479,7 +478,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
     );
   }
 
-  void _showVehicleTypePicker(bool isAr) {
+  void _showVehicleTypePicker() {
     showModalBottomSheet(
       context: context,
       builder: (_) => ListView(
@@ -493,8 +492,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
             },
           ),
           ...CategoriesData.vehicleTypes.map((v) => ListTile(
-                title: Text(
-                    isAr ? (CategoriesData.vehicleTypeTranslations[v] ?? v) : v),
+                title: Text(v),
                 selected: _filterVehicleType == v,
                 selectedColor: const Color(0xFF7C3AED),
                 onTap: () {

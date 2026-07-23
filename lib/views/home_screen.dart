@@ -480,9 +480,6 @@ class _HomeScreenState extends State<HomeScreen> {
                  // Use categoryTranslations keys which match subCategories keys now but cleaner
                 final isSelected = _selectedCategory == cat;
                 String label = cat;
-                if (cat == 'Tout') {
-                  label = 'Tout';
-                } else if (isAr && CategoriesData.categoryTranslations.containsKey(cat)) label = CategoriesData.categoryTranslations[cat]!;
 
                 return Padding(
                   padding: const EdgeInsets.only(right: 12),
@@ -867,7 +864,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Recently Viewed Section
   Widget _buildRecentlyViewedSection() {
-    final isAr = languageNotifier.value == 'ar';
     final theme = Theme.of(context);
 
     return StreamBuilder<List<String>>(
