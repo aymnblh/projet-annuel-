@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
@@ -367,7 +367,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildHomeContent(bool isAr) {
+  Widget _buildHomeContent() {
     var screenWidth = MediaQuery.of(context).size.width;
     double itemHeight = 280;
     double itemWidth = (screenWidth - 48) / 2;
@@ -833,7 +833,7 @@ class _HomeScreenState extends State<HomeScreen> {
           : null,
       body: Stack(
         children: [
-          _buildHomeContent(isAr),
+          _buildHomeContent(),
           
           // BOUTON COMPARER FLOTTANT
           if (_selectedProductIds.isNotEmpty)

@@ -190,7 +190,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 items: _wilayaList.map((w) {
                   return DropdownMenuItem<String>(
                     value: w['nom_fr'],
-                    child: Text(isAr ? (w['nom_ar'] ?? w['nom_fr']) : w['nom_fr']),
+                    child: Text(w['nom_fr'] ?? ''),
                   );
                 }).toList(),
                 onChanged: (val) => setState(() => _selectedWilaya = val),

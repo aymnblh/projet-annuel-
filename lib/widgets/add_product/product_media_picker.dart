@@ -10,7 +10,6 @@ import '../../services/video_compression_service.dart';
 import '../video_compression_dialog.dart';
 
 class ProductMediaPicker extends StatefulWidget {
-  final bool isAr;
   final Function(List<XFile>) onImagesChanged;
   final Function(List<XFile>) onVideosChanged;
   final Function(XFile) onRequestAnalysis; // Callback pour l'IA
@@ -18,7 +17,6 @@ class ProductMediaPicker extends StatefulWidget {
 
   const ProductMediaPicker({
     super.key,
-    required this.isAr,
     required this.onImagesChanged,
     required this.onVideosChanged,
     required this.onRequestAnalysis,
@@ -325,17 +323,17 @@ class _ProductMediaPickerState extends State<ProductMediaPicker> {
             children: <Widget>[
               ListTile(
                 leading: const Icon(Icons.photo_camera),
-                title: Text(widget.'Prendre une photo', style: GoogleFonts.cairo()),
+                title: Text('Prendre une photo', style: GoogleFonts.cairo()),
                 onTap: () { Navigator.of(context).pop(); _takePhotoWithCamera(); },
               ),
               ListTile(
                 leading: const Icon(Icons.videocam),
-                title: Text(widget.'Ajouter une vidéo', style: GoogleFonts.cairo()),
+                title: Text('Ajouter une vidéo', style: GoogleFonts.cairo()),
                 onTap: () { Navigator.of(context).pop(); _pickVideo(); },
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: Text(widget.'Choisir photos depuis galerie', style: GoogleFonts.cairo()),
+                title: Text('Choisir photos depuis galerie', style: GoogleFonts.cairo()),
                 onTap: () { Navigator.of(context).pop(); _pickFromGallery(); },
               ),
             ],
@@ -432,7 +430,7 @@ class _ProductMediaPickerState extends State<ProductMediaPicker> {
                 icon: widget.isAnalyzing 
                   ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) 
                   : const Icon(Icons.auto_awesome, color: Colors.white),
-                label: Text(widget."Remplir avec l'IA", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
+                label: Text("Remplir avec l'IA", style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.purple.shade700, foregroundColor: Colors.white),
               ),
             ),

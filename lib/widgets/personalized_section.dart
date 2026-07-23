@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shimmer/shimmer.dart';
@@ -81,10 +81,9 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return const SizedBox.shrink();
 
-    final
     // Loading state — show shimmer skeletons
     if (_isLoading) {
-      return _buildShimmerSection(context, isAr);
+      return _buildShimmerSection(context);
     }
 
     // Not enough browsing data
@@ -98,28 +97,24 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // â”€â”€ Section 1: Recommended â”€â”€
+        // ——— Section 1: Recommended ———
         if (hasRecommended) ...[
           _buildSectionHeader(
             context,
-            icon: 'ðŸŽ¯',
-            titleFr: 'Recommandé pour vous',
-            titleAr: 'Ù…ÙˆØµÙ‰ Ù„Ùƒ',
-            isAr: isAr,
+            icon: '🎯',
+            title: 'Recommandé pour vous',
           ),
           const SizedBox(height: 12),
           _buildHorizontalList(context, _recommended!),
           const SizedBox(height: 24),
         ],
 
-        // â”€â”€ Section 2: Discovery â”€â”€
+        // ——— Section 2: Discovery ———
         if (hasDiscovery) ...[
           _buildSectionHeader(
             context,
-            icon: 'âœ¨',
-            titleFr: 'Découvertes',
-            titleAr: 'Ø§ÙƒØªØ´Ø§ÙØ§Øª',
-            isAr: isAr,
+            icon: '✨',
+            title: 'Découvertes',
           ),
           const SizedBox(height: 12),
           _buildHorizontalList(context, _discovery!),
@@ -136,9 +131,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
   Widget _buildSectionHeader(
     BuildContext context, {
     required String icon,
-    required String titleFr,
-    required String titleAr,
-    required bool isAr,
+    required String title,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -148,7 +141,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-              isAr ? titleAr : titleFr,
+              title,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -175,7 +168,7 @@ class _PersonalizedSectionState extends State<PersonalizedSection> {
     );
   }
 
-  Widget _buildShimmerSection(BuildContext context, bool isAr) {
+  Widget _buildShimmerSection(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final baseColor = isDark ? Colors.grey[800]! : Colors.grey[300]!;
     final highlightColor = isDark ? Colors.grey[700]! : Colors.grey[100]!;

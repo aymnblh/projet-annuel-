@@ -1,4 +1,4 @@
-﻿
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -207,13 +207,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                isAr ? 'Signaler l\'annonce âš‘' : 'Signaler l\'annonce âš‘',
+                'Signaler l\'annonce ⚑',
                 style: GoogleFonts.cairo(
                     fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               Text(
-                'Pour quelle raison signalez-vous cette annonceÂ ?',
+                'Pour quelle raison signalez-vous cette annonce ?',
                 style: GoogleFonts.cairo(
                     fontSize: 13, color: Colors.grey[600]),
               ),

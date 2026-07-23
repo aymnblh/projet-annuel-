@@ -510,11 +510,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       value: value,
       items: items.map((e) {
-        String displayText = e;
-        if (isAr && translations != null && translations.containsKey(e)) {
-          displayText = translations[e]!;
-        }
-        return DropdownMenuItem(value: e, child: Text(displayText));
+        return DropdownMenuItem(value: e, child: Text(e));
       }).toList(),
       onChanged: onChanged,
       validator: (val) => val == null && label.contains("*") ? "Requis" : null,
@@ -557,7 +553,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Future<void> _checkDraft() async {} // Placeholder
   Future<void> _saveDraft() async {} // Placeholder
 
-  Widget _buildListingTypeSelector(bool isAr) {
+  Widget _buildListingTypeSelector() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -599,7 +595,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Widget _buildSellerCountryPicker(bool isAr) {
+  Widget _buildSellerCountryPicker() {
     final bool isImport = _sellerCountry == 'Autre';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -655,7 +651,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ProductMediaPicker(
-                isAr: isAr, 
                 isAnalyzing: _isAnalyzing, 
                 onImagesChanged: (i) => _images = i, 
                 onVideosChanged: (v) => _videos = v, 
@@ -664,11 +659,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
               const SizedBox(height: 20),
 
               // LISTING TYPE SELECTOR
-              _buildListingTypeSelector(isAr),
+              _buildListingTypeSelector(),
               const SizedBox(height: 15),
 
               // SELLER COUNTRY
-              _buildSellerCountryPicker(isAr),
+              _buildSellerCountryPicker(),
               const SizedBox(height: 15),
 
               _buildDropdown("Catégorie *", CategoriesData.categoryTranslations.keys.toList(), _selectedCategory, (v) => setState(() => _selectedCategory = v!), translations: CategoriesData.categoryTranslations),

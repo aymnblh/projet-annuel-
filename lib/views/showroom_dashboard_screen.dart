@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,7 +38,6 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -265,7 +264,7 @@ class _ShowroomDashboardScreenState extends State<ShowroomDashboardScreen> {
                     itemBuilder: (ctx, index) {
                       final prod =
                           Product.fromFirestore(snapshot.data!.docs[index]);
-                      return _InventoryTile(product: prod, isAr: isAr);
+                      return _InventoryTile(product: prod);
                     },
                   );
                 },
@@ -347,9 +346,8 @@ class _StatCard extends StatelessWidget {
 
 class _InventoryTile extends StatelessWidget {
   final Product product;
-  final bool isAr;
 
-  const _InventoryTile({required this.product, required this.isAr});
+  const _InventoryTile({required this.product});
 
   @override
   Widget build(BuildContext context) {

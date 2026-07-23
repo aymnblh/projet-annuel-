@@ -176,7 +176,8 @@ class _ChatbotScreenState extends State<ChatbotScreen>
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Directionality(
-            child: Scaffold(
+      textDirection: TextDirection.ltr,
+      child: Scaffold(
         backgroundColor: isDark ? const Color(0xFF0A0E1A) : const Color(0xFFF5F7FA),
         appBar: _buildAppBar(isAr, isDark),
         body: Column(
