@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,6 +52,24 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   String _getInitials() {
     if (user?.displayName == null || user!.displayName!.trim().isEmpty) return "U";
     try { return user!.displayName!.trim()[0].toUpperCase(); } catch (e) { return "U"; }
+  }
+
+  // Afficher la photo de profil (Google/Apple) ou les initiales
+  Widget _buildAvatar() {
+    final photoUrl = user?.photoURL;
+    if (photoUrl != null && photoUrl.isNotEmpty) {
+      return CircleAvatar(
+        radius: 32,
+        backgroundImage: NetworkImage(photoUrl),
+        onBackgroundImageError: (_, __) {},
+        child: null,
+      );
+    }
+    return CircleAvatar(
+      radius: 32,
+      backgroundColor: Theme.of(context).primaryColor,
+      child: Text(_getInitials(), style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+    );
   }
 
   // --- ACTIONS PROPRIÃ‰TAIRE ---
@@ -150,35 +168,54 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
              padding: const EdgeInsets.all(20),
              child: Column(
                children: [
-                 // ... (Header User Info restÃ© le mÃªme) ...
-                 Row(
+                    Row(
                   children: [
-                    CircleAvatar(radius: 30, backgroundColor: Theme.of(context).primaryColor, child: Text(_getInitials(), style: const TextStyle(color: Colors.white, fontSize: 24))),
+                    // Avatar (photo ou initiale)
+                    _buildAvatar(),
                     const SizedBox(width: 15),
-                    Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Row(
+                    // Infos utilisateur
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(user!.displayName ?? "Utilisateur", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
-                          if (userProvider.isVerified) ...[const SizedBox(width: 5), const Icon(Icons.verified, color: Colors.blue, size: 20)],
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  user!.displayName ?? "Utilisateur",
+                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              if (userProvider.isVerified) ...[const SizedBox(width: 4), const Icon(Icons.verified, color: Colors.blue, size: 18)],
+                            ],
+                          ),
+                          Text(
+                            user!.email ?? user!.phoneNumber ?? "",
+                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontSize: 12),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (!userProvider.isVerified && userProvider.verificationStatus != 'pending')
+                            GestureDetector(
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VerificationRequestScreen())),
+                              child: const Text("Obtenir le badge vérifié 🛡️", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 11)),
+                            )
+                          else if (userProvider.verificationStatus == 'pending')
+                            const Text("Vérification en cours... ⏳", style: TextStyle(color: Colors.orange, fontSize: 11)),
                         ],
                       ),
-                      Text(user!.email ?? user!.phoneNumber ?? "", style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontSize: 13)),
-                      if (!userProvider.isVerified && userProvider.verificationStatus != 'pending')
-                        GestureDetector(
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VerificationRequestScreen())),
-                          child: const Text("Obtenir le badge vÃ©rifiÃ© ðŸ›¡ï¸", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 12)),
-                        )
-                      else if (userProvider.verificationStatus == 'pending')
-                        const Text("VÃ©rification en cours... â³", style: TextStyle(color: Colors.orange, fontSize: 12)),
-                    ])),
-                    IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blue),
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EditProfileScreen())),
                     ),
-                    const SizedBox(width: 5),
-                    _buildLanguageSwitcher(),
+                    // Bouton éditer profil
+                    IconButton(
+                      icon: const Icon(Icons.edit_outlined, color: Colors.blue),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EditProfileScreen())),
+                      tooltip: "Modifier le profil",
+                    ),
                   ],
                 ),
+                // Language switcher sous le header (pas dans la Row)
+                const SizedBox(height: 8),
+                _buildLanguageSwitcher(),
                  
                  const SizedBox(height: 20),
                  
