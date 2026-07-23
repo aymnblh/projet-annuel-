@@ -27,7 +27,10 @@ class _RentalMobileLayoutState extends State<RentalMobileLayout> {
       const RentalHomeScreen(),
       const InboxScreen(),
       // AddProductScreen with rental mode pre-selected
-      const AddProductScreen(initialListingType: 'rent'),
+      AddProductScreen(
+        initialListingType: 'rent',
+        onSuccess: () => _onItemTapped(0), // Revenir à l'accueil après publication
+      ),
       FavoritesScreen(onBrowseAds: () => _onItemTapped(0)),
       const ProfileScreen(),
     ];

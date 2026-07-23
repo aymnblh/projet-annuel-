@@ -22,9 +22,13 @@ class AddProductScreen extends StatefulWidget {
   /// Pass 'rent' from RentalMobileLayout to pre-select the listing type.
   final String initialListingType;
 
+  /// Callback appelé après publication réussie (pour revenir à l'accueil depuis la BottomNav).
+  final VoidCallback? onSuccess;
+
   const AddProductScreen({
     super.key,
     this.initialListingType = 'sale',
+    this.onSuccess,
   });
 
   @override
@@ -447,10 +451,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
       }
 
       await FirebaseFirestore.instance.collection('products').add(productData);
-      
+
       if (mounted) {
-        Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Annonce publiée ! 🚀"), backgroundColor: Colors.green));
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Annonce publiée ! 🚀"), backgroundColor: Colors.green),
+        );
+        // FIX écran noir : si on est dans la BottomNav (pas pushé), utiliser le callback.
+        // Sinon, tenter un pop normal.
+        if (widget.onSuccess != null) {
+          widget.onSuccess!();
+        } else if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
       }
     } catch (e) {
       if (mounted) {

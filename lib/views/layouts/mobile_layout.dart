@@ -25,7 +25,9 @@ class _MobileLayoutState extends State<MobileLayout> {
     _screens = [
       const HomeScreen(),       // Index 0: Accueil
       const InboxScreen(),      // Index 1: Messages
-      const AddProductScreen(), // Index 2: Vendre (Bouton central)
+      AddProductScreen(         // Index 2: Vendre (Bouton central)
+        onSuccess: () => _onItemTapped(0), // Revenir à l'accueil après publication
+      ),
       FavoritesScreen(onBrowseAds: () => _onItemTapped(0)), // Index 3: Favoris
       const ProfileScreen(),    // Index 4: Profil
     ];
