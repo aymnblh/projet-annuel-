@@ -10,22 +10,17 @@ on:
       - 'pubspec.lock'
       - 'firebase.json'
       - '.github/workflows/deploy_web.yml'
-  workflow_dispatch: # Permet de lancer manuellement depuis GitHub
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  # ─── JOB 1 : BUILD ─────────────────────────────────────────────
+  build:
     runs-on: ubuntu-latest
-    name: Build Flutter Web & Deploy
+    name: 🔨 Build Flutter Web
 
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
-
-      - name: ☕ Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
 
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
@@ -39,6 +34,7 @@ jobs:
 
       - name: 🔧 Create .env file
         run: |
+          touch .env
           echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
           echo "ALGOLIA_APP_ID=${{ secrets.ALGOLIA_APP_ID }}" >> .env
           echo "ALGOLIA_API_KEY=${{ secrets.ALGOLIA_API_KEY }}" >> .env
@@ -46,6 +42,31 @@ jobs:
 
       - name: 🌐 Build Flutter Web (Release)
         run: flutter build web --release --no-wasm-dry-run
+
+      - name: 📤 Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web
+          retention-days: 1
+
+  # ─── JOB 2 : DEPLOY ────────────────────────────────────────────
+  deploy:
+    runs-on: ubuntu-latest
+    name: 🚀 Deploy to Firebase Hosting
+    needs: build
+    # Ne déploie que si le secret FIREBASE_SERVICE_ACCOUNT est configuré
+    if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📥 Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: build/web
 
       - name: 🚀 Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
