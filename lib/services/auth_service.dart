@@ -29,9 +29,10 @@ class AuthService {
   Future<void> _saveUserToken(String userId) async {
     String? token = await FirebaseMessaging.instance.getToken();
     if (token != null) {
-      await _firestore.collection('users').doc(userId).update({
-        'fcmToken': token, // On sauvegarde l'adresse du téléphone
-      });
+      // Use set+merge instead of update() to avoid failure when document doesn't exist yet
+      await _firestore.collection('users').doc(userId).set({
+        'fcmToken': token,
+      }, SetOptions(merge: true));
     }
   }
   Future<String?> signUp({required String email, required String password}) async {
@@ -135,9 +136,19 @@ Future<String?> signInWithOTP({required String verificationId, required String s
       PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
       UserCredential cred = await _auth.signInWithCredential(credential);
       
-      // AJOUT : Sauvegarder le token
       if (cred.user != null) {
-        await _saveUserToken(cred.user!.uid);
+        final user = cred.user!;
+        // Create Firestore document for new phone-auth users (first time login)
+        final doc = await _firestore.collection('users').doc(user.uid).get();
+        if (!doc.exists) {
+          await _firestore.collection('users').doc(user.uid).set({
+            'phone': user.phoneNumber,
+            'createdAt': FieldValue.serverTimestamp(),
+            'profileCompleted': false,
+          });
+        }
+        // Save FCM token (uses set+merge so it works even if doc just created)
+        await _saveUserToken(user.uid);
       }
       
       return null;
@@ -156,17 +167,19 @@ Future<String?> signInWithOTP({required String verificationId, required String s
   // --- ✅ LA NOUVELLE MÉTHODE ---
   Future<void> completeProfile({
     required String phone,
-    required String wilaya,
-    required String commune,
+    required String country,
+    required String city,
   }) async {
     User? user = _auth.currentUser;
     if (user != null) {
       // On met à jour le document existant avec SetOptions(merge: true)
       await _firestore.collection('users').doc(user.uid).set({
         'phone': phone,
-        'wilaya': wilaya,
-        'commune': commune,
-        'profileCompleted': true, // Marqueur pour dire que c'est fini
+        'wilaya': country,   // kept as 'wilaya' in Firestore for data compatibility
+        'commune': city,     // kept as 'commune' in Firestore for data compatibility
+        'country': country,  // new explicit field
+        'city': city,        // new explicit field
+        'profileCompleted': true,
         'updatedAt': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
     } else {

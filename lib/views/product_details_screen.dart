@@ -602,7 +602,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         children: [
                           Icon(Icons.location_on, size: 16, color: Colors.grey[500]),
                           const SizedBox(width: 4),
-                          Text("${p.wilaya}, ${p.commune ?? ''}", style: GoogleFonts.cairo(color: Colors.grey[600], fontSize: 13)),
+                          Text("${p.wilaya}${p.commune?.isNotEmpty == true ? ', ${p.commune}' : ''}", style: GoogleFonts.cairo(color: Colors.grey[600], fontSize: 13)),
                           const Spacer(),
                           Icon(Icons.access_time, size: 16, color: Colors.grey[500]),
                           const SizedBox(width: 4),

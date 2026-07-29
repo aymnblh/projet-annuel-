@@ -45,9 +45,11 @@ class LocationService {
         return {
           "latitude": position.latitude,
           "longitude": position.longitude,
-          "wilaya": place.administrativeArea ?? "",
-          "commune": place.locality ?? "",
-          "full_address": "${place.street}, ${place.locality}", // Adresse précise
+          "country": place.administrativeArea ?? "",  // European country/region
+          "city": place.locality ?? "",
+          "wilaya": place.administrativeArea ?? "",   // kept for backward compat
+          "commune": place.locality ?? "",            // kept for backward compat
+          "full_address": "${place.street}, ${place.locality}",
         };
       }
     } catch (e) {

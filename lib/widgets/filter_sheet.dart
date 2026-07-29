@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../utils/categories_data.dart';
@@ -143,10 +143,10 @@ class _FilterSheetState extends State<FilterSheet> {
                 ),
                 const SizedBox(height: 25),
 
-                _buildSectionTitle("Région / département", isDark),
+                _buildSectionTitle("Pays", isDark),
                 DropdownButtonFormField<String>(
                   value: _selectedWilaya,
-                  decoration: _inputDecoration("Région / département", isDark),
+                  decoration: _inputDecoration("Pays", isDark),
                   dropdownColor: isDark ? const Color(0xFF334155) : Colors.white,
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
                   items: [DropdownMenuItem(value: null, child: Text("Tout")), ..._wilayas.map((w) => DropdownMenuItem(value: w, child: Text(w)))],

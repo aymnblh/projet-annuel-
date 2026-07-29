@@ -180,7 +180,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
               // WILAYA
               DropdownButtonFormField<String>(
-                initialValue: _selectedWilaya,
+                value: _selectedWilaya,
                 isExpanded: true,
                 decoration: InputDecoration(
                   labelText: "Pays",

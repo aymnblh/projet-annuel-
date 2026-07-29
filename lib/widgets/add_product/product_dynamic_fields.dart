@@ -72,14 +72,14 @@ class _ProductDynamicFieldsState extends State<ProductDynamicFields> {
       decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       validator: (val) {
         if (isOptional) return null;
-        return val!.isEmpty ? (widget."Requis") : null;
+        return val!.isEmpty ? "Requis" : null;
       },
     );
   }
 
   Widget _buildDropdown({required String? value, required String label, required List<String> items, required Map<String, String> map, required Function(String?) onChanged}) {
     return DropdownButtonFormField<String>(
-      initialValue: value,
+      value: value,
       isExpanded: true,
       decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       items: items.map((e) => DropdownMenuItem(value: e, child: Text(_trDisplay(e, map), overflow: TextOverflow.ellipsis))).toList(),

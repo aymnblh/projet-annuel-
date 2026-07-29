@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../models/product.dart';
@@ -160,7 +160,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
-                    initialValue: _selectedCategory,
+                    value: _selectedCategory,
                     decoration: _inputDecoration("Catégorie", Icons.category),
                     items: _categories.map((c) => DropdownMenuItem(value: c, child: Text(c, style: GoogleFonts.cairo()))).toList(),
                     onChanged: (val) => setState(() => _selectedCategory = val!),
@@ -168,7 +168,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
-                    initialValue: _selectedWilaya,
+                    value: _selectedWilaya,
                     decoration: _inputDecoration("Région / département", Icons.location_on),
                     items: _wilayas.map((w) => DropdownMenuItem(value: w, child: Text(w, style: GoogleFonts.cairo()))).toList(),
                     onChanged: (val) => setState(() => _selectedWilaya = val!),

@@ -37,7 +37,7 @@ class _StockManagerState extends State<StockManager> {
       decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
       validator: (val) {
         if (isOptional) return null;
-        return val!.isEmpty ? (widget."Requis") : null;
+        return val!.isEmpty ? "Requis" : null;
       },
     );
   }

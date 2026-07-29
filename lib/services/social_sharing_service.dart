@@ -1,4 +1,4 @@
-﻿import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
 import '../models/product.dart';
 import 'analytics_service.dart';
@@ -37,12 +37,12 @@ class SocialSharingService {
     buffer.writeln();
     
     // Price
-    buffer.writeln('ðŸ’° ${product.price.toStringAsFixed(0)} EUR');
+    buffer.writeln('💰 ${product.price.toStringAsFixed(0)} EUR');
     
     // Location
     if (product.wilaya.isNotEmpty) {
-      final communeText = (product.commune?.isNotEmpty ?? false) ? ', ${product.commune}' : '';
-      buffer.writeln('ðŸ“ ${product.wilaya}$communeText');
+      final cityText = (product.commune?.isNotEmpty ?? false) ? ', ${product.commune}' : '';
+      buffer.writeln('📍 ${product.wilaya}$cityText');
     }
     
     buffer.writeln();

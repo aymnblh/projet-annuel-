@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -212,9 +212,9 @@ class ProductCard extends StatelessWidget {
                               ],
                             ),
                           
-                          // Petite ligne grise pour la wilaya
+                          // Location (city, country)
                           Text(
-                            "${product.commune ?? ''}, ${product.wilaya}", 
+                            "${product.commune ?? ''}, ${product.wilaya}".replaceAll(RegExp(r'^, '), ''), 
                             maxLines: 1, 
                             overflow: TextOverflow.ellipsis, 
                             style: GoogleFonts.cairo(

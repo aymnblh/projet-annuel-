@@ -1,4 +1,4 @@
-﻿class CategoriesData {
+class CategoriesData {
   // --- EUROPEAN MARKET ---
   static const List<String> sellerCountries = [
     'France',
@@ -39,21 +39,94 @@
   ];
 
   static const Map<String, List<String>> europeanCitiesByCountry = {
-    'France': ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Lille', 'Bordeaux', 'Strasbourg'],
-    'Allemagne': ['Berlin', 'Hambourg', 'Munich', 'Cologne', 'Francfort', 'Stuttgart', 'Dusseldorf'],
-    'Italie': ['Rome', 'Milan', 'Naples', 'Turin', 'Bologne', 'Florence', 'Venise'],
-    'Espagne': ['Madrid', 'Barcelone', 'Valence', 'Seville', 'Bilbao', 'Malaga'],
-    'Belgique': ['Bruxelles', 'Anvers', 'Gand', 'Liege', 'Bruges'],
-    'Pays-Bas': ['Amsterdam', 'Rotterdam', 'La Haye', 'Utrecht', 'Eindhoven'],
-    'Portugal': ['Lisbonne', 'Porto', 'Braga', 'Coimbra', 'Faro'],
-    'Suisse': ['Zurich', 'Geneve', 'Bale', 'Lausanne', 'Berne'],
-    'Luxembourg': ['Luxembourg', 'Esch-sur-Alzette'],
-    'Autriche': ['Vienne', 'Graz', 'Linz', 'Salzbourg'],
-    'Irlande': ['Dublin', 'Cork', 'Galway', 'Limerick'],
-    'Pologne': ['Varsovie', 'Cracovie', 'Wroclaw', 'Gdansk'],
-    'Suede': ['Stockholm', 'Goteborg', 'Malmo', 'Uppsala'],
-    'Danemark': ['Copenhague', 'Aarhus', 'Odense', 'Aalborg'],
-    'Norvege': ['Oslo', 'Bergen', 'Trondheim', 'Stavanger'],
+    'France': [
+      'Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Montpellier',
+      'Strasbourg', 'Bordeaux', 'Lille', 'Rennes', 'Reims', 'Saint-Étienne',
+      'Toulon', 'Le Havre', 'Grenoble', 'Dijon', 'Angers', 'Nîmes', 'Villeurbanne',
+      'Clermont-Ferrand', 'Aix-en-Provence', 'Brest', 'Limoges', 'Tours', 'Amiens',
+      'Perpignan', 'Metz', 'Besançon', 'Orléans', 'Rouen', 'Mulhouse', 'Caen',
+      'Nancy', 'Argenteuil', 'Saint-Denis', 'Roubaix', 'Dunkerque', 'Avignon',
+      'Pau', 'Bayonne', 'Boulogne-Billancourt', 'Versailles', 'Cannes', 'Antibes',
+    ],
+    'Allemagne': [
+      'Berlin', 'Hambourg', 'Munich', 'Cologne', 'Francfort', 'Stuttgart',
+      'Düsseldorf', 'Leipzig', 'Dortmund', 'Essen', 'Bremen', 'Dresde',
+      'Hanovre', 'Nuremberg', 'Duisbourg', 'Bochum', 'Wuppertal', 'Bielefeld',
+      'Bonn', 'Mannheim', 'Karlsruhe', 'Augsburg', 'Wiesbaden', 'Münster',
+      'Gelsenkirchen', 'Aix-la-Chapelle', 'Mönchengladbach', 'Braunschweig',
+      'Kiel', 'Chemnitz', 'Halle', 'Magdebourg', 'Fribourg', 'Erfurt',
+    ],
+    'Italie': [
+      'Rome', 'Milan', 'Naples', 'Turin', 'Palerme', 'Gênes', 'Bologne',
+      'Florence', 'Bari', 'Catane', 'Venise', 'Vérone', 'Messine', 'Padoue',
+      'Trieste', 'Tarante', 'Brescia', 'Parme', 'Prato', 'Modène',
+      'Reggio Calabria', 'Reggio Emilia', 'Pérouse', 'Livourne', 'Ravenne',
+      'Cagliari', 'Ferrare', 'Salerne', 'Rimini', 'Bergame',
+    ],
+    'Espagne': [
+      'Madrid', 'Barcelone', 'Valence', 'Séville', 'Saragosse', 'Malaga',
+      'Murcie', 'Palma de Majorque', 'Las Palmas', 'Bilbao', 'Alicante',
+      'Cordoue', 'Valladolid', 'Vigo', 'Gijón', 'L'Hospitalet', 'Vitoria',
+      'La Corogne', 'Elche', 'Grenade', 'Oviedo', 'Badalona', 'Terrassa',
+      'Cartagena', 'Sabadell', 'Santa Cruz de Tenerife', 'Jerez de la Frontera',
+      'Pamplona', 'Almería', 'Donostia-San Sebastián',
+    ],
+    'Belgique': [
+      'Bruxelles', 'Anvers', 'Gand', 'Liège', 'Bruges', 'Namur', 'Louvain',
+      'Mons', 'Aalst', 'Mechelen', 'La Louvière', 'Hasselt', 'Courtrai',
+      'Ostende', 'Charleroi', 'Genk', 'Seraing', 'Roeselare', 'Turnhout', 'Arlon',
+    ],
+    'Pays-Bas': [
+      'Amsterdam', 'Rotterdam', 'La Haye', 'Utrecht', 'Eindhoven', 'Tilburg',
+      'Groningue', 'Almere', 'Breda', 'Nimègue', 'Apeldoorn', 'Arnhem',
+      'Haarlem', 'Zaandam', 'Amersfoort', 'Dordrecht', 'Leiden', 'Maastricht',
+      'Delft', 'Alkmaar',
+    ],
+    'Portugal': [
+      'Lisbonne', 'Porto', 'Amadora', 'Braga', 'Setúbal', 'Coimbra',
+      'Funchal', 'Almada', 'Agualva-Cacém', 'Queluz', 'Aveiro', 'Évora',
+      'Viseu', 'Leiria', 'Faro', 'Guimarães', 'Vila Nova de Gaia', 'Barcelos',
+    ],
+    'Suisse': [
+      'Zurich', 'Genève', 'Bâle', 'Lausanne', 'Berne', 'Winterthour', 'Lucerne',
+      'Saint-Gall', 'Lugano', 'Biel/Bienne', 'Thoune', 'Köniz', 'La Chaux-de-Fonds',
+      'Schaffhouse', 'Fribourg', 'Coire', 'Neuchâtel', 'Uster', 'Sion',
+    ],
+    'Luxembourg': [
+      'Luxembourg', 'Esch-sur-Alzette', 'Differdange', 'Dudelange',
+      'Ettelbruck', 'Diekirch', 'Wiltz',
+    ],
+    'Autriche': [
+      'Vienne', 'Graz', 'Linz', 'Salzbourg', 'Innsbruck', 'Klagenfurt',
+      'Villach', 'Wels', 'Sankt Pölten', 'Dornbirn', 'Steyr', 'Wiener Neustadt',
+    ],
+    'Irlande': [
+      'Dublin', 'Cork', 'Limerick', 'Galway', 'Waterford', 'Drogheda',
+      'Dundalk', 'Bray', 'Navan', 'Kilkenny', 'Ennis', 'Sligo',
+    ],
+    'Pologne': [
+      'Varsovie', 'Cracovie', 'Łódź', 'Wrocław', 'Poznań', 'Gdańsk',
+      'Szczecin', 'Bydgoszcz', 'Lublin', 'Katowice', 'Białystok', 'Gdynia',
+      'Częstochowa', 'Radom', 'Sosnowiec', 'Toruń', 'Kielce', 'Rzeszów',
+    ],
+    'Suede': [
+      'Stockholm', 'Göteborg', 'Malmö', 'Uppsala', 'Västerås', 'Örebro',
+      'Linköping', 'Helsingborg', 'Jönköping', 'Norrköping', 'Lund', 'Umeå',
+      'Gävle', 'Borås', 'Södertälje', 'Eskilstuna', 'Karlstad', 'Täby',
+    ],
+    'Danemark': [
+      'Copenhague', 'Aarhus', 'Odense', 'Aalborg', 'Esbjerg', 'Randers',
+      'Kolding', 'Horsens', 'Vejle', 'Roskilde', 'Helsingør', 'Herning',
+    ],
+    'Norvege': [
+      'Oslo', 'Bergen', 'Trondheim', 'Stavanger', 'Drammen', 'Fredrikstad',
+      'Kristiansand', 'Sandnes', 'Tromsø', 'Sarpsborg', 'Skien', 'Ålesund',
+    ],
+    'Turquie': [
+      'Istanbul', 'Ankara', 'Izmir', 'Bursa', 'Adana', 'Gaziantep',
+      'Konya', 'Antalya', 'Diyarbakır', 'Mersin', 'Kayseri', 'Samsun',
+      'Trabzon', 'Eskişehir', 'Erzurum',
+    ],
   };
 
   static const Map<String, String> countryTranslations = {

@@ -569,16 +569,11 @@ class _HomeScreenState extends State<HomeScreen> {
             child: StreamBuilder<QuerySnapshot>(
               stream: () {
                 Query q = FirebaseFirestore.instance.collection('products');
-                // Server-side Basic Filters
+                // Server-side Basic Filters (only category + orderBy to avoid composite index issues)
                 if (_selectedCategory != "Tout") {
                    q = q.where('category', isEqualTo: _selectedCategory);
                 }
-                if (_filterWilaya != null) {
-                   q = q.where('wilaya', isEqualTo: _filterWilaya);
-                }
-                if (_filterBrand != null) {
-                  q = q.where('brand', isEqualTo: _filterBrand);
-                }
+                // NOTE: wilaya and brand are filtered client-side to avoid Firestore composite index requirements
                   q = q.orderBy('createdAt', descending: true);
                 return q.limit(_limit).snapshots();
               }(),
@@ -616,6 +611,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 
                 List<Product> products = snapshot.data!.docs.map((d) => Product.fromFirestore(d)).where((p) {
                    // Client-side Advanced Filtering
+
+                   // Wilaya (localisation) — client-side to avoid Firestore composite index issues
+                   if (_filterWilaya != null &&
+                       p.wilaya.toLowerCase() != _filterWilaya!.toLowerCase()) {
+                     return false;
+                   }
+
+                   // Brand — client-side
+                   if (_filterBrand != null &&
+                       (p.brand == null ||
+                        p.brand!.toLowerCase() != _filterBrand!.toLowerCase())) {
+                     return false;
+                   }
                    
                    // Search Query
                    if (_searchQuery.isNotEmpty) {

@@ -80,7 +80,7 @@ class RecommendationService {
         // Same category (already filtered, but add points)
         score += 40;
 
-        // Same wilaya (local preference)
+        // Same country (local preference)
         if (p.wilaya == product.wilaya) {
           score += 10;
         }

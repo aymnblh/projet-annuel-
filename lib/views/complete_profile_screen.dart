@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
 import '../utils/categories_data.dart';
@@ -23,9 +23,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   List<dynamic> _filteredCommunes = [];
 
   // Sélections
-  int? _selectedWilayaId;
-  String? _selectedWilayaName;
-  String? _selectedCommuneName;
+  int? _selectedCountryId;
+  String? _selectedCountryName;
+  String? _selectedCityName;
   
   bool _isLoading = false;
 
@@ -53,30 +53,29 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     });
   }
 
-  void _onWilayaChanged(int? wilayaId) {
-    if (wilayaId == null) return;
+  void _onCountryChanged(int? countryId) {
+    if (countryId == null) return;
     setState(() {
-      _selectedWilayaId = wilayaId;
-      _selectedCommuneName = null;
-      _selectedWilayaName = _wilayaList[wilayaId - 1]['nom_fr'];
-      _filteredCommunes = _communeList.where((c) => c['country'] == _selectedWilayaName).toList();
+      _selectedCountryId = countryId;
+      _selectedCityName = null;
+      _selectedCountryName = _wilayaList[countryId - 1]['nom_fr'];
+      _filteredCommunes = _communeList.where((c) => c['country'] == _selectedCountryName).toList();
     });
   }
 
   void _submit() async {
-    if (_formKey.currentState!.validate() && _selectedWilayaId != null) {
+    if (_formKey.currentState!.validate() && _selectedCountryId != null) {
       _formKey.currentState!.save();
       setState(() => _isLoading = true);
 
       try {
         await _authService.completeProfile(
           phone: _phone,
-          wilaya: _selectedWilayaName!,
-          commune: _selectedCommuneName ?? "",
+          country: _selectedCountryName!,
+          city: _selectedCityName ?? "",
         );
 
         if (mounted) {
-          // Redirection vers l'accueil en effaçant l'historique de nav
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (_) => const HomeScreen()),
@@ -89,8 +88,8 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erreur: $e")));
         }
       }
-    } else if (_selectedWilayaId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Veuillez selectionner un pays")));
+    } else if (_selectedCountryId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Veuillez sélectionner un pays")));
     }
   }
 
@@ -129,7 +128,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   labelText: "Numéro de téléphone",
                   prefixIcon: const Icon(Icons.phone),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                  hintText: "05 50 12 34 56"
+                  hintText: "+33 6 12 34 56 78"
                 ),
                 keyboardType: TextInputType.phone,
                 validator: (val) => (val == null || val.length < 9) ? "Numéro invalide" : null,
@@ -140,28 +139,28 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               // Pays
               DropdownButtonFormField<int>(
                 decoration: InputDecoration(labelText: "Pays", border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
-                initialValue: _selectedWilayaId,
+                value: _selectedCountryId,
                 items: _wilayaList.asMap().entries.map((entry) {
                   return DropdownMenuItem<int>(
-                    value: entry.key + 1, // ID commence Ã  1
+                    value: entry.key + 1,
                     child: Text(entry.value['nom_fr']),
                   );
                 }).toList(),
-                onChanged: _onWilayaChanged,
+                onChanged: _onCountryChanged,
               ),
               const SizedBox(height: 20),
 
-              // Ville (optionnel ou obligatoire selon votre choix, ici activé si wilaya ok)
+              // Ville
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(labelText: "Ville (optionnel)", border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
-                initialValue: _selectedCommuneName,
+                value: _selectedCityName,
                 items: _filteredCommunes.map((c) {
                   return DropdownMenuItem<String>(
                     value: c['nom_fr'],
                     child: Text(c['nom_fr']),
                   );
                 }).toList(),
-                onChanged: _selectedWilayaId == null ? null : (val) => setState(() => _selectedCommuneName = val),
+                onChanged: _selectedCountryId == null ? null : (val) => setState(() => _selectedCityName = val),
               ),
 
               const SizedBox(height: 40),
