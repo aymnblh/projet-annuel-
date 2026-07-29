@@ -430,7 +430,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         'detectedEquipments': _detectedEquipments, // NEW: AI-detected equipment
         
         'viewCount': 0,
-        'isApproved': false, // Moderation: Default false
+        'isApproved': true, // Visible immediately after publication
         'fraudRiskScore': 0,
         'fraudRiskLevel': 'low',
         'fraudRiskReasons': [],

@@ -579,9 +579,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (_filterBrand != null) {
                   q = q.where('brand', isEqualTo: _filterBrand);
                 }
-                  q = q.where('isApproved', isEqualTo: true) // MODERATION
-                       .orderBy('isBoosted', descending: true) // TRI PAR BOOST
-                       .orderBy('createdAt', descending: true);
+                  q = q.orderBy('createdAt', descending: true);
                 return q.limit(_limit).snapshots();
               }(),
               builder: (context, snapshot) {
