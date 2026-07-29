@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -93,6 +94,23 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Floutage plaque d'immatriculation (bas de l'image)
+                  if (product.category == 'Voitures Occasion' ||
+                      product.category == 'Voitures Neuves')
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 28,
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                          child: Container(
+                            color: Colors.transparent,
+                          ),
+                        ),
+                      ),
+                    ),
                   // Icone Favoris Flottante (Style Image 2)
                   Positioned(
                     top: 10,

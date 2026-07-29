@@ -208,7 +208,10 @@ class ImageModerationService {
     final model = GenerativeModel(
       model: 'gemini-2.5-flash',
       apiKey: _apiKey,
-      generationConfig: GenerationConfig(temperature: 0.1),
+      generationConfig: GenerationConfig(
+        temperature: 0.0,
+        responseMimeType: 'application/json',
+      ),
     );
 
     final imageBytes = await imageFile.readAsBytes();
@@ -223,23 +226,22 @@ class ImageModerationService {
     final imageHeight = decodedImage.height.toDouble();
 
     const prompt = """
-You are a license plate detection system. Analyze the image and locate ALL visible 
-license plates (car plates, motorcycle plates, any vehicle registration plates).
+You are a license plate detection system. Analyze the image and find ALL visible vehicle registration plates (car plates, motorcycle plates, truck plates, etc.).
 
-If license plates are found, return ONLY a raw JSON array (no markdown, no backticks) 
-with bounding box coordinates normalized to 0-1 relative to image dimensions:
+Return a JSON array of bounding boxes with coordinates normalized between 0.0 and 1.0 relative to image dimensions.
 
-[{"x": 0.1, "y": 0.8, "width": 0.15, "height": 0.05}]
+JSON schema for each plate:
+{"x": <float 0-1>, "y": <float 0-1>, "width": <float 0-1>, "height": <float 0-1>}
 
 Where:
-- "x" = left edge of the plate as a fraction of image width (0 = left, 1 = right)
-- "y" = top edge of the plate as a fraction of image height (0 = top, 1 = bottom)
-- "width" = plate width as a fraction of image width
-- "height" = plate height as a fraction of image height
+- x = left edge / image width
+- y = top edge / image height  
+- width = plate width / image width
+- height = plate height / image height
 
-If NO license plates are visible, return exactly: []
+If no plates are found, return an empty array: []
 
-Return ONLY the JSON array, nothing else.
+Example with one plate: [{"x": 0.35, "y": 0.82, "width": 0.3, "height": 0.06}]
 """;
 
     final content = [
@@ -283,21 +285,27 @@ Return ONLY the JSON array, nothing else.
           final double nw = (item['width'] as num?)?.toDouble() ?? 0;
           final double nh = (item['height'] as num?)?.toDouble() ?? 0;
 
-          // Validate normalized coordinates are within 0-1 range
+          // Validate normalized coordinates are within 0-1 range (allow exactly 1.0)
           if (nx < 0 || nx > 1 || ny < 0 || ny > 1 ||
-              nw <= 0 || nw > 1 || nh <= 0 || nh > 1) {
+              nw <= 0 || nw > 1.01 || nh <= 0 || nh > 1.01) {
             debugPrint('⚠️ ImageModeration: Skipping invalid plate bbox: $item');
             continue;
           }
+          // Clamp to valid range
+          final cnx = nx.clamp(0.0, 1.0);
+          final cny = ny.clamp(0.0, 1.0);
+          final cnw = nw.clamp(0.0, 1.0);
+          final cnh = nh.clamp(0.0, 1.0);
 
           // Convert normalized → pixel coordinates with padding
           const padding = 5.0;
           rects.add(Rect.fromLTWH(
-            max(0, (nx * imageWidth) - padding),
-            max(0, (ny * imageHeight) - padding),
-            min((nw * imageWidth) + (padding * 2), imageWidth),
-            min((nh * imageHeight) + (padding * 2), imageHeight),
+            max(0, (cnx * imageWidth) - padding),
+            max(0, (cny * imageHeight) - padding),
+            min((cnw * imageWidth) + (padding * 2), imageWidth),
+            min((cnh * imageHeight) + (padding * 2), imageHeight),
           ));
+          debugPrint('🎯 ImageModeration: Plate detected at x=$cnx, y=$cny, w=$cnw, h=$cnh');
         }
       }
 

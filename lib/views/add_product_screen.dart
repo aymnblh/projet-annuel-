@@ -237,7 +237,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       final result = await moderationService.moderateAllImages(
         files,
         onProgress: (current, total) {
-          if (mounted) setState(() => _moderationProgress = current + 1);
+          if (mounted) setState(() => _moderationProgress = current);
         },
       );
       

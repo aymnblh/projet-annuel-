@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/app_translations.dart';
 import '../models/product.dart';
@@ -611,6 +609,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 
                 List<Product> products = snapshot.data!.docs.map((d) => Product.fromFirestore(d)).where((p) {
                    // Client-side Advanced Filtering
+
+                   // Filtre catégorie renforcé : pour "Voitures Neuves", on exclut les
+                   // véhicules avec des km > 0 (pour distinguer des occasions mal catégorisées)
+                   if (_selectedCategory == 'Voitures Neuves') {
+                     final kmVal = p.km != null ? int.tryParse(p.km!) : null;
+                     if (kmVal != null && kmVal > 0) return false;
+                   }
 
                    // Wilaya (localisation) — client-side to avoid Firestore composite index issues
                    if (_filterWilaya != null &&

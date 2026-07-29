@@ -66,7 +66,7 @@ class CategoriesData {
     'Espagne': [
       'Madrid', 'Barcelone', 'Valence', 'Séville', 'Saragosse', 'Malaga',
       'Murcie', 'Palma de Majorque', 'Las Palmas', 'Bilbao', 'Alicante',
-      'Cordoue', 'Valladolid', 'Vigo', 'Gijón', 'L'Hospitalet', 'Vitoria',
+      'Cordoue', 'Valladolid', 'Vigo', 'Gijón', "L'Hospitalet", 'Vitoria',
       'La Corogne', 'Elche', 'Grenade', 'Oviedo', 'Badalona', 'Terrassa',
       'Cartagena', 'Sabadell', 'Santa Cruz de Tenerife', 'Jerez de la Frontera',
       'Pamplona', 'Almería', 'Donostia-San Sebastián',

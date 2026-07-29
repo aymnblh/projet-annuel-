@@ -55,7 +55,7 @@ dependencies:
   # --- LOCALISATION & IA ---
   geolocator: ^13.0.1        # Version stable récente
   geocoding: ^3.0.0          # Version stable récente
-  google_generative_ai: ^0.4.4 # Pour Gemini
+  google_generative_ai: ^0.4.7 # Pour Gemini (supporte responseMimeType + gemini-2.5-flash)
 
   # --- UI & DESIGN ---
   flutter_staggered_grid_view: ^0.7.0

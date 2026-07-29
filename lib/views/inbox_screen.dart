@@ -49,6 +49,33 @@ class _InboxScreenState extends State<InboxScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
+          // Gestion des erreurs (ex : index Firestore manquant)
+          if (snapshot.hasError) {
+            debugPrint('InboxScreen error: ${snapshot.error}');
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error_outline, size: 60, color: Colors.red[300]),
+                  const SizedBox(height: 12),
+                  Text(
+                    "Erreur de chargement des messages",
+                    style: GoogleFonts.cairo(color: Colors.grey, fontSize: 16),
+                  ),
+                  const SizedBox(height: 6),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      "${snapshot.error}",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(
               child: Column(
@@ -62,10 +89,21 @@ class _InboxScreenState extends State<InboxScreen> {
             );
           }
 
+          // Tri côté client par date du dernier message (plus récent en premier)
+          // (le orderBy Firestore a été retiré pour éviter le besoin d'un index composite)
+          final docs = List<DocumentSnapshot>.from(snapshot.data!.docs);
+          docs.sort((a, b) {
+            final dataA = a.data() as Map<String, dynamic>;
+            final dataB = b.data() as Map<String, dynamic>;
+            final timeA = (dataA['lastMessageTime'] as Timestamp?)?.toDate() ?? DateTime(0);
+            final timeB = (dataB['lastMessageTime'] as Timestamp?)?.toDate() ?? DateTime(0);
+            return timeB.compareTo(timeA);
+          });
+
           return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
+            itemCount: docs.length,
             itemBuilder: (context, index) {
-              final doc = snapshot.data!.docs[index];
+              final doc = docs[index];
               final chat = ChatConversation.fromFirestore(doc);
 
               return Container(
@@ -116,11 +154,11 @@ class _InboxScreenState extends State<InboxScreen> {
                       ),
                     ],
                   ),
-                  // NEW: Unread badge + chevron
+                  // Unread badge + chevron
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // NEW: Unread count badge
+                      // Badge non lus
                       if (chat.getUnreadCount(currentUserId) > 0)
                         Container(
                           padding: const EdgeInsets.all(6),
