@@ -41,7 +41,7 @@ jobs:
           echo "ALGOLIA_INDEX_NAME=${{ secrets.ALGOLIA_INDEX_NAME }}" >> .env
 
       - name: 🌐 Build Flutter Web (Release)
-        run: flutter build web --release --no-wasm-dry-run
+        run: flutter build web --release
 
       - name: 📤 Upload build artifact
         uses: actions/upload-artifact@v4
@@ -56,7 +56,7 @@ jobs:
     name: 🚀 Deploy to Firebase Hosting
     needs: build
     # Ne déploie que si le secret FIREBASE_SERVICE_ACCOUNT est configuré
-    if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
+    if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' && github.event_name != 'pull_request' }}
 
     steps:
       - name: 📥 Checkout code
