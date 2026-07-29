@@ -55,8 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 🚀 Deploy to Firebase Hosting
     needs: build
-    # Ne déploie que si le secret FIREBASE_SERVICE_ACCOUNT est configuré
-    if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' && github.event_name != 'pull_request' }}
+    if: github.event_name != 'pull_request'
 
     steps:
       - name: 📥 Checkout code
