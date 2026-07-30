@@ -208,7 +208,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                        secondary: Icon(Icons.dark_mode, color: themeProvider.isDarkMode ? Colors.amber : Colors.grey),
                        value: themeProvider.isDarkMode,
                        onChanged: (val) => themeProvider.toggleTheme(val),
-                       activeThumbColor: Colors.amber,
+                       thumbColor: WidgetStateProperty.resolveWith((states) =>
+                          states.contains(WidgetState.selected) ? Colors.amber : null),
                        contentPadding: EdgeInsets.zero,
                      );
                    }
