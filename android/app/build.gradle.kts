@@ -30,7 +30,7 @@ android {
 
     defaultConfig {
         applicationId = "com.retec.bi3wechri"
-        minSdk = 23
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
