@@ -567,12 +567,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: StreamBuilder<QuerySnapshot>(
               stream: () {
                 Query q = FirebaseFirestore.instance.collection('products');
-                // Server-side Basic Filters (only category + orderBy to avoid composite index issues)
-                if (_selectedCategory != "Tout") {
-                   q = q.where('category', isEqualTo: _selectedCategory);
-                }
-                // NOTE: wilaya and brand are filtered client-side to avoid Firestore composite index requirements
-                  q = q.orderBy('createdAt', descending: true);
+                // ALL filters are applied client-side to avoid Firestore composite index requirements
+                q = q.orderBy('createdAt', descending: true);
                 return q.limit(_limit).snapshots();
               }(),
               builder: (context, snapshot) {
@@ -608,7 +604,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
                 
                 List<Product> products = snapshot.data!.docs.map((d) => Product.fromFirestore(d)).where((p) {
-                   // Client-side Advanced Filtering
+                   // Client-side Filtering (all filters applied here to avoid composite index issues)
+
+                   // Category filter
+                   if (_selectedCategory != 'Tout' && p.category != _selectedCategory) {
+                     return false;
+                   }
 
                    // Filtre catégorie renforcé : pour "Voitures Neuves", on exclut les
                    // véhicules avec des km > 0 (pour distinguer des occasions mal catégorisées)

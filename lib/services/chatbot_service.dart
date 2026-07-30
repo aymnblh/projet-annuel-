@@ -1,4 +1,4 @@
-﻿import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Service de chatbot IA propulsé par Gemini pour OneClick Cars.
@@ -13,7 +13,7 @@ class ChatbotService {
   final String _apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
   late final GenerativeModel _model = GenerativeModel(
-    model: 'gemini-2.5-flash',
+    model: 'gemini-3.6-flash',
     apiKey: _apiKey,
     generationConfig: GenerationConfig(
       temperature: 0.7,

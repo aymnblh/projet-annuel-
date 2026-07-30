@@ -11,7 +11,7 @@ class KycFraudService {
 
   GenerativeModel get _model {
     return GenerativeModel(
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.6-flash',
       apiKey: _apiKey,
       generationConfig: GenerationConfig(temperature: 0.25),
     );
